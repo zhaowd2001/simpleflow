@@ -1,0 +1,8 @@
+src/Wse3Transports/Client/bin/
+src/Wse3Transports/Client/obj/
+src/Wse3Transports/Server/bin/
+src/Wse3Transports/Server/obj/
+src/Wse3Transports/WseTransports/bin/
+src/Wse3Transports/WseTransports/obj/
+*.ncb
+*.suo

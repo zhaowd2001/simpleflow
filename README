@@ -1,1 +1,6 @@
+How to build:
+1. setup visual studio 2005
+2. setup Web Services Enhancements(WSE) 3.0 for Micrsoft.NET
+
+Function spec:
 The flow should be simple to create and execute.

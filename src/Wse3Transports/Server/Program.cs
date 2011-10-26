@@ -11,12 +11,12 @@ namespace Server
         static void Main( string[ ] args )
         {
             //UDP Transport
-            Uri viaUri = new Uri( "soap.udp://127.0.0.1:6000" );
-            Uri toUri = new Uri( "soap.udp://weblogs.shockbyte.com.ar/rodolfof/wse/samples/2006/05/SampleReceiver" );
+            //Uri viaUri = new Uri( "soap.udp://127.0.0.1:6000" );
+            //Uri toUri = new Uri( "soap.udp://weblogs.shockbyte.com.ar/rodolfof/wse/samples/2006/05/SampleReceiver" );
 
             //SMTP Transport
-            //Uri viaUri = new Uri( "soap.smtp://wserequest@pboard.com.ar" );
-            //Uri toUri = new Uri( "soap.smtp://weblogs.shockbyte.com.ar/rodolfof/wse/samples/2006/05/SampleReceiver" );
+            Uri viaUri = new Uri( "soap.smtp://soapin@simpleflow.local" );
+            Uri toUri = new Uri( "soap.smtp://weblogs.shockbyte.com.ar/rodolfof/wse/samples/2006/05/SampleReceiver" );
 
             //SQL Transport
             //Uri viaUri = new Uri( "soap.sql://localhost/Server" );
