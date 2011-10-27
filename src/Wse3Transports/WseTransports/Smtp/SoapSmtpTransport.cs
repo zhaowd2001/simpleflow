@@ -203,7 +203,7 @@ namespace WseTransports.Smtp
                 //If anything happened to the mail server, we have a problem
                 if ( e.InnerException is Lesnikowski.Client.ServerException )
                     throw;
-
+                string baseDir = AppDomain.CurrentDomain.BaseDirectory;
                 //Any other exceptions that occured on the async thread will be caught here. 
                 EventLog.WriteError( "Receive failed from: " + box.Address + "\n" + e.InnerException.Message );
 

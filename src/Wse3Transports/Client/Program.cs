@@ -18,7 +18,7 @@ namespace Client
 
             Console.WriteLine( "Press [Enter] to continue..." );
             Console.WriteLine( "" );
-            Console.ReadLine( );
+            //Console.ReadLine( );
 
             client = new Program( );
             client.Run( );
@@ -36,13 +36,13 @@ namespace Client
         {
             SoapEnvelope message = new SoapEnvelope( );
 
-            Uri viaUri = new Uri( "soap.udp://127.0.0.1:6000" );
-            Uri toUri = new Uri( "soap.udp://weblogs.shockbyte.com.ar/rodolfof/wse/samples/2006/05/SampleReceiver" );
-            Uri replyUri = new Uri( "soap.udp://127.0.0.1:6001" );
+            //Uri viaUri = new Uri( "soap.udp://127.0.0.1:6000" );
+            //Uri toUri = new Uri( "soap.udp://weblogs.shockbyte.com.ar/rodolfof/wse/samples/2006/05/SampleReceiver" );
+            //Uri replyUri = new Uri( "soap.udp://127.0.0.1:6001" );
             
-            //Uri viaUri = new Uri( "soap.smtp://wserequest@pboard.com.ar" );
-            //Uri toUri = new Uri( "soap.smtp://weblogs.shockbyte.com.ar/rodolfof/wse/samples/2006/05/SampleReceiver" );
-            //Uri replyUri = new Uri( "soap.smtp://wseresponse@pboard.com.ar" );
+            Uri viaUri = new Uri( "soap.smtp://soapin@simpleflow.local" );
+            Uri toUri = new Uri( "soap.smtp://weblogs.shockbyte.com.ar/rodolfof/wse/samples/2006/05/SampleReceiver" );
+            Uri replyUri = new Uri( "soap.smtp://soapout@simpleflow.local" );
 
             //Uri viaUri = new Uri( "soap.sql://localhost/Server" );
             //Uri toUri = new Uri( "soap.sql://weblogs.shockbyte.com.ar/rodolfof/wse/samples/2006/05/SampleReceiver" );
