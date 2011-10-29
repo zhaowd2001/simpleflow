@@ -18,6 +18,8 @@ using Microsoft.Web.Services3;
 using Microsoft.Web.Services3.Addressing;
 using Microsoft.Web.Services3.Diagnostics;
 using Microsoft.Web.Services3.Messaging;
+using log4net;
+using log4net.Config;
 
 namespace WseTransports.Smtp
 {
@@ -38,6 +40,8 @@ namespace WseTransports.Smtp
     //This class implements a transport for sending and receiving messages over SMTP.
     public class SoapSmtpTransport : SoapTransport, ISoapTransport
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(SoapSmtpTransport));
+
         //This hashtable stores handles to active network connections. The actual type of these
         //connections vary by transport; the SoapTcpTransport has a collection of TcpConnections, and a SoapMsmq
         //transport might have a collection of MessageQueue object. In the case of SoapSmtp, the "network connection"
@@ -205,8 +209,9 @@ namespace WseTransports.Smtp
                     throw;
                 string baseDir = AppDomain.CurrentDomain.BaseDirectory;
                 //Any other exceptions that occured on the async thread will be caught here. 
-                EventLog.WriteError( "Receive failed from: " + box.Address + "\n" + e.InnerException.Message );
-
+                string errorMessage = "Receive failed from: " + box.Address + "\n" + e.InnerException.Message;
+                EventLog.WriteError( errorMessage);
+                log.Error(errorMessage);
                 //Start the mailbox listening again. 
                 box.BeginRecieve( new AsyncCallback( this.OnReceiveComplete ) );
             }

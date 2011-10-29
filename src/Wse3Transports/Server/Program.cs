@@ -3,13 +3,21 @@ using System;
 using Microsoft.Web.Services3;
 using Microsoft.Web.Services3.Addressing;
 using Microsoft.Web.Services3.Messaging;
+using log4net;
+using log4net.Config;
 
 namespace Server
 {
     class Program
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(Program));
+
         static void Main( string[ ] args )
         {
+            // Set up a simple configuration that logs on the console.
+            BasicConfigurator.Configure();
+            
+            log.Info("Entering server.");
             //UDP Transport
             //Uri viaUri = new Uri( "soap.udp://127.0.0.1:6000" );
             //Uri toUri = new Uri( "soap.udp://weblogs.shockbyte.com.ar/rodolfof/wse/samples/2006/05/SampleReceiver" );
@@ -26,6 +34,7 @@ namespace Server
 
             Console.WriteLine( "Listening for messages at " + toUri );
             Console.ReadLine( );
+            log.Info("Exiting server.");
         }
     }
 }

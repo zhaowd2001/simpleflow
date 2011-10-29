@@ -14,6 +14,8 @@ using System;
 
 using Microsoft.Web.Services3.Addressing;
 using Microsoft.Web.Services3.Messaging;
+using log4net;
+using log4net.Config;
 
 namespace WseTransports.Smtp
 {
@@ -27,7 +29,8 @@ namespace WseTransports.Smtp
     //is inherited from the SoapInputChannel abstract base class.
     public class SoapSmtpInputChannel : SoapInputChannel
     {
-        public SoapSmtpInputChannel( EndpointReference epr ) : base( epr ) { }
+        private static readonly ILog log = LogManager.GetLogger(typeof(SoapSmtpInputChannel));
+        public SoapSmtpInputChannel(EndpointReference epr) : base(epr) { }
 
         //It's possible to request an InputChannel for which the transport
         //maintains no underlying network connection (e.g. the SoapTcpPassiveInputChannel ). 

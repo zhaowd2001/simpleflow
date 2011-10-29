@@ -8,3 +8,4 @@ src/Wse3Transports/WseTransports/obj/
 *.suo
 *.fbl4
 *.fbw
+*.user

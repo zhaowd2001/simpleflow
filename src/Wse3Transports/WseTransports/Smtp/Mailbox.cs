@@ -25,6 +25,9 @@ using Microsoft.Web.Services3.Diagnostics;
 using Microsoft.Web.Services3.Messaging;
 using Microsoft.Web.Services3.Referral;
 
+using log4net;
+using log4net.Config;
+
 using Lesnikowski.Mail;
 using Lesnikowski.Client;
 
@@ -34,6 +37,7 @@ namespace WseTransports.Smtp
     //It is analogous in function to a TcpConnection.
     public class Mailbox
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(Mailbox));
         private string _address;
         private Uri _endpointUri;
         private bool _listening;
@@ -112,6 +116,7 @@ namespace WseTransports.Smtp
 
                     if ( m != null )
                     {
+                        dump(i,m);
                         //Wrap a MemoryStream around the message body and deserialize it using
                         //the SoapPlainFormatter (we don't care about DIME attachments here).
                         ISoapFormatter formatter = new SoapPlainFormatter( );
@@ -159,8 +164,20 @@ namespace WseTransports.Smtp
             return envelopes;
         }
 
+        public void Send(SoapEnvelope e, Uri destination)
+        {
+            try
+            {
+                doSend(e, destination);
+            }
+            catch (Exception e1)
+            {
+                log.Error(e1);
+            }
+        }
+
         //Writes a SoapEnvelope to a UTF8-encoded MemoryStream and mails it via SMTP.
-        public void Send( SoapEnvelope e, Uri destination )
+        public void doSend( SoapEnvelope e, Uri destination )
         {
             ISoapFormatter formatter = new SoapPlainFormatter( );
             UTF8Encoding encoding = new UTF8Encoding( );
@@ -171,6 +188,8 @@ namespace WseTransports.Smtp
             string to = SoapSmtpUri.AddressFromUri( destination );
             string from = this.Address;
             string subject = ( null == e.Context.Addressing.Action ) ? "soap.smtp" : e.Context.Addressing.Action.ToString( );
+            log.Debug(string.Format("send:to -- {0}" , to));
+            log.Debug(string.Format("send:subject -- {0}", subject));
 
             System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage( from, to );
             message.Subject = subject;
@@ -206,10 +225,22 @@ namespace WseTransports.Smtp
                 ThreadPool.QueueUserWorkItem( new WaitCallback( this.Receive ) );
             }
 
+            private void Receive(object state)
+            {
+                try
+                {
+                    doReceive(state);
+                }
+                catch (Exception e)
+                {
+                    log.Error(e);
+                }
+            }
+
             //Receives messages from the Mailbox. Note that the state parameter is ignored; we're already
             //carrying our state in the AsyncState property of the base class. However, Receive() has to 
             //take a single parameter of type Object in order to be a valid WaitCallback delegate.
-            private void Receive( object state )
+            private void doReceive( object state )
             {
                 Pop3 pop3 = null;
                 bool bCaughtException = false;
@@ -237,8 +268,9 @@ namespace WseTransports.Smtp
                         pop3.Login( );
 
                     pop3.GetAccountStat( );
-
                     this.Messages = new SimpleMailMessage[ pop3.MessageCount ];
+
+                    log.Debug(string.Format("pop3 check -- {0} - mail count:{1}", username, pop3.MessageCount));
 
                     //If we don't have any messages, go to sleep for a little while and try again.
                     //We'll keep doing this sleep/retry loop until a message shows up. That way, SoapTransport
@@ -304,6 +336,11 @@ namespace WseTransports.Smtp
             }
         }
 
+        static void dump(int index, SimpleMailMessage m)
+        {
+            log.Debug(string.Format("recv[{0}]:to -- {1}", index, m.To));
+            log.Debug(string.Format("recv[{0}]:subject -- {1}", index, m.Subject));
+        }
         #endregion
     }
 }

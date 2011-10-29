@@ -4,21 +4,24 @@ using System.Threading;
 using Microsoft.Web.Services3;
 using Microsoft.Web.Services3.Addressing;
 using Microsoft.Web.Services3.Messaging;
+using log4net;
+using log4net.Config;
 
 namespace Client
 {
     class Program
     {
-        public static AutoResetEvent responseReceivedEventValue = new AutoResetEvent( false );
+        private static readonly ILog log = LogManager.GetLogger(typeof(Program));
+        public static AutoResetEvent responseReceivedEventValue = new AutoResetEvent(false);
 
         [MTAThread]
         static void Main( string[ ] args )
         {
-            Program client = null;
+            // Set up a simple configuration that logs on the console.
+            BasicConfigurator.Configure();
 
-            Console.WriteLine( "Press [Enter] to continue..." );
-            Console.WriteLine( "" );
-            //Console.ReadLine( );
+            log.Info("Entering client.");
+            Program client = null;
 
             client = new Program( );
             client.Run( );
@@ -30,6 +33,7 @@ namespace Client
             Console.WriteLine( "Press [Enter] to continue..." );
             Console.WriteLine( "" );
             Console.ReadLine( );
+            log.Info("Exiting client.");
         }
 
         public void Run( )
