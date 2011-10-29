@@ -22,6 +22,9 @@ using Microsoft.Web.Services3;
 using Microsoft.Web.Services3.Addressing;
 using Microsoft.Web.Services3.Messaging;
 
+using log4net;
+using log4net.Config;
+
 namespace WseTransports.Udp
 {
     /// <summary>
@@ -32,6 +35,8 @@ namespace WseTransports.Udp
     /// </remarks>
     public sealed class SoapUdpInputChannel : SoapInputChannel, ISoapOutputChannel
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(SoapUdpInputChannel));
+
         EndpointReference _remoteEndpoint;
         SoapUdpSocket _socket;
         SoapUdpTransport _transport;

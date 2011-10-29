@@ -5,10 +5,15 @@ using Microsoft.Web.Services3;
 using Microsoft.Web.Services3.Addressing;
 using Microsoft.Web.Services3.Messaging;
 
+using log4net;
+using log4net.Config;
+
 namespace WseTransports.Sql
 {
     public class SoapSqlInputChannel : SqlChannelBase, ISoapInputChannel
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(SoapSqlInputChannel));
+
         private SqlMessageReader _reader;
 
         internal SoapSqlInputChannel( EndpointReference endpoint, string unformatedConnectionString ) : base( endpoint )
@@ -37,7 +42,9 @@ namespace WseTransports.Sql
 
             result.AsyncWaitHandle.WaitOne( );
 
-            return EndReceive( result );
+            SoapEnvelope message = EndReceive( result );
+            log.Debug("recv -- "+message.Envelope.InnerXml);
+            return message;
         }
  
         public SoapEnvelope EndReceive( IAsyncResult result )

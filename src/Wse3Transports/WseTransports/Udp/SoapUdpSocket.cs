@@ -20,6 +20,9 @@ using Microsoft.Web.Services3.Addressing;
 using Microsoft.Web.Services3.Referral;
 using Microsoft.Web.Services3.Messaging;
 
+using log4net;
+using log4net.Config;
+
 namespace WseTransports.Udp
 {
     /// <summary>
@@ -30,6 +33,8 @@ namespace WseTransports.Udp
     /// </remarks>
     internal sealed class SoapUdpSocket
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(SoapUdpInputChannel));
+
         sealed class SoapUdpSocketAsyncResult : AsyncResult
         {
             Socket _socket;

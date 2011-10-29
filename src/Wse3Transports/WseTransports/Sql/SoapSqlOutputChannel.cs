@@ -8,10 +8,15 @@ using Microsoft.Web.Services3;
 using Microsoft.Web.Services3.Addressing;
 using Microsoft.Web.Services3.Messaging;
 
+using log4net;
+using log4net.Config;
+
 namespace WseTransports.Sql
 {
     public class SoapSqlOutputChannel : SqlChannelBase, ISoapOutputChannel
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(SoapSqlOutputChannel));
+
         private SendMessageDelegateType _sendDelegate;
 
         private const int LARGE_MESSAGE = 2048;
@@ -98,7 +103,9 @@ namespace WseTransports.Sql
         
         private void SendMessage( SoapEnvelope message )
         {
-            using ( SqlConnection con = CreateConnection( ) )
+
+            log.Debug("send -- "+message.Envelope.InnerXml);
+            using (SqlConnection con = CreateConnection())
             {
                 con.Open( );
 

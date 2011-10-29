@@ -18,23 +18,48 @@ namespace Server
             BasicConfigurator.Configure();
             
             log.Info("Entering server.");
-            //UDP Transport
-            //Uri viaUri = new Uri( "soap.udp://127.0.0.1:6000" );
-            //Uri toUri = new Uri( "soap.udp://weblogs.shockbyte.com.ar/rodolfof/wse/samples/2006/05/SampleReceiver" );
 
-            //SMTP Transport
-            Uri viaUri = new Uri( "soap.smtp://soapin@simpleflow.local" );
-            Uri toUri = new Uri( "soap.smtp://weblogs.shockbyte.com.ar/rodolfof/wse/samples/2006/05/SampleReceiver" );
+            Uri viaUri = null;
+            Uri toUri = null;
 
-            //SQL Transport
-            //Uri viaUri = new Uri( "soap.sql://localhost/Server" );
-            //Uri toUri = new Uri( "soap.sql://weblogs.shockbyte.com.ar/rodolfof/wse/samples/2006/05/SampleReceiver" );
-
+            if (args.Length >= 1)
+            {
+                switch (args[0])
+                {
+                    case "UDP":
+                        //UDP Transport
+                        viaUri = new Uri("soap.udp://127.0.0.1:6000");
+                        toUri = new Uri("soap.udp://weblogs.shockbyte.com.ar/rodolfof/wse/samples/2006/05/SampleReceiver");
+                        break;
+                    case "SMTP":
+                        //SMTP Transport
+                        viaUri = new Uri("soap.smtp://soapin@simpleflow.local");
+                        toUri = new Uri("soap.smtp://weblogs.shockbyte.com.ar/rodolfof/wse/samples/2006/05/SampleReceiver");
+                        break;
+                    case "SQL":
+                        //SQL Transport
+                        viaUri = new Uri("soap.sql://localhost/sqlexpress");
+                        toUri = new Uri("soap.sql://weblogs.shockbyte.com.ar/rodolfof/wse/samples/2006/05/SampleReceiver");
+                        break;
+                    default:
+                        Help();
+                        return;
+                }
+            }
+            else
+            {
+                Help();
+                return;
+            }
             SoapReceivers.Add( new EndpointReference( toUri, viaUri ), typeof( SampleReceiver ) );
 
             Console.WriteLine( "Listening for messages at " + toUri );
             Console.ReadLine( );
             log.Info("Exiting server.");
+        }
+        static void Help()
+        {
+            System.Console.WriteLine("Usage: command line arguments: UDP, SMTP, SQL");
         }
     }
 }

@@ -24,6 +24,9 @@ using Microsoft.Web.Services3.Diagnostics;
 using Microsoft.Web.Services3.Messaging;
 using Microsoft.Web.Services3.Referral;
 
+using log4net;
+using log4net.Config;
+
 namespace WseTransports.Udp
 {
     /// <summary>
@@ -34,6 +37,7 @@ namespace WseTransports.Udp
     /// </remarks>
     public sealed class SoapUdpTransport : SoapTransport, ISoapTransport
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(SoapUdpTransport));
         /// <summary>
         /// Converts the specified IPEndPoint to its Uri form.
         /// </summary>
