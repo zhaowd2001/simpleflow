@@ -6,3 +6,5 @@ src/Wse3Transports/WseTransports/bin/
 src/Wse3Transports/WseTransports/obj/
 *.ncb
 *.suo
+*.fbl4
+*.fbw
