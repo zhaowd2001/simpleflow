@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<script language="javascript">
+
+var oXMLDoc = new ActiveXObject("Microsoft.XMLDOM");            //创建'MSXML'对象
+oXMLDoc.async = true;  
+
+var theUniqueID= 0; 
+var iTimerID=null;        //这个变量是作定时器的ID
+
+//让数据提交的同时执行显示进度条的函数
+function UploadData()    
+{
+    //随机生成 UniqueID
+	theUniqueID = (new Date()).getTime() % 1000000000;
+
+	// 清除原始数据
+	PercentDone.style.width = "0%";
+	ElapsedTime.innerHTML = "";
+	TimeLeft.innerHTML = "";
+	SizeCompleted.innerHTML = "";
+	TotalSize.innerHTML = "";
+	TransferRate.innerHTML = "";
+	
+	ls_filefield = encodeURI("filefield=" + form1.filefield1.value + "&");
+	form1.action = "Transmission.aspx?" + ls_filefield + "ProgressID=" + theUniqueID+"&ConfirmKey=uploadfilewith3wfocus";  //处理上传数据的程序
+	//将提交的数据放在一个名字是upload隐藏的iframe里面处理，这样提交的页面就不会跳转到处理数据的页
+	form1.target="upload";  
+	form1.submit();     //提交表单
+
+	ProgressBar();      //开始执行反映上传情况的函数
+
+}
+
+function ProgressBar()
+{
+	sURL = "ReadTransmissionInfo.aspx?ProgressID=" + theUniqueID + "&temp="+Math.random();      //获取上传状态数据的地址
+    oXMLDoc.onreadystatechange = Function( "fnLoadComplete();" );
+    oXMLDoc.load( sURL );	
+}
+
+function fnLoadComplete()
+{
+	var iReadyState;
+    try
+    {
+        iReadyState = oXMLDoc.readyState;
+    }
+    catch(e)
+    {
+        return;
+    }
+    if(  iReadyState != 4 ) return;
+    
+    if( oXMLDoc == null || oXMLDoc.xml == "" )
+	{
+		window.status = 'Xml load fault';
+		return;
+	}
+
+	var oRoot = oXMLDoc.documentElement;     //获取返回xml数据的根节点
+
+	if(oRoot != null)  
+	{
+		if (oRoot.selectSingleNode("ErrorMessage") == null)
+		{
+
+			var readyState = oRoot.selectSingleNode("ReadyState").text;
+
+			// 如果还没初始化完成，继续
+			if ( readyState == "uninitialized" )
+			{
+				iTimerID = setTimeout("ProgressBar()", 1000); 
+			}
+			// 上传进行中
+			else if ( readyState == "loading" )              //文件上传结束就取消定时器
+			{
+
+				bar1.style.display = 'block';  //让显示上传进度显示的层的可见
+
+				PercentDone.style.width = oRoot.selectSingleNode("Percentage").text;        //设置进度条的百分比例
+				//根据返回的数据在客户端显示
+				ElapsedTime.innerHTML = oRoot.selectSingleNode("ElapsedTime").text;       //显示剩余时间
+				TimeLeft.innerHTML = oRoot.selectSingleNode("TimeLeft").text;       //显示剩余时间
+				SizeCompleted.innerHTML = oRoot.selectSingleNode("SizeCompleted").text;    //已上传数据大小
+				TotalSize.innerHTML = oRoot.selectSingleNode("TotalSize").text;    //总大小
+				TransferRate.innerHTML=oRoot.selectSingleNode("TransferRate").text; //传输速率
+
+				//这里设定时间间隔是0.5秒，你也可以根据你的情况修改获取数据时间间隔
+				iTimerID = setTimeout("ProgressBar()", 100); 
+			}
+			// 上传结束
+			else if ( readyState == "loaded" )
+			{
+				PercentDone.style.width = "100%";        //设置进度条的百分比例
+				if (iTimerID != null)
+					clearTimeout(iTimerID)
+				iTimerID = null;	
+
+				alert("上传结束，服务器处理中...");
+			}
+			// 上传结束
+			else
+			{
+				PercentDone.style.width = "100%";        //设置进度条的百分比例
+				if (iTimerID != null)
+					clearTimeout(iTimerID)
+				iTimerID = null;	
+				alert("上传结束");
+			}
+		}
+		else
+		{
+			alert(oRoot.selectSingleNode("ErrorMessage").text);
+			upload.location.href = "about:blank";
+		}
+	}
+}
+
+function CancelUpload()
+{
+	upload.location.href = "about:blank";
+	if (iTimerID != null)
+	{
+		clearTimeout(iTimerID);
+	}
+	iTimerID = null;	
+	bar1.style.display = '';
+}
+
+function IFRAME1_onblur() {
+
+}
+
+</script>
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<style type="text/css">
+<!--
+.STYLE1 {font-size: 12px;
+color:#7E7E7E;
+line-height:20px;
+}
+-->
+</style>
+<base target="_blank">
+<head runat="server">
+    <title>文件上传</title>
+</head>
+<body>
+<form id="form1" method="post" action="Transmission.aspx" enctype="multipart/form-data" target="upload">
+  <table width="707" border="0" align="center" cellpadding="0" cellspacing="0" class="STYLE1">
+    <tr>
+      <td><table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>
+            <td height="60"><img src="images/toppic.jpg" width="193" height="36" /></td>
+          </tr>
+          <tr>
+            <td height="25"><img src="images/point.jpg" width="10" height="10" align="middle" />&nbsp;上传文件</td>
+          </tr>
+          <tr>
+            <td><input type="file" name="filefield1" id="filefield1">(请上传文件类型为zip、rar、文件大小小于200MB的文件)<br />
+                对于超过200M的文件建议使用分卷压缩，选择ZIP-100格式，然后逐个上传，WinRar操作界面<a href= "images/zip.JPG">截图</a></td>
+          </tr>
+          <tr>
+            <td><input type="button" value="上传" onClick="UploadData()">
+<input type="button" value="取消上传" onClick="CancelUpload()">
+<input name="button" type="button" value="文件列表" onClick="window.open('FileList.aspx')" /></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td><img src="images/point.jpg" width="10" height="10" align="middle" />&nbsp;文件传输</td>
+          </tr>
+          <tr>
+            <td height="30"><table width="300" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="3" valign="top"><img src="images/uploadbar-l.jpg" width="3" height="14" /></td>
+                <td width="295" height="14" valign="top" background="images/uploadbar-bg.jpg"><div id=bar1 style="width:100%"><div style="width:0%; background-image:url(images/uploadbar-bg2.jpg); height:14px; overflow:hidden;" id="PercentDone"></div></div></td>
+                <td width="2" valign="top"><img src="images/uploadbar-r.jpg" width="2" height="14" /></td>
+              </tr>
+            </table></td>
+          </tr>
+          <tr>
+            <td><table border="0" cellpadding="0" cellspacing="0">
+		<tr><td style="height: 19px">总 大 小:&nbsp</td><td id="TotalSize" style="height: 19px"></td></tr>
+				<tr><td>已经上传:&nbsp</td><td id="SizeCompleted"></td></tr>
+				<tr><td style="height: 19px">平均速率:</td><td id="TransferRate" style="height: 19px"></td></tr>
+				<tr><td>使用时间:</td><td id="ElapsedTime"></td></tr>
+				<tr><td>剩余时间:</td><td id="TimeLeft"></td></tr>
+			</table></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td><table width="100%" border="0" cellpadding="10" cellspacing="1" bgcolor="#DCDCDC">
+              <tr>
+                <td bgcolor="#FFFFFF"><iframe name="upload" style="width:100%" frameborder=0></iframe></td>
+              </tr>
+            </table></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+</form>
+
+</body>
+</html>
