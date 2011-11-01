@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uploader", "Uploader\Uploader.csproj", "{2F690BBD-7D96-487E-9A17-DDB0B7378899}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUploader", "TestUploader\TestUploader.csproj", "{C11CC156-27E8-40C2-B7B3-23647F49B96A}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2F690BBD-7D96-487E-9A17-DDB0B7378899}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F690BBD-7D96-487E-9A17-DDB0B7378899}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F690BBD-7D96-487E-9A17-DDB0B7378899}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F690BBD-7D96-487E-9A17-DDB0B7378899}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C11CC156-27E8-40C2-B7B3-23647F49B96A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C11CC156-27E8-40C2-B7B3-23647F49B96A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C11CC156-27E8-40C2-B7B3-23647F49B96A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C11CC156-27E8-40C2-B7B3-23647F49B96A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
