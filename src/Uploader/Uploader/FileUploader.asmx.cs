@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Web;
 using System.Collections;
+using System.Collections.Generic;
 using System.Web.Services;
 using System.Web.Services.Protocols;
 using System.ComponentModel;
@@ -37,7 +38,7 @@ namespace Uploader
                 // storage folder, use the original file name
                 // to name the resulting file
                 FileStream fs = new FileStream
-                    (System.Web.Hosting.HostingEnvironment.MapPath("~/TransientStorage/") + 
+                    (getUploadFolder() + 
                     fileName, FileMode.Create);
 
                 // write the memory stream containing the original
@@ -57,6 +58,63 @@ namespace Uploader
                 // return the error message if the operation fails
                 return ex.Message.ToString();
             }
+        }
+
+        [WebMethod]
+        public string[] List(string fileSearchPattern, string dirSearchPattern)
+        {
+            List<String> al = new List<string>();
+            GetAllFileByDir(getUploadFolder(), fileSearchPattern, dirSearchPattern, ref al);
+            return al.ToArray();
+        }
+
+        [WebMethod]
+        public string Move(string oldFileName, string newFileName)
+        {
+            checkFileName(oldFileName);
+            checkFileName(newFileName);
+            File.Move(getUploadFolder() + oldFileName, getUploadFolder() + newFileName);
+            return "OK";
+        }
+
+        [WebMethod]
+        public string Remove(string fileName)
+        {
+            checkFileName(fileName);
+            File.Delete(getUploadFolder() + fileName);
+            return "OK";
+        }
+
+        private static void checkFileName(string fileName)
+        {
+            FileInfo fi = new FileInfo(getUploadFolder() + fileName);
+            //remove last char '\'
+            string s = fi.Directory.FullName.ToLower().Substring(0, getUploadFolder().Length-1);
+            string s2 = getUploadFolder().ToLower().Substring(0, getUploadFolder().Length - 1);
+            if (s != s2)
+                new Exception("invalid filename:" + fileName);
+        }
+
+        private static void GetAllFileByDir(string DirPath, 
+            string fileSearchPattern, 
+            string dirSearchPattern, 
+            ref List<String> AL)
+        {
+            //C#枚举文件的代码实现
+            //列举出所有文件,添加到AL  
+
+            foreach (string file in Directory.GetFiles(DirPath, fileSearchPattern))
+                AL.Add(file);
+
+            //列举出所有子文件夹,并对之调用GetAllFileByDir自己;  
+            //C#枚举文件的代码实现
+            foreach (string dir in Directory.GetDirectories(DirPath, dirSearchPattern))
+                GetAllFileByDir(dir, fileSearchPattern, dirSearchPattern, ref AL);
+        } 
+
+        private static string getUploadFolder()
+        {
+            return System.Web.Hosting.HostingEnvironment.MapPath("~/TransientStorage/");
         }
     }
 }

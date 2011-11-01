@@ -81,10 +81,21 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://localhost:2238/FileUploader.asmx">
+    <Content Include="testdata\test1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Web References\Uploader\FileUploader.disco" />
+    <None Include="Web References\Uploader\FileUploader.wsdl" />
+    <None Include="Web References\Uploader\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://localhost:21369/FileUploader.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\Uploader\</RelPath>
-      <UpdateFromURL>http://localhost:2238/FileUploader.asmx</UpdateFromURL>
+      <UpdateFromURL>http://localhost:21369/FileUploader.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
@@ -92,14 +103,6 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>TestUploader_Uploader_FileUploader</CachedSettingsPropName>
     </WebReferenceUrl>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Web References\Uploader\FileUploader.disco" />
-    <None Include="Web References\Uploader\FileUploader.wsdl" />
-    <None Include="Web References\Uploader\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

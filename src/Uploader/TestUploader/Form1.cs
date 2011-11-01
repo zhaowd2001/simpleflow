@@ -89,6 +89,23 @@ namespace TestUploader
             }
         }
 
+        private void Remove(string filename)
+        {
+            try
+            {
+                // create an instance fo the web service
+                TestUploader.Uploader.FileUploader srv = new TestUploader.Uploader.FileUploader();
+
+                string sTmp = srv.Remove(filename);
+                MessageBox.Show("Remove Status: " + sTmp, "Remove");
+            }
+            catch (Exception ex)
+            {
+                // display an error message to the user
+                MessageBox.Show(ex.Message.ToString(), "Upload Error");
+            }
+        }
+
 
         /// <summary>
         /// Allow the user to browse for a file
@@ -134,6 +151,11 @@ namespace TestUploader
                 UploadFile(txtFileName.Text);
             else
                 MessageBox.Show("You must select a file first.", "No File Selected");
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            Remove(txtFileName.Text);
         }
     }
 }
