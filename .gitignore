@@ -12,6 +12,9 @@ src/Uploader/Uploader/TransientStorage
 src/Uploader/Uploader/obj/
 src/Uploader/Uploader/bin/Uploader.dll
 src/Uploader/Uploader/bin/Uploader.pdb
+src/Uploader/Uploader/Uploader-2010.Publish.xml
+src/Uploader/Uploader/Web.Debug.config
+src/Uploader/Uploader/Web.Release.config
 *.ncb
 *.suo
 *.fbl4

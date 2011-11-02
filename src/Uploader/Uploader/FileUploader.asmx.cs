@@ -11,6 +11,21 @@ using System.IO;
 
 namespace Uploader
 {
+    public class FileItem
+    {
+        public string path { get; set; }
+        public byte[] data { get; set; }
+
+        public FileItem()
+        {
+        }
+
+        public FileItem(string p, byte[] d)
+        {
+            path = p;
+            data = d;
+        }
+    };
     /// <summary>
     /// This web method will provide an web method to load any
     /// file onto the server; the UploadFile web method
@@ -61,15 +76,15 @@ namespace Uploader
         }
 
         [WebMethod]
-        public Dictionary<string, byte[]> DownloadFile(string fileSearchPattern, string dirSearchPattern)
+        public FileItem[] DownloadFile(string fileSearchPattern, string dirSearchPattern)
         {
-            Dictionary<string, byte[]> ret = new Dictionary<string, byte[]>();
+            List<FileItem> ret = new List<FileItem>();
             string[] files = List(fileSearchPattern, dirSearchPattern);
             foreach (string file in files)
             {
-                ret.Add(file, readfile2byte(file));
+                ret.Add( new FileItem(file, readfile2byte(file)));
             }
-            return ret;
+            return ret.ToArray();
         }
 
         [WebMethod]

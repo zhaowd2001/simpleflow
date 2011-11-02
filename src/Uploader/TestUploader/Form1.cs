@@ -163,15 +163,15 @@ namespace TestUploader
             DownloadFile(txtFileName.Text);
         }
 
-        private void UploadFile(string filename)
+        private void DownloadFile(string filename)
         {
             try
             {
                 // create an instance fo the web service
                 TestUploader.Uploader.FileUploader srv = new TestUploader.Uploader.FileUploader();
 
-                byte[] data = srv.DownloadFile(filename, null);
-                MessageBox.Show("File Download Status: " + sTmp, "File Download ");
+                TestUploader.Uploader.FileItem [] files = srv.DownloadFile(filename, null);
+                MessageBox.Show("File Download Status: " + files[0].path, "File Download ");
             }
             catch (Exception ex)
             {
