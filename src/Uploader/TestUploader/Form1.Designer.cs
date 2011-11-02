@@ -33,6 +33,7 @@ namespace TestUploader
             this.txtFileName = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.btnRemove = new System.Windows.Forms.Button();
+            this.btnDownload = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -77,11 +78,22 @@ namespace TestUploader
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
+            // btnDownload
+            // 
+            this.btnDownload.Location = new System.Drawing.Point(198, 109);
+            this.btnDownload.Name = "btnDownload";
+            this.btnDownload.Size = new System.Drawing.Size(75, 21);
+            this.btnDownload.TabIndex = 4;
+            this.btnDownload.Text = "&Download";
+            this.btnDownload.UseVisualStyleBackColor = true;
+            this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(292, 142);
+            this.Controls.Add(this.btnDownload);
             this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.txtFileName);
             this.Controls.Add(this.button2);
@@ -101,6 +113,7 @@ namespace TestUploader
         private System.Windows.Forms.TextBox txtFileName;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button btnRemove;
+        private System.Windows.Forms.Button btnDownload;
     }
 }
 

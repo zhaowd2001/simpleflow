@@ -157,5 +157,27 @@ namespace TestUploader
         {
             Remove(txtFileName.Text);
         }
+
+        private void btnDownload_Click(object sender, EventArgs e)
+        {
+            DownloadFile(txtFileName.Text);
+        }
+
+        private void UploadFile(string filename)
+        {
+            try
+            {
+                // create an instance fo the web service
+                TestUploader.Uploader.FileUploader srv = new TestUploader.Uploader.FileUploader();
+
+                byte[] data = srv.DownloadFile(filename, null);
+                MessageBox.Show("File Download Status: " + sTmp, "File Download ");
+            }
+            catch (Exception ex)
+            {
+                // display an error message to the user
+                MessageBox.Show(ex.Message.ToString(), "Upload Error");
+            }
+        }
     }
 }

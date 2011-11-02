@@ -38,7 +38,7 @@ namespace Uploader
                 // storage folder, use the original file name
                 // to name the resulting file
                 FileStream fs = new FileStream
-                    (getUploadFolder() + 
+                    (getUploadFolder() +
                     fileName, FileMode.Create);
 
                 // write the memory stream containing the original
@@ -58,6 +58,18 @@ namespace Uploader
                 // return the error message if the operation fails
                 return ex.Message.ToString();
             }
+        }
+
+        [WebMethod]
+        public Dictionary<string, byte[]> DownloadFile(string fileSearchPattern, string dirSearchPattern)
+        {
+            Dictionary<string, byte[]> ret = new Dictionary<string, byte[]>();
+            string[] files = List(fileSearchPattern, dirSearchPattern);
+            foreach (string file in files)
+            {
+                ret.Add(file, readfile2byte(file));
+            }
+            return ret;
         }
 
         [WebMethod]
@@ -89,15 +101,15 @@ namespace Uploader
         {
             FileInfo fi = new FileInfo(getUploadFolder() + fileName);
             //remove last char '\'
-            string s = fi.Directory.FullName.ToLower().Substring(0, getUploadFolder().Length-1);
+            string s = fi.Directory.FullName.ToLower().Substring(0, getUploadFolder().Length - 1);
             string s2 = getUploadFolder().ToLower().Substring(0, getUploadFolder().Length - 1);
             if (s != s2)
                 new Exception("invalid filename:" + fileName);
         }
 
-        private static void GetAllFileByDir(string DirPath, 
-            string fileSearchPattern, 
-            string dirSearchPattern, 
+        private static void GetAllFileByDir(string DirPath,
+            string fileSearchPattern,
+            string dirSearchPattern,
             ref List<String> AL)
         {
             //C#枚举文件的代码实现
@@ -110,7 +122,31 @@ namespace Uploader
             //C#枚举文件的代码实现
             foreach (string dir in Directory.GetDirectories(DirPath, dirSearchPattern))
                 GetAllFileByDir(dir, fileSearchPattern, dirSearchPattern, ref AL);
-        } 
+        }
+
+        private static byte[] readfile2byte(string filePath)
+        {
+            checkFileName(filePath);
+            String strFile = getUploadFolder() + filePath;
+
+            // get the file information form the selected file
+            FileInfo fInfo = new FileInfo(strFile);
+
+            long numBytes = fInfo.Length;
+            // set up a file stream and binary reader for the 
+            // selected file
+            FileStream fStream = new FileStream(strFile, FileMode.Open, FileAccess.Read);
+            BinaryReader br = new BinaryReader(fStream);
+
+            // convert the file to a byte array
+            byte[] data = br.ReadBytes((int)numBytes);
+            br.Close();
+
+            fStream.Close();
+            fStream.Dispose();
+
+            return data;
+        }
 
         private static string getUploadFolder()
         {
