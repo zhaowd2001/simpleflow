@@ -25,7 +25,7 @@ namespace TestUploader
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // do nothing
+            url_ = new TestUploader.Uploader.FileUploader().Url;
         }
 
 
@@ -43,7 +43,7 @@ namespace TestUploader
                 String strFile = System.IO.Path.GetFileName(filename);
 
                 // create an instance fo the web service
-                TestUploader.Uploader.FileUploader srv = new TestUploader.Uploader.FileUploader();
+                TestUploader.Uploader.FileUploader srv = newUploader();
 
                 // get the file information form the selected file
                 FileInfo fInfo = new FileInfo(filename);
@@ -68,7 +68,7 @@ namespace TestUploader
                     br.Close();
 
                     // pass the byte array (file) and file name to the web service
-                    string sTmp = srv.UploadFile(data, strFile);
+                    string sTmp = srv.UploadFile(data, filename);
                     fStream.Close();
                     fStream.Dispose();
 
@@ -94,7 +94,7 @@ namespace TestUploader
             try
             {
                 // create an instance fo the web service
-                TestUploader.Uploader.FileUploader srv = new TestUploader.Uploader.FileUploader();
+                TestUploader.Uploader.FileUploader srv = newUploader();
 
                 string sTmp = srv.Remove(filename);
                 MessageBox.Show("Remove Status: " + sTmp, "Remove");
@@ -168,15 +168,62 @@ namespace TestUploader
             try
             {
                 // create an instance fo the web service
-                TestUploader.Uploader.FileUploader srv = new TestUploader.Uploader.FileUploader();
+                TestUploader.Uploader.FileUploader srv = newUploader();
 
-                TestUploader.Uploader.FileItem [] files = srv.DownloadFile(filename, null);
+                TestUploader.Uploader.FileItem [] files = srv.DownloadFile(filename, "testdata");
                 MessageBox.Show("File Download Status: " + files[0].path, "File Download ");
             }
             catch (Exception ex)
             {
                 // display an error message to the user
                 MessageBox.Show(ex.Message.ToString(), "Upload Error");
+            }
+        }
+
+        private  Uploader.FileUploader newUploader()
+        {
+            Uploader.FileUploader ret = new TestUploader.Uploader.FileUploader();
+            ret.Url = url_;
+            return ret;
+        }
+
+        private void btnSetWebUrl_Click(object sender, EventArgs e)
+        {
+            url_ = "http://upload.3wfocus.com/zhaowd/FileUploader.asmx";
+        }
+
+        string url_;
+
+        private void btnList_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // create an instance fo the web service
+                TestUploader.Uploader.FileUploader srv = newUploader();
+                string[] files = srv.List( txtFileName.Text, "testdata");
+                string msg = string.Join("\n", files);
+                MessageBox.Show("File List Status: \n" + msg, "File List ");
+            }
+            catch (Exception ex)
+            {
+                // display an error message to the user
+                MessageBox.Show(ex.Message.ToString(), "List Error");
+            }
+        }
+
+        private void btnMove_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // create an instance fo the web service
+                TestUploader.Uploader.FileUploader srv = newUploader();
+                string ret = srv.Move(txtFileName.Text, txtNewName.Text);
+                MessageBox.Show("File Move Status: \n" + ret, "File Move ");
+            }
+            catch (Exception ex)
+            {
+                // display an error message to the user
+                MessageBox.Show(ex.Message.ToString(), "Move Error");
             }
         }
     }

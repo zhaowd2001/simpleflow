@@ -43,36 +43,29 @@ namespace Uploader
             // the byte array argument contains the content of the file
             // the string argument contains the name and extension
             // of the file passed in the byte array
-            try
-            {
-                // instance a memory stream and pass the
-                // byte array to its constructor
-                MemoryStream ms = new MemoryStream(f);
+            // instance a memory stream and pass the
+            // byte array to its constructor
+            MemoryStream ms = new MemoryStream(f);
 
-                // instance a filestream pointing to the 
-                // storage folder, use the original file name
-                // to name the resulting file
-                FileStream fs = new FileStream
-                    (getUploadFolder() +
-                    fileName, FileMode.Create);
+            // instance a filestream pointing to the 
+            // storage folder, use the original file name
+            // to name the resulting file
+            string filePath = getUploadFolder() + fileName;
+            createDirectoryForFile(filePath);
+            FileStream fs = new FileStream
+                (filePath, FileMode.Create);
 
-                // write the memory stream containing the original
-                // file as a byte array to the filestream
-                ms.WriteTo(fs);
+            // write the memory stream containing the original
+            // file as a byte array to the filestream
+            ms.WriteTo(fs);
 
-                // clean up
-                ms.Close();
-                fs.Close();
-                fs.Dispose();
+            // clean up
+            ms.Close();
+            fs.Close();
+            fs.Dispose();
 
-                // return OK if we made it this far
-                return "OK";
-            }
-            catch (Exception ex)
-            {
-                // return the error message if the operation fails
-                return ex.Message.ToString();
-            }
+            // return OK if we made it this far
+            return "OK";
         }
 
         [WebMethod]
@@ -141,8 +134,7 @@ namespace Uploader
 
         private static byte[] readfile2byte(string filePath)
         {
-            checkFileName(filePath);
-            String strFile = getUploadFolder() + filePath;
+            String strFile = filePath;
 
             // get the file information form the selected file
             FileInfo fInfo = new FileInfo(strFile);
@@ -166,6 +158,21 @@ namespace Uploader
         private static string getUploadFolder()
         {
             return System.Web.Hosting.HostingEnvironment.MapPath("~/TransientStorage/");
+        }
+
+        private static void createDirectoryForFile(string filePath)
+        {
+            FileInfo fi = new FileInfo(filePath);
+
+            createDirectory(fi.Directory);
+        }
+
+        private static void createDirectory(DirectoryInfo d)
+        {
+            if (d.Exists)
+                return;
+            createDirectory(d.Parent);
+            d.Create();
         }
     }
 }
