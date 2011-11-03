@@ -51,12 +51,12 @@ namespace TestUploader
                 // get the length of the file to see if it is possible
                 // to upload it (with the standard 4 MB limit)
                 long numBytes = fInfo.Length;
-                double dLen = Convert.ToDouble(fInfo.Length / 1000000);
+                double dLen = Convert.ToDouble(fInfo.Length / 1024*1024);
 
                 // Default limit of 4 MB on web server
                 // have to change the web.config to if
                 // you want to allow larger uploads
-                if (dLen < 4)
+                if (dLen <= 3.1)
                 {
                     // set up a file stream and binary reader for the 
                     // selected file
