@@ -46,13 +46,14 @@ namespace TestUploader
                 TestUploader.Uploader.FileUploader srv = newUploader();
 
                 WebserviceFileSystem.BigFile file = new WebserviceFileSystem.BigFile(filename);
-
+                string msg = "";
                 for (int i = 0; i < file.getFilePartCount(); i++)
                 {
                     byte[] data = file.readFilePart(i);
                     string sTmp = srv.UploadFile(data, removeDriver(filename)+"-part"+
                         i.ToString().PadLeft(8,'0'));
 
+                    msg += "\n" + sTmp;
                     // this will always say OK unless an error occurs,
                     // if an error occurs, the service returns the error message
 #if false
@@ -67,6 +68,7 @@ namespace TestUploader
                         break;
 #endif
                 }
+                MessageBox.Show("File upload:" + msg);
             }
             catch (Exception ex)
             {
