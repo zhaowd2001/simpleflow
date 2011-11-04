@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uploader-2010", "Uploader\U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUploader-2010", "TestUploader\TestUploader-2010.csproj", "{C11CC156-27E8-40C2-B7B3-23647F49B96A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebserviceFileSystem", "WebserviceFileSystem\WebserviceFileSystem.csproj", "{7B67BBB0-26E4-4662-A7BB-BBAC28D0C5A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{C11CC156-27E8-40C2-B7B3-23647F49B96A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C11CC156-27E8-40C2-B7B3-23647F49B96A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C11CC156-27E8-40C2-B7B3-23647F49B96A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B67BBB0-26E4-4662-A7BB-BBAC28D0C5A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B67BBB0-26E4-4662-A7BB-BBAC28D0C5A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B67BBB0-26E4-4662-A7BB-BBAC28D0C5A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B67BBB0-26E4-4662-A7BB-BBAC28D0C5A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

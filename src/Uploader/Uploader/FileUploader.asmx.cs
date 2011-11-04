@@ -45,25 +45,23 @@ namespace Uploader
             // of the file passed in the byte array
             // instance a memory stream and pass the
             // byte array to its constructor
-            MemoryStream ms = new MemoryStream(f);
+            using (MemoryStream ms = new MemoryStream(f))
+            {
 
-            // instance a filestream pointing to the 
-            // storage folder, use the original file name
-            // to name the resulting file
-            string filePath = getUploadFolder() + fileName;
-            createDirectoryForFile(filePath);
-            FileStream fs = new FileStream
-                (filePath, FileMode.Create);
+                // instance a filestream pointing to the 
+                // storage folder, use the original file name
+                // to name the resulting file
+                string filePath = getUploadFolder() + fileName;
+                createDirectoryForFile(filePath);
+                using (FileStream fs = new FileStream
+                    (filePath, FileMode.Create))
+                {
 
-            // write the memory stream containing the original
-            // file as a byte array to the filestream
-            ms.WriteTo(fs);
-
-            // clean up
-            ms.Close();
-            fs.Close();
-            fs.Dispose();
-
+                    // write the memory stream containing the original
+                    // file as a byte array to the filestream
+                    ms.WriteTo(fs);
+                }
+            }
             // return OK if we made it this far
             return "OK";
         }

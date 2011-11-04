@@ -45,48 +45,23 @@ namespace TestUploader
                 // create an instance fo the web service
                 TestUploader.Uploader.FileUploader srv = newUploader();
 
-                // get the file information form the selected file
-                FileInfo fInfo = new FileInfo(filename);
+                WebserviceFileSystem.BigFile file = new WebserviceFileSystem.BigFile(filename);
 
-                // get the length of the file to see if it is possible
-                // to upload it (with the standard 4 MB limit)
-                long numBytes = fInfo.Length;
-                double dLen = Convert.ToDouble(fInfo.Length / 1024 / 1024);
-
-                // Default limit of 4 MB on web server
-                // have to change the web.config to if
-                // you want to allow larger uploads
-                if (dLen <= 3.1)
+                for (int i = 0; i < file.getFilePartCount(); i++)
                 {
-                    // set up a file stream and binary reader for the 
-                    // selected file
-                    FileStream fStream = new FileStream(filename, FileMode.Open, FileAccess.Read);
-                    BinaryReader br = new BinaryReader(fStream);
-
-                    // convert the file to a byte array
-                    byte[] data = br.ReadBytes((int)numBytes);
-                    br.Close();
-
-                    // pass the byte array (file) and file name to the web service
-                    filename = removeDriver(filename);
-                    string sTmp = srv.UploadFile(data, filename);
-                    fStream.Close();
-                    fStream.Dispose();
+                    byte[] data = file.readFilePart(i);
+                    string sTmp = srv.UploadFile(data, removeDriver(filename)+"-part"+
+                        i.ToString().PadLeft(8,'0'));
 
                     // this will always say OK unless an error occurs,
                     // if an error occurs, the service returns the error message
-                    MessageBox.Show("File Upload Status: " + sTmp, "File Upload");
-                }
-                else
-                {
-                    // Display message if the file was too large to upload
-                    MessageBox.Show("The file selected exceeds the size limit for uploads.", "File Size");
+                    MessageBox.Show("File Upload Status: Part %" +i.ToString()+":"+ sTmp, "File Upload");
                 }
             }
             catch (Exception ex)
             {
                 // display an error message to the user
-                MessageBox.Show(ex.Message.ToString(), "Upload Error");
+                MessageBox.Show(ex.Message.ToString()+"\n"+ex.ToString(), "Upload Error");
             }
         }
 

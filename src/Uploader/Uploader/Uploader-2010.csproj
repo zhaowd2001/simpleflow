@@ -83,6 +83,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebserviceFileSystem\WebserviceFileSystem.csproj">
+      <Project>{7B67BBB0-26E4-4662-A7BB-BBAC28D0C5A3}</Project>
+      <Name>WebserviceFileSystem</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
