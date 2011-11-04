@@ -66,7 +66,7 @@ namespace TestUploader
             this.txtFileName.Name = "txtFileName";
             this.txtFileName.Size = new System.Drawing.Size(180, 21);
             this.txtFileName.TabIndex = 2;
-            this.txtFileName.Text = "testdata\\test1.jpg";
+            this.txtFileName.Text = "e:\\1.png";
             // 
             // openFileDialog1
             // 

@@ -51,7 +51,7 @@ namespace TestUploader
                 // get the length of the file to see if it is possible
                 // to upload it (with the standard 4 MB limit)
                 long numBytes = fInfo.Length;
-                double dLen = Convert.ToDouble(fInfo.Length / 1024*1024);
+                double dLen = Convert.ToDouble(fInfo.Length / 1024 / 1024);
 
                 // Default limit of 4 MB on web server
                 // have to change the web.config to if
@@ -68,6 +68,7 @@ namespace TestUploader
                     br.Close();
 
                     // pass the byte array (file) and file name to the web service
+                    filename = removeDriver(filename);
                     string sTmp = srv.UploadFile(data, filename);
                     fStream.Close();
                     fStream.Dispose();
@@ -225,6 +226,18 @@ namespace TestUploader
                 // display an error message to the user
                 MessageBox.Show(ex.Message.ToString(), "Move Error");
             }
+        }
+
+        private static string removeDriver(string filename)
+        {
+            if (filename.Length >= 3)
+            {
+                if((filename[1] == ':') &&
+                    (filename[2] == '\\'))
+                    return filename.Substring(3);
+            }
+
+            return filename;
         }
     }
 }
