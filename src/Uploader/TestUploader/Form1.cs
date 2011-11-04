@@ -55,7 +55,17 @@ namespace TestUploader
 
                     // this will always say OK unless an error occurs,
                     // if an error occurs, the service returns the error message
-                    MessageBox.Show("File Upload Status: Part %" +i.ToString()+":"+ sTmp, "File Upload");
+#if false
+                    if (
+                    MessageBox.Show("File Upload Status: Part %" + i.ToString() + " of "+
+                    file.getFilePartCount().ToString()+
+                    ":" + sTmp, "File Upload", 
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button1
+                    ) == System.Windows.Forms.DialogResult.Cancel)
+                        break;
+#endif
                 }
             }
             catch (Exception ex)
