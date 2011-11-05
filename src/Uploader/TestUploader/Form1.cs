@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 
+using WebserviceFileSystem;
 
 namespace TestUploader
 {
@@ -17,6 +18,7 @@ namespace TestUploader
     public partial class Form1 : Form
     {
 
+        WSFileSystem fileSystem_;
         public Form1()
         {
             InitializeComponent();
@@ -25,9 +27,8 @@ namespace TestUploader
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            url_ = new TestUploader.Uploader.FileUploader().Url;
+            fileSystem_ = new WSFileSystem();
         }
-
 
         /// <summary>
         /// Upload any file to the web service; this function may be
@@ -39,35 +40,7 @@ namespace TestUploader
         {
             try
             {
-                // get the exact file name from the path
-                String strFile = System.IO.Path.GetFileName(filename);
-
-                // create an instance fo the web service
-                TestUploader.Uploader.FileUploader srv = newUploader();
-
-                WebserviceFileSystem.BigFile file = new WebserviceFileSystem.BigFile(filename);
-                string msg = "";
-                for (int i = 0; i < file.getFilePartCount(); i++)
-                {
-                    byte[] data = file.readFilePart(i);
-                    string sTmp = srv.UploadFile(data, removeDriver(filename)+"-part"+
-                        i.ToString().PadLeft(8,'0'));
-
-                    msg += "\n" + sTmp;
-                    // this will always say OK unless an error occurs,
-                    // if an error occurs, the service returns the error message
-#if false
-                    if (
-                    MessageBox.Show("File Upload Status: Part %" + i.ToString() + " of "+
-                    file.getFilePartCount().ToString()+
-                    ":" + sTmp, "File Upload", 
-                    MessageBoxButtons.OKCancel,
-                    MessageBoxIcon.Question,
-                    MessageBoxDefaultButton.Button1
-                    ) == System.Windows.Forms.DialogResult.Cancel)
-                        break;
-#endif
-                }
+                string msg = fileSystem_.UploadFile(filename);
                 MessageBox.Show("File upload:" + msg);
             }
             catch (Exception ex)
@@ -81,10 +54,7 @@ namespace TestUploader
         {
             try
             {
-                // create an instance fo the web service
-                TestUploader.Uploader.FileUploader srv = newUploader();
-
-                string sTmp = srv.Remove(filename);
+                string sTmp = fileSystem_.Remove(filename);
                 MessageBox.Show("Remove Status: " + sTmp, "Remove");
             }
             catch (Exception ex)
@@ -156,9 +126,7 @@ namespace TestUploader
             try
             {
                 // create an instance fo the web service
-                TestUploader.Uploader.FileUploader srv = newUploader();
-
-                TestUploader.Uploader.FileItem [] files = srv.DownloadFile(filename, "testdata");
+                WebserviceFileSystem.Uploader.FileItem[] files = fileSystem_.DownloadFile(filename, "testdata");
                 MessageBox.Show("File Download Status: " + files[0].path, "File Download ");
             }
             catch (Exception ex)
@@ -168,27 +136,16 @@ namespace TestUploader
             }
         }
 
-        private  Uploader.FileUploader newUploader()
-        {
-            Uploader.FileUploader ret = new TestUploader.Uploader.FileUploader();
-            ret.Url = url_;
-            return ret;
-        }
-
         private void btnSetWebUrl_Click(object sender, EventArgs e)
         {
-            url_ = "http://upload.3wfocus.com/zhaowd/FileUploader.asmx";
+            fileSystem_.Url = "http://upload.3wfocus.com/zhaowd/FileUploader.asmx";
         }
-
-        string url_;
 
         private void btnList_Click(object sender, EventArgs e)
         {
             try
             {
-                // create an instance fo the web service
-                TestUploader.Uploader.FileUploader srv = newUploader();
-                string[] files = srv.List( txtFileName.Text, "testdata");
+                string[] files = fileSystem_.List( txtFileName.Text, "testdata");
                 string msg = string.Join("\n", files);
                 MessageBox.Show("File List Status: \n" + msg, "File List ");
             }
@@ -203,9 +160,7 @@ namespace TestUploader
         {
             try
             {
-                // create an instance fo the web service
-                TestUploader.Uploader.FileUploader srv = newUploader();
-                string ret = srv.Move(txtFileName.Text, txtNewName.Text);
+                string ret = fileSystem_.Move(txtFileName.Text, txtNewName.Text);
                 MessageBox.Show("File Move Status: \n" + ret, "File Move ");
             }
             catch (Exception ex)
@@ -214,17 +169,5 @@ namespace TestUploader
                 MessageBox.Show(ex.Message.ToString(), "Move Error");
             }
         }
-
-        private static string removeDriver(string filename)
-        {
-            if (filename.Length >= 3)
-            {
-                if((filename[1] == ':') &&
-                    (filename[2] == '\\'))
-                    return filename.Substring(3);
-            }
-
-            return filename;
-        }
-    }
+   }
 }

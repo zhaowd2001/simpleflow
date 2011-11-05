@@ -121,10 +121,17 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FileSystem\FileSystem.csproj">
+      <Project>{70F2BB4A-D74C-4C5A-9148-6E990FBAD3AD}</Project>
+      <Name>FileSystem</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebserviceFileSystem\WebserviceFileSystem.csproj">
       <Project>{7B67BBB0-26E4-4662-A7BB-BBAC28D0C5A3}</Project>
       <Name>WebserviceFileSystem</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
