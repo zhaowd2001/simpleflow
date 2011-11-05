@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUploader-2010", "TestUp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebserviceFileSystem", "WebserviceFileSystem\WebserviceFileSystem.csproj", "{7B67BBB0-26E4-4662-A7BB-BBAC28D0C5A3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSystem", "FileSystem\FileSystem.csproj", "{70F2BB4A-D74C-4C5A-9148-6E990FBAD3AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalFileSystem", "LocalFileSystem\LocalFileSystem.csproj", "{A02BE2BA-5E03-47DC-8961-EB810F090EB3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +29,14 @@ Global
 		{7B67BBB0-26E4-4662-A7BB-BBAC28D0C5A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B67BBB0-26E4-4662-A7BB-BBAC28D0C5A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B67BBB0-26E4-4662-A7BB-BBAC28D0C5A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70F2BB4A-D74C-4C5A-9148-6E990FBAD3AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70F2BB4A-D74C-4C5A-9148-6E990FBAD3AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70F2BB4A-D74C-4C5A-9148-6E990FBAD3AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70F2BB4A-D74C-4C5A-9148-6E990FBAD3AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A02BE2BA-5E03-47DC-8961-EB810F090EB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A02BE2BA-5E03-47DC-8961-EB810F090EB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A02BE2BA-5E03-47DC-8961-EB810F090EB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A02BE2BA-5E03-47DC-8961-EB810F090EB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

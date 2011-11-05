@@ -8,24 +8,10 @@ using System.Web.Services.Protocols;
 using System.ComponentModel;
 using System.IO;
 
+using FileSystem;
 
 namespace Uploader
 {
-    public class FileItem
-    {
-        public string path { get; set; }
-        public byte[] data { get; set; }
-
-        public FileItem()
-        {
-        }
-
-        public FileItem(string p, byte[] d)
-        {
-            path = p;
-            data = d;
-        }
-    };
     /// <summary>
     /// This web method will provide an web method to load any
     /// file onto the server; the UploadFile web method

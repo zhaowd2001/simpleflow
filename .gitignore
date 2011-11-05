@@ -17,6 +17,10 @@ src/Uploader/Uploader/Web.Debug.config
 src/Uploader/Uploader/Web.Release.config
 src/Uploader/WebserviceFileSystem/bin/
 src/Uploader/WebserviceFileSystem/obj/
+src/Uploader/FileSystem/bin/
+src/Uploader/FileSystem/obj/
+src/Uploader/LocalFileSystem/bin/
+src/Uploader/LocalFileSystem/obj/
 *.ncb
 *.suo
 *.fbl4
