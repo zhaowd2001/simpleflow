@@ -88,6 +88,10 @@
       <Project>{70F2BB4A-D74C-4C5A-9148-6E990FBAD3AD}</Project>
       <Name>FileSystem</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LocalFileSystem\LocalFileSystem.csproj">
+      <Project>{A02BE2BA-5E03-47DC-8961-EB810F090EB3}</Project>
+      <Name>LocalFileSystem</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebserviceFileSystem\WebserviceFileSystem.csproj">
       <Project>{7B67BBB0-26E4-4662-A7BB-BBAC28D0C5A3}</Project>
       <Name>WebserviceFileSystem</Name>
@@ -107,7 +111,7 @@
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
+          <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>21369</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>

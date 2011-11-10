@@ -125,11 +125,11 @@ namespace WebserviceFileSystem.Uploader {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/DownloadFile", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public FileItem[] DownloadFile(string fileSearchPattern, string dirSearchPattern) {
+        public FileContent[] DownloadFile(string fileSearchPattern, string dirSearchPattern) {
             object[] results = this.Invoke("DownloadFile", new object[] {
                         fileSearchPattern,
                         dirSearchPattern});
-            return ((FileItem[])(results[0]));
+            return ((FileContent[])(results[0]));
         }
         
         /// <remarks/>
@@ -270,30 +270,30 @@ namespace WebserviceFileSystem.Uploader {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class FileItem {
+    public partial class FileContent {
         
-        private string pathField;
+        private string path_Field;
         
-        private byte[] dataField;
+        private byte[] content_Field;
         
         /// <remarks/>
-        public string path {
+        public string path_ {
             get {
-                return this.pathField;
+                return this.path_Field;
             }
             set {
-                this.pathField = value;
+                this.path_Field = value;
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
-        public byte[] data {
+        public byte[] content_ {
             get {
-                return this.dataField;
+                return this.content_Field;
             }
             set {
-                this.dataField = value;
+                this.content_Field = value;
             }
         }
     }
@@ -342,10 +342,10 @@ namespace WebserviceFileSystem.Uploader {
         }
         
         /// <remarks/>
-        public FileItem[] Result {
+        public FileContent[] Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((FileItem[])(this.results[0]));
+                return ((FileContent[])(this.results[0]));
             }
         }
     }

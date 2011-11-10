@@ -94,8 +94,6 @@ namespace TestUploader
 
         }
 
-
-
         /// <summary>
         /// If the user has selected a file, send it to the upload method, 
         /// the upload method will convert the file to a byte array and
@@ -126,8 +124,8 @@ namespace TestUploader
             try
             {
                 // create an instance fo the web service
-                WebserviceFileSystem.Uploader.FileItem[] files = fileSystem_.DownloadFile(filename, "testdata");
-                MessageBox.Show("File Download Status: " + files[0].path, "File Download ");
+                WebserviceFileSystem.Uploader.FileContent[] files = fileSystem_.DownloadFile(filename, "testdata");
+                MessageBox.Show("File Download Status: " + files[0].path_, "File Download ");
             }
             catch (Exception ex)
             {

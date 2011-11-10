@@ -44,7 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BigFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -67,7 +66,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Web References\Uploader\FileItem.datasource">
+    <None Include="Web References\Uploader\FileContent.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\Uploader\FileUploader.wsdl" />
@@ -80,6 +79,10 @@
     <ProjectReference Include="..\FileSystem\FileSystem.csproj">
       <Project>{70F2BB4A-D74C-4C5A-9148-6E990FBAD3AD}</Project>
       <Name>FileSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LocalFileSystem\LocalFileSystem.csproj">
+      <Project>{A02BE2BA-5E03-47DC-8961-EB810F090EB3}</Project>
+      <Name>LocalFileSystem</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

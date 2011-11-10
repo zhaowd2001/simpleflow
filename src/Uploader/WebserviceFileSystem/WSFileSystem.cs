@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 
 using FileSystem;
+using LocalFileSystem;
 
 namespace WebserviceFileSystem
 {
-    public class WSFileSystem : IFileSystem
+    public class WSFileSystem 
     {
         public WSFileSystem()
         {
@@ -28,7 +29,7 @@ namespace WebserviceFileSystem
             // create an instance fo the web service
             WebserviceFileSystem.Uploader.FileUploader srv = newUploader();
 
-            WebserviceFileSystem.BigFile file = new WebserviceFileSystem.BigFile(filename);
+            LargeLocalFile file = new LargeLocalFile(filename);
             string msg = "";
             for (int i = 0; i < file.getFilePartCount(); i++)
             {
@@ -62,7 +63,7 @@ namespace WebserviceFileSystem
             return srv.Remove(filename);
         }
 
-        public WebserviceFileSystem.Uploader.FileItem[] DownloadFile(string filename, string directory)
+        public WebserviceFileSystem.Uploader.FileContent[] DownloadFile(string filename, string directory)
         {
                 // create an instance fo the web service
             WebserviceFileSystem.Uploader.FileUploader srv = newUploader();
