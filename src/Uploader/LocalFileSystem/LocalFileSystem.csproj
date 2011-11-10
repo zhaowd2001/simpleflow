@@ -40,7 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LargeLocalFile.cs" />
+    <Compile Include="LargeLocalFileInfo.cs" />
+    <Compile Include="LargeLocalFileReader.cs" />
     <Compile Include="LocalFileSystemUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

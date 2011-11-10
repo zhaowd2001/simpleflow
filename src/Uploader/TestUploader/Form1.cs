@@ -124,7 +124,7 @@ namespace TestUploader
             try
             {
                 // create an instance fo the web service
-                WebserviceFileSystem.Uploader.FileContent[] files = fileSystem_.DownloadFile(filename, "testdata");
+                WebserviceFileSystem.Uploader.FileContent[] files = fileSystem_.DownloadFile(filename, "temp");
                 MessageBox.Show("File Download Status: " + files[0].path_, "File Download ");
             }
             catch (Exception ex)
@@ -143,7 +143,7 @@ namespace TestUploader
         {
             try
             {
-                string[] files = fileSystem_.List( txtFileName.Text, "testdata");
+                string[] files = fileSystem_.List( txtFileName.Text, "temp");
                 string msg = string.Join("\n", files);
                 MessageBox.Show("File List Status: \n" + msg, "File List ");
             }

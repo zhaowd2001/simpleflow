@@ -29,7 +29,7 @@ namespace Uploader
         {
             string filePath = getUploadFolder() + fileName;
             LocalFileSystemUtil.writeFile(f, filePath);
-            return "OK";
+            return removeUploadFolder(filePath);
         }
 
         [WebMethod]
@@ -49,7 +49,13 @@ namespace Uploader
         {
             List<String> al = new List<string>();
             LocalFileSystemUtil.FindFile(getUploadFolder(), fileSearchPattern, dirSearchPattern, ref al);
-            return al.ToArray();
+            
+            List<String> ret = new List<string>();
+            foreach (String fullPath in al)
+            {
+                ret.Add(removeUploadFolder(fullPath));
+            }
+            return ret.ToArray();
         }
 
         [WebMethod]
@@ -58,15 +64,20 @@ namespace Uploader
             checkFileName(oldFileName);
             checkFileName(newFileName);
             File.Move(getUploadFolder() + oldFileName, getUploadFolder() + newFileName);
-            return "OK";
+            return newFileName;
         }
 
         [WebMethod]
         public string Remove(string fileName)
         {
             checkFileName(fileName);
-            File.Delete(getUploadFolder() + fileName);
-            return "OK";
+            string fullPath = getUploadFolder() + fileName;
+            if (File.Exists(fullPath))
+            {
+                File.Delete(fullPath);
+                return fileName;
+            }
+            return "NOTFOUND";
         }
 
         private static void checkFileName(string fileName)
@@ -82,6 +93,11 @@ namespace Uploader
         private static string getUploadFolder()
         {
             return System.Web.Hosting.HostingEnvironment.MapPath("~/TransientStorage/");
+        }
+
+        private static string removeUploadFolder(string fullPath)
+        {
+            return fullPath.Substring(getUploadFolder().Length);
         }
     }
 }

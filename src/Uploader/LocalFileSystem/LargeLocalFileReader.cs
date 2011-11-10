@@ -6,9 +6,9 @@ using System.Text;
 
 namespace LocalFileSystem
 {
-    public class LargeLocalFile
+    public class LargeLocalFileReader
     {
-        public LargeLocalFile(string filePath, long bytesPerPart = 100 * 1024)
+        public LargeLocalFileReader(string filePath, long bytesPerPart = 100 * 1024)
         {
             FilePath = filePath;
             fileInfo_ = new FileInfo(filePath);

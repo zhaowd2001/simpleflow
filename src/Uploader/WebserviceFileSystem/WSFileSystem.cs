@@ -29,14 +29,16 @@ namespace WebserviceFileSystem
             // create an instance fo the web service
             WebserviceFileSystem.Uploader.FileUploader srv = newUploader();
 
-            LargeLocalFile file = new LargeLocalFile(filename);
+            LargeLocalFileReader file = new LargeLocalFileReader(filename);
             string msg = "";
+            List<String> fileParts = new List<string>();
             for (int i = 0; i < file.getFilePartCount(); i++)
             {
                 byte[] data = file.readFilePart(i);
                 string sTmp = srv.UploadFile(data, removeDriver(filename) + "-part" +
                     i.ToString().PadLeft(8, '0'));
 
+                fileParts.Add(sTmp);
                 msg += "\n" + sTmp;
                 // this will always say OK unless an error occurs,
                 // if an error occurs, the service returns the error message
@@ -51,6 +53,13 @@ namespace WebserviceFileSystem
                     ) == System.Windows.Forms.DialogResult.Cancel)
                         break;
 #endif
+            }
+            //write large info file
+            {
+                byte[] data = LargeLocalFileInfo.buildContent(fileParts.ToArray());
+                string largeFileName = removeDriver(filename) + LargeLocalFileInfo.FILE_NAME_EXT;
+                string sTmp = srv.UploadFile(data, largeFileName);
+                msg += "\n" + sTmp;
             }
             return msg;
         }
