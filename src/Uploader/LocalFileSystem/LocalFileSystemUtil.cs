@@ -18,22 +18,29 @@ namespace LocalFileSystem
 
         public static void FindFile(string DirPath,
             string fileSearchPattern,
-            string dirSearchPattern,
+            string subDir,
             ref List<String> AL)
         {
             //C#枚举文件的代码实现
             //列举出所有文件,添加到AL  
 
-            foreach (string file in Directory.GetFiles(DirPath, fileSearchPattern))
+            foreach (string file in Directory.GetFiles(appendPath(DirPath, subDir), fileSearchPattern))
                 AL.Add(file);
 
             //列举出所有子文件夹,并对之调用GetAllFileByDir自己;  
             //C#枚举文件的代码实现
-            foreach (string dir in Directory.GetDirectories(DirPath, dirSearchPattern))
-                FindFile(dir, fileSearchPattern, dirSearchPattern, ref AL);
+            //foreach (string dir in Directory.GetDirectories(DirPath, dirSearchPattern))
+            //    FindFile(dir, fileSearchPattern, dirSearchPattern, ref AL);
         }
 
-        public static void writeFile(byte[] f, string filePath)
+        static string appendPath(string path, string subDir)
+        {
+            if (path[path.Length - 1] == '\\')
+                return path + subDir;
+            return path + "\\" + subDir;
+        }
+
+        public static void writeFile(byte[] f, string filePath, FileMode mode)
         {
             // the byte array argument contains the content of the file
             // the string argument contains the name and extension
@@ -48,7 +55,7 @@ namespace LocalFileSystem
                 // to name the resulting file
                 LocalFileSystemUtil.createDirectoryForFile(filePath);
                 using (FileStream fs = new FileStream
-                    (filePath, FileMode.Create))
+                    (filePath, mode))
                 {
 
                     // write the memory stream containing the original

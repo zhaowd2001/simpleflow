@@ -28,7 +28,7 @@ namespace Uploader
         public string UploadFile(byte[] f, string fileName)
         {
             string filePath = getUploadFolder() + fileName;
-            LocalFileSystemUtil.writeFile(f, filePath);
+            LocalFileSystemUtil.writeFile(f, filePath, FileMode.Create);
             return removeUploadFolder(filePath);
         }
 
@@ -39,7 +39,8 @@ namespace Uploader
             string[] files = List(fileSearchPattern, dirSearchPattern);
             foreach (string file in files)
             {
-                ret.Add(new FileContent(file, LocalFileSystemUtil.readFile(file)));
+                ret.Add(new FileContent(file, LocalFileSystemUtil.readFile(
+                    getUploadFolder()+file)));
             }
             return ret.ToArray();
         }

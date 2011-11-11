@@ -40,7 +40,7 @@ namespace TestUploader
         {
             try
             {
-                string msg = fileSystem_.UploadFile(filename);
+                string msg = fileSystem_.UploadLargeFile(filename);
                 MessageBox.Show("File upload:" + msg);
             }
             catch (Exception ex)
@@ -114,9 +114,10 @@ namespace TestUploader
             Remove(txtFileName.Text);
         }
 
+        static string folderPath_ = @"temp\in";
         private void btnDownload_Click(object sender, EventArgs e)
         {
-            DownloadFile(txtFileName.Text);
+            DownloadFile( WSFileSystem.getFileName(txtFileName.Text));
         }
 
         private void DownloadFile(string filename)
@@ -124,8 +125,8 @@ namespace TestUploader
             try
             {
                 // create an instance fo the web service
-                WebserviceFileSystem.Uploader.FileContent[] files = fileSystem_.DownloadFile(filename, "temp");
-                MessageBox.Show("File Download Status: " + files[0].path_, "File Download ");
+                string filePath = fileSystem_.DownloadLargeFile(filename, folderPath_, @"e:\temp\3-2.bmp");
+                MessageBox.Show("File Download Status: " + filePath, "File Download ");
             }
             catch (Exception ex)
             {
@@ -143,7 +144,7 @@ namespace TestUploader
         {
             try
             {
-                string[] files = fileSystem_.List( txtFileName.Text, "temp");
+                string[] files = fileSystem_.List(txtFileName.Text, folderPath_);
                 string msg = string.Join("\n", files);
                 MessageBox.Show("File List Status: \n" + msg, "File List ");
             }
@@ -167,5 +168,6 @@ namespace TestUploader
                 MessageBox.Show(ex.Message.ToString(), "Move Error");
             }
         }
+
    }
 }

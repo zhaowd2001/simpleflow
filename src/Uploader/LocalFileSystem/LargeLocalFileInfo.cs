@@ -16,9 +16,11 @@ namespace LocalFileSystem
             foreach (string s in fileParts)
             {
                 ret.AddRange(UTF8Encoding.UTF8.GetBytes(s));
-                ret.Add( 13 );
+                ret.Add( 10 ); // 10 = \n
             }
             //
+            //remove last char : \n
+            ret.RemoveAt(ret.Count - 1);
             return ret.ToArray();
         }
 

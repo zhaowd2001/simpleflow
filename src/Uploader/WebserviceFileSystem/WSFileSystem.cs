@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 using FileSystem;
 using LocalFileSystem;
@@ -21,7 +22,7 @@ namespace WebserviceFileSystem
         /// a file through a web service
         /// </summary>
         /// <param name="filename">Pass the file path to upload</param>
-        public string UploadFile(string filename)
+        public string UploadLargeFile(string filename)
         {
             // get the exact file name from the path
             String strFile = System.IO.Path.GetFileName(filename);
@@ -72,12 +73,42 @@ namespace WebserviceFileSystem
             return srv.Remove(filename);
         }
 
-        public WebserviceFileSystem.Uploader.FileContent[] DownloadFile(string filename, string directory)
+        private WebserviceFileSystem.Uploader.FileContent[] DownloadFile(string filename, string directory)
         {
-                // create an instance fo the web service
+            // create an instance fo the web service
             WebserviceFileSystem.Uploader.FileUploader srv = newUploader();
 
             return srv.DownloadFile(filename, directory);
+        }
+
+        public string  DownloadLargeFile(string remoteFileName, string remoteDirectory, string destFilePath)
+        {
+            string descriptionFileName = remoteFileName + LargeLocalFileInfo.FILE_NAME_EXT;
+
+            // create an instance fo the web service
+            WebserviceFileSystem.Uploader.FileUploader srv = newUploader();
+
+            WebserviceFileSystem.Uploader.FileContent[] descriptionFileContent =
+                srv.DownloadFile(descriptionFileName, remoteDirectory);
+
+            string[] fileParts = content2string(descriptionFileContent[0].content_);
+            foreach (string filePart in fileParts)
+            {
+                WebserviceFileSystem.Uploader.FileContent[] partData = srv.DownloadFile(
+                    getFileName(filePart),
+                    getFolder(filePart));
+                LocalFileSystem.LocalFileSystemUtil.writeFile(partData[0].content_, destFilePath, FileMode.Append);
+            }
+            //
+            //
+            string f = descriptionFileContent[0].path_;
+            f = f.Substring(0, f.Length - LargeLocalFileInfo.FILE_NAME_EXT.Length);
+            return f;
+        }
+
+        static string[] content2string(byte[] d)
+        {
+            return UTF8Encoding.UTF8.GetString(d).Split(new char[] { '\n' });
         }
 
         public string[] List(string filename, string directory)
@@ -122,6 +153,29 @@ namespace WebserviceFileSystem
 
             return filename;
         }
-    }
 
+        static public string getFileName(string filePath)
+        {
+            string[] arr = filePath.Split(new char[] { '\\' });
+            return arr[arr.Length - 1];
+        }
+
+        static public string getFolder(string filePath)
+        {
+            string[] arr = filePath.Split(new char[] { '\\' });
+            string r = "";
+            for(int i=0;i<arr.Length-1;i++){
+                r += arr[i];
+                r += "\\";
+            }
+            if (r.Length > 0)
+            {
+                if (r[r.Length - 1] == '\\')
+                {
+                    r = r.Substring(0, r.Length - 1);
+                }
+            }
+            return r;
+        }
+    }
 }
