@@ -19,15 +19,25 @@ namespace TestUploader
     {
 
         WSFileSystem fileSystem_;
+
         public Form1()
         {
             InitializeComponent();
         }
 
+        void onWSFileSystemEvent(object Sender, WSFileSystemEventArgs e)
+        {
+            lblFileName.Text = e.filePath_;
+            lblProgross.Text = string.Format("{0} of {1}", e.part_, e.partCount_);
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            lblFileName.Text = "";
+            lblProgross.Text = "";
+
             fileSystem_ = new WSFileSystem();
+            fileSystem_.WSFileSystemEvent += this.onWSFileSystemEvent;
         }
 
         /// <summary>
@@ -167,6 +177,12 @@ namespace TestUploader
                 // display an error message to the user
                 MessageBox.Show(ex.Message.ToString(), "Move Error");
             }
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            fileSystem_.WSFileSystemEvent -= this.onWSFileSystemEvent;
+            fileSystem_ = null;
         }
 
    }

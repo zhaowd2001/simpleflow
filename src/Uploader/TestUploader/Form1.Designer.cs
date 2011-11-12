@@ -38,6 +38,8 @@ namespace TestUploader
             this.btnList = new System.Windows.Forms.Button();
             this.btnMove = new System.Windows.Forms.Button();
             this.txtNewName = new System.Windows.Forms.TextBox();
+            this.lblFileName = new System.Windows.Forms.Label();
+            this.lblProgross = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -130,11 +132,31 @@ namespace TestUploader
             this.txtNewName.TabIndex = 8;
             this.txtNewName.Text = "testdata\\test2.jpg";
             // 
+            // lblFileName
+            // 
+            this.lblFileName.AutoSize = true;
+            this.lblFileName.Location = new System.Drawing.Point(12, 210);
+            this.lblFileName.Name = "lblFileName";
+            this.lblFileName.Size = new System.Drawing.Size(71, 12);
+            this.lblFileName.TabIndex = 9;
+            this.lblFileName.Text = "lblFileName";
+            // 
+            // lblProgross
+            // 
+            this.lblProgross.AutoSize = true;
+            this.lblProgross.Location = new System.Drawing.Point(12, 232);
+            this.lblProgross.Name = "lblProgross";
+            this.lblProgross.Size = new System.Drawing.Size(71, 12);
+            this.lblProgross.TabIndex = 10;
+            this.lblProgross.Text = "lblProgross";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(311, 264);
+            this.Controls.Add(this.lblProgross);
+            this.Controls.Add(this.lblFileName);
             this.Controls.Add(this.txtNewName);
             this.Controls.Add(this.btnMove);
             this.Controls.Add(this.btnList);
@@ -146,6 +168,7 @@ namespace TestUploader
             this.Controls.Add(this.button1);
             this.Name = "Form1";
             this.Text = "Uploader Test";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -164,6 +187,8 @@ namespace TestUploader
         private System.Windows.Forms.Button btnList;
         private System.Windows.Forms.Button btnMove;
         private System.Windows.Forms.TextBox txtNewName;
+        private System.Windows.Forms.Label lblFileName;
+        private System.Windows.Forms.Label lblProgross;
     }
 }
 
