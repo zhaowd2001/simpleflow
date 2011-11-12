@@ -50,7 +50,11 @@ namespace TestUploader
         {
             try
             {
-                string msg = fileSystem_.UploadLargeFile(filename);
+                string msg = fileSystem_.UploadLargeFile(filename,
+                    WSFileSystem.removeDriver(
+                    WSFileSystem.getFolder(filename)
+                    )
+                    );
                 MessageBox.Show("File upload:" + msg);
             }
             catch (Exception ex)

@@ -24,27 +24,28 @@ namespace WebserviceFileSystem
         /// used in any application where it is necessary to upload
         /// a file through a web service
         /// </summary>
-        /// <param name="filename">Pass the file path to upload</param>
-        public string UploadLargeFile(string filename)
+        /// <param name="localFilePath">Pass the file path to upload</param>
+        public string UploadLargeFile(string localFilePath, string remoteFolder)
         {
             // get the exact file name from the path
-            String strFile = System.IO.Path.GetFileName(filename);
+            String strFile = System.IO.Path.GetFileName(localFilePath);
 
             // create an instance fo the web service
             WebserviceFileSystem.Uploader.FileUploader srv = newUploader();
 
-            LargeLocalFileReader file = new LargeLocalFileReader(filename);
+            LargeLocalFileReader file = new LargeLocalFileReader(localFilePath);
 
             WSFileSystemEventArgs e = new WSFileSystemEventArgs();
-            e.filePath_ = filename;
+            e.filePath_ = localFilePath;
             e.partCount_ = file.getFilePartCount();
             string msg = "";
             List<String> fileParts = new List<string>();
             for (int i = 0; i < file.getFilePartCount(); i++)
             {
                 byte[] data = file.readFilePart(i);
-                string sTmp = srv.UploadFile(data, removeDriver(filename) + "-part" +
-                    i.ToString().PadLeft(8, '0'));
+                string fileName = getFileName(localFilePath)+"-part" +
+                    i.ToString().PadLeft(8, '0');
+                string sTmp = srv.UploadFile(data, remoteFolder +"\\" + fileName);
 
                 e.part_++;
                 RaiseWSFileSystemEvent(e);
@@ -68,7 +69,7 @@ namespace WebserviceFileSystem
             //write large info file
             {
                 byte[] data = LargeLocalFileInfo.buildContent(fileParts.ToArray());
-                string largeFileName = removeDriver(filename) + LargeLocalFileInfo.FILE_NAME_EXT;
+                string largeFileName = remoteFolder+"\\"+ getFileName(localFilePath) + LargeLocalFileInfo.FILE_NAME_EXT;
                 string sTmp = srv.UploadFile(data, largeFileName);
                 msg += "\n" + sTmp;
             }
@@ -161,7 +162,7 @@ namespace WebserviceFileSystem
         }
 
 
-        private static string removeDriver(string filename)
+        public static string removeDriver(string filename)
         {
             if (filename.Length >= 3)
             {
@@ -173,7 +174,7 @@ namespace WebserviceFileSystem
             return filename;
         }
 
-        static public string getFileName(string filePath)
+        public static string getFileName(string filePath)
         {
             string[] arr = filePath.Split(new char[] { '\\' });
             return arr[arr.Length - 1];

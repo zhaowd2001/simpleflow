@@ -21,6 +21,10 @@ src/Uploader/FileSystem/bin/
 src/Uploader/FileSystem/obj/
 src/Uploader/LocalFileSystem/bin/
 src/Uploader/LocalFileSystem/obj/
+src/Uploader/wsfileconsole/obj/
+src/Uploader/wsfileconsole/bin/
+src/Uploader/Uploader-2010.suo
+src/Uploader/Uploader.suo
 *.ncb
 *.suo
 *.fbl4
