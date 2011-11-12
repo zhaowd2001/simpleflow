@@ -35,6 +35,8 @@ namespace wsfileconsole
         void doMain(string[] args)
         {
             fileSystem_ = new WSFileSystem();
+            if( getWebServiceUrl().Length >0)
+                fileSystem_.Url = getWebServiceUrl();
             fileSystem_.WSFileSystemEvent += this.onWSFileSystemEvent;
             //
             handleCommandLine(args);
@@ -155,6 +157,12 @@ namespace wsfileconsole
             ret += move(remoteFolder + "\\" + remoteFileName,
                 remoteFolder2 + "\\" + remoteFileName);
             return ret;
+        }
+
+        static string getWebServiceUrl()
+        {
+            return System.Configuration.ConfigurationManager
+                .AppSettings["UploaderUrl"];
         }
 
         void usage()
