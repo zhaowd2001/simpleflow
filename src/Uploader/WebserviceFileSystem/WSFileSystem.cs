@@ -76,12 +76,18 @@ namespace WebserviceFileSystem
             return msg;
         }
 
-        public string Remove(string filename)
+        public string Remove(string[] filenames)
         {
             // create an instance fo the web service
             WebserviceFileSystem.Uploader.FileUploader srv = newUploader();
+            string ret = "";
+            foreach (string f in filenames)
+            {
+                ret += srv.Remove(f);
+                ret += "\n";
+            }
 
-            return srv.Remove(filename);
+            return ret;
         }
 
         private WebserviceFileSystem.Uploader.FileContent[] DownloadFile(string filename, string directory)
@@ -92,8 +98,13 @@ namespace WebserviceFileSystem
             return srv.DownloadFile(filename, directory);
         }
 
-        public string  DownloadLargeFile(string remoteFileName, string remoteDirectory, string destFilePath)
+        public string  DownloadLargeFile(
+            string remoteFileName, 
+            string remoteDirectory, 
+            string destFilePath,
+            out string[] arrFilePart)
         {
+            List<String> listFilePart = new List<string>();
             string descriptionFileName = remoteFileName + LargeLocalFileInfo.FILE_NAME_EXT;
 
             // create an instance fo the web service
@@ -101,6 +112,7 @@ namespace WebserviceFileSystem
 
             WebserviceFileSystem.Uploader.FileContent[] descriptionFileContent =
                 srv.DownloadFile(descriptionFileName, remoteDirectory);
+            listFilePart.Add(remoteDirectory + "\\" + descriptionFileName);
 
             string fileNameOnServer = descriptionFileContent[0].path_;
             fileNameOnServer = fileNameOnServer.Substring(0, fileNameOnServer.Length - LargeLocalFileInfo.FILE_NAME_EXT.Length);
@@ -109,6 +121,7 @@ namespace WebserviceFileSystem
             e.filePath_ = fileNameOnServer;
 
             string[] fileParts = content2string(descriptionFileContent[0].content_);
+            listFilePart.AddRange(fileParts);
             e.partCount_ = fileParts.Length;
 
             foreach (string filePart in fileParts)
@@ -123,12 +136,23 @@ namespace WebserviceFileSystem
             }
             //
             //
+            arrFilePart = listFilePart.ToArray();
             return fileNameOnServer;
         }
 
         static string[] content2string(byte[] d)
         {
             return UTF8Encoding.UTF8.GetString(d).Split(new char[] { '\n' });
+        }
+
+        public string[] ListLargeFile(string filename, string directory)
+        {
+            List<string> ret = new List<string>();
+            foreach (string f in List(filename, directory))
+            {
+                ret.Add(f.Remove(f.Length - LargeLocalFileInfo.FILE_NAME_EXT.Length));
+            }
+            return ret.ToArray();
         }
 
         public string[] List(string filename, string directory)

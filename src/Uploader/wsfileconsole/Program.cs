@@ -56,14 +56,57 @@ namespace wsfileconsole
                       msg = download(args[1], args[2]);
                 else if (args[0] == "move")
                     msg = move(args[1], args[2]);
-                else if (args[0] == "del")
-                    msg = del(args[1]);
+                else if (args[0] == "del"){
+                    List<String> filesToDel = new List<string>();
+                    filesToDel.AddRange(args);
+                    filesToDel.RemoveAt(0);
+                    msg = del( filesToDel.ToArray());
+                }
                 else if (args[0] == "find")
                     msg = find(args[1], args[2]);
+                else if (args[0] == "upload-move")
+                    msg = Upload_Move(args[1], args[2], args[3]);
+                else if (args[0] == "find-download-del")
+                    msg = Find_Download_Del(args[1], args[2], args[3]);
                 else
                     usage();
                 System.Console.Write(msg);
                 }
+        }
+
+        ///
+        /// find-download-del:
+        /// parameters: <remote file>   <remote folder>   <local folder>
+        ///    1.find files in <remote folder>;
+        ///    2.download them to <local folder>;
+        ///    3.remove them from <remote folder>.
+        ///    
+        string Find_Download_Del(string remoteFile, string remoteFolder, string localFolder)
+        {
+            string ret = "";
+            //find
+            string[] remoteFiles = fileSystem_.ListLargeFile(remoteFile, remoteFolder);
+
+            List<string[]> remoteFileParts = new List<string[]>();
+            //download
+            foreach (string remoteFilePath in remoteFiles)
+            {
+                string[] fileParts = null;
+                ret += fileSystem_.DownloadLargeFile(
+                    WSFileSystem.getFileName(remoteFilePath),
+                    WSFileSystem.getFolder(remoteFilePath),
+                    localFolder + "\\"+WSFileSystem.getFileName(remoteFilePath),
+                    out fileParts);
+                remoteFileParts.Add(fileParts);
+                ret += "\n";
+            }
+            //del
+            foreach (string[] fileParts in remoteFileParts)
+            {
+                ret += fileSystem_.Remove(fileParts);
+                ret += "\n";
+            }
+            return ret;
         }
 
         string upload(string localFilePath, string remoteFolder)
@@ -77,9 +120,9 @@ namespace wsfileconsole
             return string.Join("\n", files);
         }
 
-        string del(string remoteFile)
+        string del(string[] remoteFiles)
         {
-            return fileSystem_.Remove(remoteFile);
+            return fileSystem_.Remove(remoteFiles);
         }
 
         string move(string remoteFile1, string remoteFile2)
@@ -93,12 +136,49 @@ namespace wsfileconsole
             remoteFileName = WSFileSystem.getFileName(remoteFilePath);
             remoteDirectory = WSFileSystem.getFolder(remoteFilePath);
             localPath = localFolder + "\\" + remoteFileName;
-            return fileSystem_.DownloadLargeFile(remoteFileName, remoteDirectory, localPath);
+
+            string[] fileParts;
+            return fileSystem_.DownloadLargeFile(remoteFileName, remoteDirectory, localPath, out fileParts);
+        }
+
+        ///
+        ///upload-move:
+        ///parameters: <local path>    <remote folder>   <remote folder2>
+        ///1.upload <local path> to <remote folder>;
+        ///2.move it from <remote folder> to <remote folder2>
+        ///
+        string Upload_Move(string localPath, string remoteFolder, string remoteFolder2)
+        {
+            string ret = upload(localPath, remoteFolder);
+            ret += "\n";
+            string remoteFileName = WSFileSystem.getFileName(localPath) + LargeLocalFileInfo.FILE_NAME_EXT;
+            ret += move(remoteFolder + "\\" + remoteFileName,
+                remoteFolder2 + "\\" + remoteFileName);
+            return ret;
         }
 
         void usage()
         {
-            string help = @"upload/download file";
+            string help = @"Web Service file system.
+simple command:
+upload   <local path>    <remote folder>
+download <remote path>   <local folder>
+move     <remote source> <remote destination>
+del      <remote path>   <remote path 2> <...>
+find     <remote file>   <remote folder>
+
+complex command:
+find-download-del:
+parameters: <remote file>   <remote folder>   <local folder>
+   1.find files in <remote folder>;
+   2.download them to <local folder>;
+   3.remove them from <remote folder>.
+
+upload-move:
+parameters: <local path>    <remote folder>   <remote folder2>
+   1.upload <local path> to <remote folder>;
+   2.move it from <remote folder> to <remote folder2>
+";
             System.Console.Write(help);
         }
     }

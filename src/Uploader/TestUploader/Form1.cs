@@ -68,7 +68,7 @@ namespace TestUploader
         {
             try
             {
-                string sTmp = fileSystem_.Remove(filename);
+                string sTmp = fileSystem_.Remove(new string[]{filename});
                 MessageBox.Show("Remove Status: " + sTmp, "Remove");
             }
             catch (Exception ex)
@@ -138,8 +138,9 @@ namespace TestUploader
         {
             try
             {
+                string[] fileParts;
                 // create an instance fo the web service
-                string filePath = fileSystem_.DownloadLargeFile(filename, folderPath_, @"e:\temp\3-2.bmp");
+                string filePath = fileSystem_.DownloadLargeFile(filename, folderPath_, @"e:\temp\3-2.bmp", out fileParts);
                 MessageBox.Show("File Download Status: " + filePath, "File Download ");
             }
             catch (Exception ex)

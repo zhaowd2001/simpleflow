@@ -64,7 +64,22 @@ namespace Uploader
         {
             checkFileName(oldFileName);
             checkFileName(newFileName);
-            File.Move(getUploadFolder() + oldFileName, getUploadFolder() + newFileName);
+            //create folder for new file
+            string oldFile = getUploadFolder() + oldFileName;
+            string newFile = getUploadFolder() + newFileName;
+
+            LocalFileSystemUtil.createDirectoryForFile(newFile);
+
+            if (File.Exists(newFile))
+            {//copy then del
+
+                File.Copy(oldFile, newFile, true);
+                File.Delete(oldFile);
+            }else
+            {//direct move
+                //
+                File.Move( oldFile, newFile);
+            }
             return newFileName;
         }
 
