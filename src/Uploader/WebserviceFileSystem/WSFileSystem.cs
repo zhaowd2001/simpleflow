@@ -11,6 +11,9 @@ namespace WebserviceFileSystem
 {
     public class WSFileSystem 
     {
+        public delegate void WSFileSystemEventHandler(object sender, WSFileSystemEventArgs e);
+        public event WSFileSystemEventHandler WSFileSystemEvent;
+
         public WSFileSystem()
         {
             Url = new WebserviceFileSystem.Uploader.FileUploader().Url;
@@ -31,6 +34,10 @@ namespace WebserviceFileSystem
             WebserviceFileSystem.Uploader.FileUploader srv = newUploader();
 
             LargeLocalFileReader file = new LargeLocalFileReader(filename);
+
+            WSFileSystemEventArgs e = new WSFileSystemEventArgs();
+            e.filePath_ = filename;
+            e.partCount_ = file.getFilePartCount();
             string msg = "";
             List<String> fileParts = new List<string>();
             for (int i = 0; i < file.getFilePartCount(); i++)
@@ -38,6 +45,9 @@ namespace WebserviceFileSystem
                 byte[] data = file.readFilePart(i);
                 string sTmp = srv.UploadFile(data, removeDriver(filename) + "-part" +
                     i.ToString().PadLeft(8, '0'));
+
+                e.part_++;
+                RaiseWSFileSystemEvent(e);
 
                 fileParts.Add(sTmp);
                 msg += "\n" + sTmp;
@@ -91,19 +101,28 @@ namespace WebserviceFileSystem
             WebserviceFileSystem.Uploader.FileContent[] descriptionFileContent =
                 srv.DownloadFile(descriptionFileName, remoteDirectory);
 
+            string fileNameOnServer = descriptionFileContent[0].path_;
+            fileNameOnServer = fileNameOnServer.Substring(0, fileNameOnServer.Length - LargeLocalFileInfo.FILE_NAME_EXT.Length);
+            
+            WSFileSystemEventArgs e = new WSFileSystemEventArgs();
+            e.filePath_ = fileNameOnServer;
+
             string[] fileParts = content2string(descriptionFileContent[0].content_);
+            e.partCount_ = fileParts.Length;
+
             foreach (string filePart in fileParts)
             {
                 WebserviceFileSystem.Uploader.FileContent[] partData = srv.DownloadFile(
                     getFileName(filePart),
                     getFolder(filePart));
                 LocalFileSystem.LocalFileSystemUtil.writeFile(partData[0].content_, destFilePath, FileMode.Append);
+                
+                e.part_++;
+                RaiseWSFileSystemEvent(e);
             }
             //
             //
-            string f = descriptionFileContent[0].path_;
-            f = f.Substring(0, f.Length - LargeLocalFileInfo.FILE_NAME_EXT.Length);
-            return f;
+            return fileNameOnServer;
         }
 
         static string[] content2string(byte[] d)
@@ -176,6 +195,12 @@ namespace WebserviceFileSystem
                 }
             }
             return r;
+        }
+
+        void RaiseWSFileSystemEvent(WSFileSystemEventArgs e)
+        {
+            if( WSFileSystemEvent != null )
+                WSFileSystemEvent(this, e);
         }
     }
 }
