@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://localhost/webservices/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://localhost/webservices/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://localhost/webservices/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="StartSession">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="sessionID" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="clientID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StartSessionResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="StopSession">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="sessionID" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StopSessionResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetActiveClients">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="sessionID" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetActiveClientsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetActiveClientsResult" type="tns:ArrayOfInt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="StartSessionSoapIn">
+    <wsdl:part name="parameters" element="tns:StartSession" />
+  </wsdl:message>
+  <wsdl:message name="StartSessionSoapOut">
+    <wsdl:part name="parameters" element="tns:StartSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="StopSessionSoapIn">
+    <wsdl:part name="parameters" element="tns:StopSession" />
+  </wsdl:message>
+  <wsdl:message name="StopSessionSoapOut">
+    <wsdl:part name="parameters" element="tns:StopSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetActiveClientsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetActiveClients" />
+  </wsdl:message>
+  <wsdl:message name="GetActiveClientsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetActiveClientsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WebServiceSoap">
+    <wsdl:operation name="StartSession">
+      <wsdl:input message="tns:StartSessionSoapIn" />
+      <wsdl:output message="tns:StartSessionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StopSession">
+      <wsdl:input message="tns:StopSessionSoapIn" />
+      <wsdl:output message="tns:StopSessionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActiveClients">
+      <wsdl:input message="tns:GetActiveClientsSoapIn" />
+      <wsdl:output message="tns:GetActiveClientsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WebServiceSoap" type="tns:WebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="StartSession">
+      <soap:operation soapAction="http://localhost/webservices/StartSession" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StopSession">
+      <soap:operation soapAction="http://localhost/webservices/StopSession" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActiveClients">
+      <soap:operation soapAction="http://localhost/webservices/GetActiveClients" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WebServiceSoap12" type="tns:WebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="StartSession">
+      <soap12:operation soapAction="http://localhost/webservices/StartSession" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StopSession">
+      <soap12:operation soapAction="http://localhost/webservices/StopSession" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActiveClients">
+      <soap12:operation soapAction="http://localhost/webservices/GetActiveClients" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WebService">
+    <wsdl:port name="WebServiceSoap" binding="tns:WebServiceSoap">
+      <soap:address location="http://localhost:19269/WebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WebServiceSoap12" binding="tns:WebServiceSoap12">
+      <soap12:address location="http://localhost:19269/WebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -5,10 +5,10 @@ src/Wse3Transports/Server/obj/
 src/Wse3Transports/WseTransports/bin/
 src/Wse3Transports/WseTransports/obj/
 src/Uploader/Uploader/bin/
-src/Uploader/TestUploader/bin/Debug
-src/Uploader/TestUploader/bin/Release
-src/Uploader/TestUploader/obj
-src/Uploader/Uploader/TransientStorage
+src/Uploader/TestUploader/bin/Debug/
+src/Uploader/TestUploader/bin/Release/
+src/Uploader/TestUploader/obj/
+src/Uploader/Uploader/TransientStorage/
 src/Uploader/Uploader/obj/
 src/Uploader/Uploader/bin/Uploader.dll
 src/Uploader/Uploader/bin/Uploader.pdb

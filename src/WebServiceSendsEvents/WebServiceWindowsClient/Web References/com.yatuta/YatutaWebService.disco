@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://yatuta.com/webservices/YatutaWebService.asmx?wsdl" docRef="http://yatuta.com/webservices/YatutaWebService.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://yatuta.com/webservices/YatutaWebService.asmx" xmlns:q1="http://yatuta.com/webservices/" binding="q1:YatutaWebServiceSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://yatuta.com/webservices/YatutaWebService.asmx" xmlns:q2="http://yatuta.com/webservices/" binding="q2:YatutaWebServiceSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>
