@@ -68,8 +68,11 @@ namespace MessageBus
         public class Message
         {
             public String FromSessionID { get; set; }
+            public String From { get; set; }
+
             public String ToSessionID { get; set; }
             public String To{get;set;}
+            
             public String Data { get; set; }
         }
 
@@ -81,6 +84,7 @@ namespace MessageBus
             lock (s_services)
             {
                 msg.FromSessionID = sessionID.ToString();
+                msg.From = this.m_clientID;
 
                 Guid to = findToSessionID(msg);
                 if (to == Guid.Empty)

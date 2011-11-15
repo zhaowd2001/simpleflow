@@ -14,7 +14,7 @@ namespace WebServiceWindowsClient
     {
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);
-      Application.Run(new WebServiceClientForm());
+      Application.Run(new MessageBusForm());
     }
   }
 }
