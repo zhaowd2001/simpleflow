@@ -20,7 +20,7 @@ namespace MessageBus
     {
         #region private members
         // This static Dictionary keeps track of all currently open sessions
-        private static Dictionary<Guid, ClientState> s_services = new Dictionary<Guid, ClientState>();
+        private static Dictionary<Guid, ClientSessionData> s_services = new Dictionary<Guid, ClientSessionData>();
 
         private String m_clientID;
         #endregion private members
@@ -51,7 +51,7 @@ namespace MessageBus
                 {
                     // Add session to the list
                     m_clientID = clientID;
-                    s_services.Add(sessionID, new ClientState(m_clientID));
+                    s_services.Add(sessionID, new ClientSessionData(m_clientID));
                 }
             }
 
@@ -60,13 +60,14 @@ namespace MessageBus
                 // Signal GetActiveClientsCompleted event for each client
                 foreach (Guid sID in s_services.Keys)
                 {
-                    s_services[sID].GetActiveClientsCompleted.Set();
+                    s_services[sID].GetMessageCompleted.Set();
                 }
             }
         }
 
         public class Message
         {
+            public String FromSessionID { get; set; }
             public String ToSessionID { get; set; }
             public String To{get;set;}
             public String Data { get; set; }
@@ -79,17 +80,26 @@ namespace MessageBus
         {
             lock (s_services)
             {
+                msg.FromSessionID = sessionID.ToString();
+
+                Guid to = findToSessionID(msg);
+                if (to == Guid.Empty)
+                    throw new Exception(string.Format("{0} not found",
+                    msg.To));
+
+                Guid toSessionID = appendMessageToTargetSession(to, msg);
+                
+                //notify target session
+                s_services[toSessionID].GetMessageCompleted.Set();
             }
         }
 
-        void appendMessage(Message msg)
+        Guid appendMessageToTargetSession(Guid to, Message msg)
         {
-            Guid to = findToSessionID(msg);
-            if (to == Guid.Empty)
-                throw new Exception(string.Format("{0} not found",
-                msg.To));
             msg.ToSessionID = to.ToString();
+
             s_services[to].Messages.Add(msg);
+            return to;
         }
         
         
@@ -114,7 +124,7 @@ namespace MessageBus
             {
                 if (s_services.ContainsKey(sessionID))
                 {
-                    StopGetActiveClients(sessionID);
+                    StopGetMessage(sessionID);
                 }
             }
 
@@ -123,7 +133,7 @@ namespace MessageBus
                 // Signal GetActiveClientsCompleted event for each client
                 foreach (Guid sID in s_services.Keys)
                 {
-                    s_services[sID].GetActiveClientsCompleted.Set();
+                    s_services[sID].GetMessageCompleted.Set();
                 }
                 // Remove session from the list
                 s_services.Remove(sessionID);
@@ -131,7 +141,7 @@ namespace MessageBus
         }
 
         [WebMethod]
-        public GetActiveClientsResult GetActiveClients(Guid sessionID)
+        public GetMessageResult GetMessage(Guid sessionID)
         {
             if (!s_services.ContainsKey(sessionID))
             {
@@ -139,11 +149,11 @@ namespace MessageBus
                 //System.Diagnostics.Debug.WriteLine(message);
 
                 // Return empty client list
-                return new GetActiveClientsResult(new String[] { }, true);
+                return new GetMessageResult(new String[] { }, true);
             }
 
             //DateTime dt = DateTime.Now;
-            bool signalled = s_services[sessionID].GetActiveClientsCompleted.WaitOne();  // wait for GetActiveClientsCompleted event
+            bool signalled = s_services[sessionID].GetMessageCompleted.WaitOne();  // wait for GetActiveClientsCompleted event
             if (signalled)
             {
                 lock (s_services)
@@ -165,10 +175,12 @@ namespace MessageBus
                     }
                     //
                     bool exists = s_services.ContainsKey(sessionID);
-                    GetActiveClientsResult result = new GetActiveClientsResult(clients.ToArray(),
+                    GetMessageResult result = new GetMessageResult(clients.ToArray(),
                         exists ? s_services[sessionID].GetActiveClientsDone : true
                     );
                     result._Messages = s_services[sessionID].Messages;
+                    //clear message
+                    s_services[sessionID].Messages = new List<Message>();
                     return result;
                 }
             }
@@ -179,24 +191,27 @@ namespace MessageBus
 
                 bool exists = s_services.ContainsKey(sessionID);
                 // Return empty client list
-                return new GetActiveClientsResult(new String[] { },
+                return new GetMessageResult(new String[] { },
                     exists ? s_services[sessionID].GetActiveClientsDone : true);
             }
         }
         #endregion
 
-        private void StopGetActiveClients(Guid sessionID)
+        private void StopGetMessage(Guid sessionID)
         {
             s_services[sessionID].GetActiveClientsDone = true;
-            s_services[sessionID].GetActiveClientsCompleted.Set();
+            //clear message
+            s_services[sessionID].Messages = new List<Message>();
+
+            s_services[sessionID].GetMessageCompleted.Set();
         }
 
-        private class ClientState
+        private class ClientSessionData
         {
             public String ClientID;
             public List<Message> Messages = new List<Message>();
-            public AutoResetEvent GetActiveClientsCompleted = new AutoResetEvent(false);
-            public ClientState(String clientID)
+            public AutoResetEvent GetMessageCompleted = new AutoResetEvent(false);
+            public ClientSessionData(String clientID)
             {
                 ClientID = clientID;
             }
@@ -204,16 +219,16 @@ namespace MessageBus
             public bool GetActiveClientsDone = false;
         }
 
-        public class GetActiveClientsResult
+        public class GetMessageResult
         {
             public bool _Done = false;
-            public String[] _Clients = new String[] { };
+            public String[] _ClientIDs = new String[] { };
             public List<Message> _Messages = new List<Message>();
 
-            public GetActiveClientsResult() { }
-            public GetActiveClientsResult(String[] clients, bool done)
+            public GetMessageResult() { }
+            public GetMessageResult(String[] clients, bool done)
             {
-                _Clients = clients;
+                _ClientIDs = clients;
                 _Done = done;
             }
         }
