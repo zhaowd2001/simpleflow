@@ -25,6 +25,10 @@ src/Uploader/wsfileconsole/obj/
 src/Uploader/wsfileconsole/bin/
 src/Uploader/Uploader-2010.suo
 src/Uploader/Uploader.suo
+src/WebServiceSendsEvents/WebService/bin/
+src/WebServiceSendsEvents/WebService/obj/
+src/WebServiceSendsEvents/WebServiceWindowsClient/bin/
+src/WebServiceSendsEvents/WebServiceWindowsClient/obj/
 *.ncb
 *.suo
 *.fbl4
