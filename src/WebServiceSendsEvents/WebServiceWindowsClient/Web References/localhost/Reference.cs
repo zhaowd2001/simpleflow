@@ -142,10 +142,10 @@ namespace WebServiceWindowsClient.localhost {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://localhost/webservices/GetActiveClients", RequestNamespace="http://localhost/webservices/", ResponseNamespace="http://localhost/webservices/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int[] GetActiveClients(System.Guid sessionID) {
+        public GetActiveClientsResult GetActiveClients(System.Guid sessionID) {
             object[] results = this.Invoke("GetActiveClients", new object[] {
                         sessionID});
-            return ((int[])(results[0]));
+            return ((GetActiveClientsResult)(results[0]));
         }
         
         /// <remarks/>
@@ -189,6 +189,39 @@ namespace WebServiceWindowsClient.localhost {
     }
     
     /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.233")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://localhost/webservices/")]
+    public partial class GetActiveClientsResult {
+        
+        private bool _DoneField;
+        
+        private int[] _ClientsField;
+        
+        /// <remarks/>
+        public bool _Done {
+            get {
+                return this._DoneField;
+            }
+            set {
+                this._DoneField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int[] _Clients {
+            get {
+                return this._ClientsField;
+            }
+            set {
+                this._ClientsField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
     public delegate void StartSessionCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
@@ -214,10 +247,10 @@ namespace WebServiceWindowsClient.localhost {
         }
         
         /// <remarks/>
-        public int[] Result {
+        public GetActiveClientsResult Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((int[])(this.results[0]));
+                return ((GetActiveClientsResult)(this.results[0]));
             }
         }
     }
