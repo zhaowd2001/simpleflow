@@ -23,97 +23,41 @@ namespace Uploader
     [ToolboxItem(false)]
     public class FileUploader : System.Web.Services.WebService
     {
-
-        [WebMethod]
-        public string UploadFile(byte[] f, string fileName)
-        {
-            string filePath = getUploadFolder() + fileName;
-            LocalFileSystemUtil.writeFile(f, filePath, FileMode.Create);
-            return removeUploadFolder(filePath);
-        }
-
-        [WebMethod]
-        public FileContent[] DownloadFile(string fileSearchPattern, string dirSearchPattern)
-        {
-            List<FileContent> ret = new List<FileContent>();
-            string[] files = List(fileSearchPattern, dirSearchPattern);
-            foreach (string file in files)
-            {
-                ret.Add(new FileContent(file, LocalFileSystemUtil.readFile(
-                    getUploadFolder()+file)));
-            }
-            return ret.ToArray();
-        }
-
-        [WebMethod]
-        public string[] List(string fileSearchPattern, string dirSearchPattern)
-        {
-            List<String> al = new List<string>();
-            LocalFileSystemUtil.FindFile(getUploadFolder(), fileSearchPattern, dirSearchPattern, ref al);
-            
-            List<String> ret = new List<string>();
-            foreach (String fullPath in al)
-            {
-                ret.Add(removeUploadFolder(fullPath));
-            }
-            return ret.ToArray();
-        }
-
-        [WebMethod]
-        public string Move(string oldFileName, string newFileName)
-        {
-            checkFileName(oldFileName);
-            checkFileName(newFileName);
-            //create folder for new file
-            string oldFile = getUploadFolder() + oldFileName;
-            string newFile = getUploadFolder() + newFileName;
-
-            LocalFileSystemUtil.createDirectoryForFile(newFile);
-
-            if (File.Exists(newFile))
-            {//copy then del
-
-                File.Copy(oldFile, newFile, true);
-                File.Delete(oldFile);
-            }else
-            {//direct move
-                //
-                File.Move( oldFile, newFile);
-            }
-            return newFileName;
-        }
-
-        [WebMethod]
-        public string Remove(string fileName)
-        {
-            checkFileName(fileName);
-            string fullPath = getUploadFolder() + fileName;
-            if (File.Exists(fullPath))
-            {
-                File.Delete(fullPath);
-                return fileName;
-            }
-            return "NOTFOUND";
-        }
-
-        private static void checkFileName(string fileName)
-        {
-            FileInfo fi = new FileInfo(getUploadFolder() + fileName);
-            //remove last char '\'
-            string s = fi.Directory.FullName.ToLower().Substring(0, getUploadFolder().Length - 1);
-            string s2 = getUploadFolder().ToLower().Substring(0, getUploadFolder().Length - 1);
-            if (s != s2)
-                new Exception("invalid filename:" + fileName);
-        }
-
+        FileUploaderImpl uploaderImpl = new FileUploaderImpl(getUploadFolder());
         private static string getUploadFolder()
         {
             return System.Web.Hosting.HostingEnvironment.MapPath("~/TransientStorage/");
         }
 
-        private static string removeUploadFolder(string fullPath)
+
+        [WebMethod]
+        public string UploadFile(byte[] f, string fileName)
         {
-            return fullPath.Substring(getUploadFolder().Length);
+            return uploaderImpl.UploadFile(f, fileName);
+        }
+
+        [WebMethod]
+        public FileContent[] DownloadFile(string fileSearchPattern, string dirSearchPattern)
+        {
+            return uploaderImpl.DownloadFile(fileSearchPattern, dirSearchPattern);
+        }
+
+        [WebMethod]
+        public string[] List(string fileSearchPattern, string dirSearchPattern)
+        {
+            return uploaderImpl.List(fileSearchPattern, dirSearchPattern);
+        }
+
+        [WebMethod]
+        public string Move(string oldFileName, string newFileName)
+        {
+            return uploaderImpl.Move(oldFileName, newFileName);
+        }
+
+        [WebMethod]
+        public string Remove(string fileName)
+        {
+            return uploaderImpl.Remove(fileName);
         }
     }
 }

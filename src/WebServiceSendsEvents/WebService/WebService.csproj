@@ -61,6 +61,7 @@
     <Content Include="MessageBus.asmx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MessageBusImpl.cs" />
     <Compile Include="WebService.asmx.cs">
       <DependentUpon>WebService.asmx</DependentUpon>
       <SubType>Component</SubType>
