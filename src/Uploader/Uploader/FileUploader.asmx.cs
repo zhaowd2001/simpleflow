@@ -10,6 +10,7 @@ using System.IO;
 
 using FileSystem;
 using LocalFileSystem;
+using MessageBus;
 
 namespace Uploader
 {
@@ -23,7 +24,7 @@ namespace Uploader
     [ToolboxItem(false)]
     public class FileUploader : System.Web.Services.WebService
     {
-        FileUploaderImpl uploaderImpl = new FileUploaderImpl(getUploadFolder());
+        FileUploaderImpl uploaderImpl_ = new FileUploaderImpl(getUploadFolder());
         private static string getUploadFolder()
         {
             return System.Web.Hosting.HostingEnvironment.MapPath("~/TransientStorage/");
@@ -33,31 +34,67 @@ namespace Uploader
         [WebMethod]
         public string UploadFile(byte[] f, string fileName)
         {
-            return uploaderImpl.UploadFile(f, fileName);
+            return uploaderImpl_.UploadFile(f, fileName);
         }
 
         [WebMethod]
         public FileContent[] DownloadFile(string fileSearchPattern, string dirSearchPattern)
         {
-            return uploaderImpl.DownloadFile(fileSearchPattern, dirSearchPattern);
+            return uploaderImpl_.DownloadFile(fileSearchPattern, dirSearchPattern);
         }
 
         [WebMethod]
         public string[] List(string fileSearchPattern, string dirSearchPattern)
         {
-            return uploaderImpl.List(fileSearchPattern, dirSearchPattern);
+            return uploaderImpl_.List(fileSearchPattern, dirSearchPattern);
         }
 
         [WebMethod]
         public string Move(string oldFileName, string newFileName)
         {
-            return uploaderImpl.Move(oldFileName, newFileName);
+            return uploaderImpl_.Move(oldFileName, newFileName);
         }
 
         [WebMethod]
         public string Remove(string fileName)
         {
-            return uploaderImpl.Remove(fileName);
+            return uploaderImpl_.Remove(fileName);
         }
+
+        //////////////////////////////////////////////////////////
+        MessageBusImpl busImpl_ = new MessageBusImpl();
+        // I wish to have something like commented text below to be able setup event staff for WebService
+        // (see also commented out ActiveClientsChangedDelegate definition at the end of this namespace)
+        // but unfortunately it's not a case:
+        //[WebEvent]
+        //public event ActiveClientsChangedDelegate OnActiveClientsChanged = null;
+
+        #region WebService interface
+        [WebMethod]
+        public void StartSession(Guid sessionID, String clientID)
+        {
+            busImpl_.StartSession(sessionID, clientID);
+        }
+
+        [WebMethod]
+        public void SendMessage(
+            Guid sessionID,
+            MessageBusImpl.Message msg)
+        {
+            busImpl_.SendMessage(sessionID, msg);
+        }
+
+        [WebMethod]
+        public void StopSession(Guid sessionID)
+        {
+            busImpl_.StopSession(sessionID);
+        }
+
+        [WebMethod]
+        public MessageBusImpl.GetMessageResult GetMessage(Guid sessionID)
+        {
+            return busImpl_.GetMessage(sessionID);
+        }
+        #endregion
     }
 }

@@ -60,6 +60,7 @@
     <Content Include="MessageBus.asmx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MessageBusImpl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MessageBus.asmx.cs">
       <DependentUpon>MessageBus.asmx</DependentUpon>

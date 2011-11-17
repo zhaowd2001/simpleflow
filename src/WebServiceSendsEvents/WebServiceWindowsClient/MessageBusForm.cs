@@ -12,7 +12,7 @@ namespace WebServiceWindowsClient
     public partial class MessageBusForm : Form
     {
         #region local members
-        private WebServiceWindowsClient.localhost.MessageBus m_service;
+        private WebServiceWindowsClient.localhost.FileUploader m_service;
         private Guid m_sessionID;
         private String m_clientID;
         #endregion local members
@@ -22,7 +22,7 @@ namespace WebServiceWindowsClient
             InitializeComponent();
 
             // Create proxy for WebService
-            m_service = new WebServiceWindowsClient.localhost.MessageBus();
+            m_service = new WebServiceWindowsClient.localhost.FileUploader();
 
             // Subscribe for event
             m_service.GetMessageCompleted += new WebServiceWindowsClient.localhost.GetMessageCompletedEventHandler(m_service_GetActiveClientsCompleted);

@@ -2,8 +2,8 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WebServiceWindowsClient.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="WebServiceWindowsClient_localhost_MessageBus" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://localhost:19269/MessageBus.asmx</Value>
+    <Setting Name="WebServiceWindowsClient_localhost_FileUploader" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:21369/FileUploader.asmx</Value>
     </Setting>
   </Settings>
 </SettingsFile>
