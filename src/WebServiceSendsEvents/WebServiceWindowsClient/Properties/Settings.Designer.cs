@@ -26,10 +26,10 @@ namespace WebServiceWindowsClient.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:21369/FileUploader.asmx")]
-        public string WebServiceWindowsClient_localhost_FileUploader {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://chnxsc808w2k3sp2/mb/FileUploader.asmx")]
+        public string WebServiceWindowsClient_chnxsc808w2k3sp2_FileUploader {
             get {
-                return ((string)(this["WebServiceWindowsClient_localhost_FileUploader"]));
+                return ((string)(this["WebServiceWindowsClient_chnxsc808w2k3sp2_FileUploader"]));
             }
         }
     }

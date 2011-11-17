@@ -32,31 +32,31 @@ namespace Uploader
 
 
         [WebMethod]
-        public string UploadFile(byte[] f, string fileName)
+        public string UploadFile(Guid sessionID, byte[] f, string fileName)
         {
             return uploaderImpl_.UploadFile(f, fileName);
         }
 
         [WebMethod]
-        public FileContent[] DownloadFile(string fileSearchPattern, string dirSearchPattern)
+        public FileContent[] DownloadFile(Guid sessionID, string fileSearchPattern, string dirSearchPattern)
         {
             return uploaderImpl_.DownloadFile(fileSearchPattern, dirSearchPattern);
         }
 
         [WebMethod]
-        public string[] List(string fileSearchPattern, string dirSearchPattern)
+        public string[] List(Guid sessionID, string fileSearchPattern, string dirSearchPattern)
         {
             return uploaderImpl_.List(fileSearchPattern, dirSearchPattern);
         }
 
         [WebMethod]
-        public string Move(string oldFileName, string newFileName)
+        public string Move(Guid sessionID, string oldFileName, string newFileName)
         {
             return uploaderImpl_.Move(oldFileName, newFileName);
         }
 
         [WebMethod]
-        public string Remove(string fileName)
+        public string Remove(Guid sessionID, string fileName)
         {
             return uploaderImpl_.Remove(fileName);
         }

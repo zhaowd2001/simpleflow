@@ -2,8 +2,8 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WebserviceFileSystem.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="WebserviceFileSystem_Uploader_FileUploader" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://localhost:21369/FileUploader.asmx</Value>
+    <Setting Name="WebserviceFileSystem_uploaderWS_FileUploader" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://chnxsc808w2k3sp2/mb/FileUploader.asmx</Value>
     </Setting>
   </Settings>
 </SettingsFile>

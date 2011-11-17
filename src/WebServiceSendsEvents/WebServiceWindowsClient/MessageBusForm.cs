@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +11,7 @@ namespace WebServiceWindowsClient
     public partial class MessageBusForm : Form
     {
         #region local members
-        private WebServiceWindowsClient.localhost.FileUploader m_service;
+        private uploaderWS.FileUploader m_service;
         private Guid m_sessionID;
         private String m_clientID;
         #endregion local members
@@ -22,10 +21,10 @@ namespace WebServiceWindowsClient
             InitializeComponent();
 
             // Create proxy for WebService
-            m_service = new WebServiceWindowsClient.localhost.FileUploader();
+            m_service = new uploaderWS.FileUploader();
 
             // Subscribe for event
-            m_service.GetMessageCompleted += new WebServiceWindowsClient.localhost.GetMessageCompletedEventHandler(m_service_GetActiveClientsCompleted);
+            m_service.GetMessageCompleted += new uploaderWS.GetMessageCompletedEventHandler(m_service_GetActiveClientsCompleted);
 
             buttonStartSession.Enabled = true;
             buttonStopSession.Enabled = false;
@@ -36,8 +35,8 @@ namespace WebServiceWindowsClient
             m_clientID = System.Net.Dns.GetHostName()+"-"+m_sessionID.ToByteArray()[0].ToString();
         }
 
-        void m_service_GetActiveClientsCompleted(object sender, 
-            WebServiceWindowsClient.localhost.GetMessageCompletedEventArgs e)
+        void m_service_GetActiveClientsCompleted(object sender,
+            uploaderWS.GetMessageCompletedEventArgs e)
         {
             if (e.Error != null)
             {
@@ -48,7 +47,7 @@ namespace WebServiceWindowsClient
             String[] clients = e.Result._ClientIDs;
 
             string msg1 = "";
-            foreach (localhost.Message msg in e.Result._Messages)
+            foreach (uploaderWS.Message msg in e.Result._Messages)
             {
                 msg1 += msg.From;
                 msg1 += " said to me:";
@@ -99,7 +98,7 @@ namespace WebServiceWindowsClient
                 // Stop session
                 m_service.StopSession(m_sessionID);
             }
-            catch (Exception e1)
+            catch (Exception)
             {
                 //...
             }
@@ -131,7 +130,7 @@ namespace WebServiceWindowsClient
             txtTo.Text = m_clientID;
 
             txtMessageBusServer.Text =
-                string.Format("http://{0}/mb/MessageBus.asmx", "13.187.242.140");
+                string.Format("http://{0}/mb/FileUploader.asmx", "chnxsc808w2k3sp2");
                 //m_service.Url;
             m_service.Url = txtMessageBusServer.Text;
 
@@ -142,7 +141,7 @@ namespace WebServiceWindowsClient
         {
 
             //send message
-            localhost.Message msg = new localhost.Message();
+            uploaderWS.Message msg = new uploaderWS.Message();
             msg.Data = System.DateTime.Now.ToLongTimeString() + " "+txtMessage.Text.Trim();
             msg.To = txtTo.Text.Trim();
 

@@ -13,7 +13,7 @@
 // 
 #pragma warning disable 1591
 
-namespace WebServiceWindowsClient.localhost {
+namespace WebserviceFileSystem.uploaderWS {
     using System;
     using System.Web.Services;
     using System.Diagnostics;
@@ -51,7 +51,7 @@ namespace WebServiceWindowsClient.localhost {
         
         /// <remarks/>
         public FileUploader() {
-            this.Url = global::WebServiceWindowsClient.Properties.Settings.Default.WebServiceWindowsClient_localhost_FileUploader;
+            this.Url = global::WebserviceFileSystem.Properties.Settings.Default.WebserviceFileSystem_uploaderWS_FileUploader;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;
@@ -114,24 +114,26 @@ namespace WebServiceWindowsClient.localhost {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/UploadFile", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string UploadFile([System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] f, string fileName) {
+        public string UploadFile(System.Guid sessionID, [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] f, string fileName) {
             object[] results = this.Invoke("UploadFile", new object[] {
+                        sessionID,
                         f,
                         fileName});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void UploadFileAsync(byte[] f, string fileName) {
-            this.UploadFileAsync(f, fileName, null);
+        public void UploadFileAsync(System.Guid sessionID, byte[] f, string fileName) {
+            this.UploadFileAsync(sessionID, f, fileName, null);
         }
         
         /// <remarks/>
-        public void UploadFileAsync(byte[] f, string fileName, object userState) {
+        public void UploadFileAsync(System.Guid sessionID, byte[] f, string fileName, object userState) {
             if ((this.UploadFileOperationCompleted == null)) {
                 this.UploadFileOperationCompleted = new System.Threading.SendOrPostCallback(this.OnUploadFileOperationCompleted);
             }
             this.InvokeAsync("UploadFile", new object[] {
+                        sessionID,
                         f,
                         fileName}, this.UploadFileOperationCompleted, userState);
         }
@@ -145,24 +147,26 @@ namespace WebServiceWindowsClient.localhost {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/DownloadFile", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public FileContent[] DownloadFile(string fileSearchPattern, string dirSearchPattern) {
+        public FileContent[] DownloadFile(System.Guid sessionID, string fileSearchPattern, string dirSearchPattern) {
             object[] results = this.Invoke("DownloadFile", new object[] {
+                        sessionID,
                         fileSearchPattern,
                         dirSearchPattern});
             return ((FileContent[])(results[0]));
         }
         
         /// <remarks/>
-        public void DownloadFileAsync(string fileSearchPattern, string dirSearchPattern) {
-            this.DownloadFileAsync(fileSearchPattern, dirSearchPattern, null);
+        public void DownloadFileAsync(System.Guid sessionID, string fileSearchPattern, string dirSearchPattern) {
+            this.DownloadFileAsync(sessionID, fileSearchPattern, dirSearchPattern, null);
         }
         
         /// <remarks/>
-        public void DownloadFileAsync(string fileSearchPattern, string dirSearchPattern, object userState) {
+        public void DownloadFileAsync(System.Guid sessionID, string fileSearchPattern, string dirSearchPattern, object userState) {
             if ((this.DownloadFileOperationCompleted == null)) {
                 this.DownloadFileOperationCompleted = new System.Threading.SendOrPostCallback(this.OnDownloadFileOperationCompleted);
             }
             this.InvokeAsync("DownloadFile", new object[] {
+                        sessionID,
                         fileSearchPattern,
                         dirSearchPattern}, this.DownloadFileOperationCompleted, userState);
         }
@@ -176,24 +180,26 @@ namespace WebServiceWindowsClient.localhost {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/List", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string[] List(string fileSearchPattern, string dirSearchPattern) {
+        public string[] List(System.Guid sessionID, string fileSearchPattern, string dirSearchPattern) {
             object[] results = this.Invoke("List", new object[] {
+                        sessionID,
                         fileSearchPattern,
                         dirSearchPattern});
             return ((string[])(results[0]));
         }
         
         /// <remarks/>
-        public void ListAsync(string fileSearchPattern, string dirSearchPattern) {
-            this.ListAsync(fileSearchPattern, dirSearchPattern, null);
+        public void ListAsync(System.Guid sessionID, string fileSearchPattern, string dirSearchPattern) {
+            this.ListAsync(sessionID, fileSearchPattern, dirSearchPattern, null);
         }
         
         /// <remarks/>
-        public void ListAsync(string fileSearchPattern, string dirSearchPattern, object userState) {
+        public void ListAsync(System.Guid sessionID, string fileSearchPattern, string dirSearchPattern, object userState) {
             if ((this.ListOperationCompleted == null)) {
                 this.ListOperationCompleted = new System.Threading.SendOrPostCallback(this.OnListOperationCompleted);
             }
             this.InvokeAsync("List", new object[] {
+                        sessionID,
                         fileSearchPattern,
                         dirSearchPattern}, this.ListOperationCompleted, userState);
         }
@@ -207,24 +213,26 @@ namespace WebServiceWindowsClient.localhost {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Move", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string Move(string oldFileName, string newFileName) {
+        public string Move(System.Guid sessionID, string oldFileName, string newFileName) {
             object[] results = this.Invoke("Move", new object[] {
+                        sessionID,
                         oldFileName,
                         newFileName});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void MoveAsync(string oldFileName, string newFileName) {
-            this.MoveAsync(oldFileName, newFileName, null);
+        public void MoveAsync(System.Guid sessionID, string oldFileName, string newFileName) {
+            this.MoveAsync(sessionID, oldFileName, newFileName, null);
         }
         
         /// <remarks/>
-        public void MoveAsync(string oldFileName, string newFileName, object userState) {
+        public void MoveAsync(System.Guid sessionID, string oldFileName, string newFileName, object userState) {
             if ((this.MoveOperationCompleted == null)) {
                 this.MoveOperationCompleted = new System.Threading.SendOrPostCallback(this.OnMoveOperationCompleted);
             }
             this.InvokeAsync("Move", new object[] {
+                        sessionID,
                         oldFileName,
                         newFileName}, this.MoveOperationCompleted, userState);
         }
@@ -238,23 +246,25 @@ namespace WebServiceWindowsClient.localhost {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Remove", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string Remove(string fileName) {
+        public string Remove(System.Guid sessionID, string fileName) {
             object[] results = this.Invoke("Remove", new object[] {
+                        sessionID,
                         fileName});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void RemoveAsync(string fileName) {
-            this.RemoveAsync(fileName, null);
+        public void RemoveAsync(System.Guid sessionID, string fileName) {
+            this.RemoveAsync(sessionID, fileName, null);
         }
         
         /// <remarks/>
-        public void RemoveAsync(string fileName, object userState) {
+        public void RemoveAsync(System.Guid sessionID, string fileName, object userState) {
             if ((this.RemoveOperationCompleted == null)) {
                 this.RemoveOperationCompleted = new System.Threading.SendOrPostCallback(this.OnRemoveOperationCompleted);
             }
             this.InvokeAsync("Remove", new object[] {
+                        sessionID,
                         fileName}, this.RemoveOperationCompleted, userState);
         }
         
