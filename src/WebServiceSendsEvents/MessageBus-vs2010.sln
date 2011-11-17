@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBus", "WebService\MessageBus.csproj", "{682C6D2E-8EA4-4CD5-BC27-8E37B49CF42B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBusClient", "WebServiceWindowsClient\MessageBusClient.csproj", "{ADC963B8-6854-4C63-AB49-8DFDFFF26317}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{682C6D2E-8EA4-4CD5-BC27-8E37B49CF42B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{682C6D2E-8EA4-4CD5-BC27-8E37B49CF42B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{682C6D2E-8EA4-4CD5-BC27-8E37B49CF42B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{682C6D2E-8EA4-4CD5-BC27-8E37B49CF42B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADC963B8-6854-4C63-AB49-8DFDFFF26317}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADC963B8-6854-4C63-AB49-8DFDFFF26317}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADC963B8-6854-4C63-AB49-8DFDFFF26317}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADC963B8-6854-4C63-AB49-8DFDFFF26317}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

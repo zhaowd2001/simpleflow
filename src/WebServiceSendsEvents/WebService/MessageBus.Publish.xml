@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="\\13.187.242.140\c$\Inetpub\wwwroot\mb" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="mb" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="True" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="False" userName="sazhao7" savePWD="True" userPWD="AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFSes4IySsUi2jR7T6I0wnwAAAAACAAAAAAAQZgAAAAEAACAAAADU8g2bzHC9Mf0kXUnJnJ6Z3BYlSXksnjF1z+ZaILF2yQAAAAAOgAAAAAIAACAAAABfzLIyLIXRSKbGAf8iDGyy5jtdNbqaCY3DBeriQHef7iAAAAA+sfdybxlUTUBJMLAxIcmyVnNev+UZ5Ufy2Fc1zWiyGEAAAAA0Vft0DGZ/XYGP/Nb5g1M8Tzhi3xykP6cuZAA8zfOznscnVXfb4pEKbjJnro5dF1VJAf9Om012/qRKWTx0SNo1" SelectedForPublish="True">
+    <file relUrl="bin/WebService.pdb" publishTime="11/16/2011 16:10:36" />
+    <file relUrl="bin/WebService.dll" publishTime="11/16/2011 16:10:36" />
+    <file relUrl="MessageBus.asmx" publishTime="11/16/2011 09:14:37" />
+    <file relUrl="Web.config" publishTime="11/16/2011 09:14:37" />
+  </publishProfile>
+</publishData>
