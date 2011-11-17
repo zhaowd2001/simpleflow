@@ -84,12 +84,14 @@ namespace MessageBus
             lock (s_services)
             {
                 msg.FromSessionID = sessionID.ToString();
-                msg.From = this.m_clientID;
+                msg.From = findFromClientID(sessionID); ;
 
                 Guid to = findToSessionID(msg);
                 if (to == Guid.Empty)
+                {
                     throw new Exception(string.Format("{0} not found",
-                    msg.To));
+                        msg.To));
+                }
 
                 Guid toSessionID = appendMessageToTargetSession(to, msg);
                 
@@ -105,8 +107,14 @@ namespace MessageBus
             s_services[to].Messages.Add(msg);
             return to;
         }
-        
-        
+
+        string findFromClientID(Guid id)
+        {
+            if (s_services.ContainsKey(id))
+                return s_services[id].ClientID;
+            return "";
+        }
+
         Guid findToSessionID(Message msg)
         {
             Guid to = Guid.Empty;
