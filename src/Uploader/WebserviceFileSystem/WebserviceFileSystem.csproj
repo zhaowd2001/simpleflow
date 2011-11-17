@@ -50,7 +50,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Web References\Uploader\Reference.cs">
+    <Compile Include="Web References\uploaderWS\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -69,11 +69,14 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Web References\Uploader\FileContent.datasource">
+    <None Include="Web References\uploaderWS\FileContent.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
-    <None Include="Web References\Uploader\FileUploader.wsdl" />
-    <None Include="Web References\Uploader\Reference.map">
+    <None Include="Web References\uploaderWS\FileUploader.wsdl" />
+    <None Include="Web References\uploaderWS\GetMessageResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\uploaderWS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -92,20 +95,20 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://localhost:21369/FileUploader.asmx">
+    <WebReferenceUrl Include="http://chnxsc808w2k3sp2/mb/FileUploader.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\Uploader\</RelPath>
-      <UpdateFromURL>http://localhost:21369/FileUploader.asmx</UpdateFromURL>
+      <RelPath>Web References\uploaderWS\</RelPath>
+      <UpdateFromURL>http://chnxsc808w2k3sp2/mb/FileUploader.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>WebserviceFileSystem_Uploader_FileUploader</CachedSettingsPropName>
+      <CachedSettingsPropName>WebserviceFileSystem_uploaderWS_FileUploader</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Web References\Uploader\FileUploader.disco" />
+    <None Include="Web References\uploaderWS\FileUploader.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

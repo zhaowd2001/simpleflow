@@ -37,6 +37,8 @@ namespace WebServiceWindowsClient
             this.label1 = new System.Windows.Forms.Label();
             this.txtTo = new System.Windows.Forms.TextBox();
             this.listBoxClients = new System.Windows.Forms.ListBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtMessageBusServer = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // listBoxEvents
@@ -46,14 +48,14 @@ namespace WebServiceWindowsClient
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxEvents.FormattingEnabled = true;
             this.listBoxEvents.ItemHeight = 12;
-            this.listBoxEvents.Location = new System.Drawing.Point(153, 49);
+            this.listBoxEvents.Location = new System.Drawing.Point(153, 67);
             this.listBoxEvents.Name = "listBoxEvents";
-            this.listBoxEvents.Size = new System.Drawing.Size(513, 196);
+            this.listBoxEvents.Size = new System.Drawing.Size(864, 280);
             this.listBoxEvents.TabIndex = 3;
             // 
             // buttonStartSession
             // 
-            this.buttonStartSession.Location = new System.Drawing.Point(12, 11);
+            this.buttonStartSession.Location = new System.Drawing.Point(12, 36);
             this.buttonStartSession.Name = "buttonStartSession";
             this.buttonStartSession.Size = new System.Drawing.Size(118, 21);
             this.buttonStartSession.TabIndex = 2;
@@ -63,7 +65,7 @@ namespace WebServiceWindowsClient
             // 
             // buttonStopSession
             // 
-            this.buttonStopSession.Location = new System.Drawing.Point(523, 10);
+            this.buttonStopSession.Location = new System.Drawing.Point(523, 35);
             this.buttonStopSession.Name = "buttonStopSession";
             this.buttonStopSession.Size = new System.Drawing.Size(143, 21);
             this.buttonStopSession.TabIndex = 4;
@@ -73,7 +75,7 @@ namespace WebServiceWindowsClient
             // 
             // txtMessage
             // 
-            this.txtMessage.Location = new System.Drawing.Point(241, 8);
+            this.txtMessage.Location = new System.Drawing.Point(241, 33);
             this.txtMessage.Name = "txtMessage";
             this.txtMessage.Size = new System.Drawing.Size(100, 21);
             this.txtMessage.TabIndex = 5;
@@ -82,7 +84,7 @@ namespace WebServiceWindowsClient
             // 
             // btnSend
             // 
-            this.btnSend.Location = new System.Drawing.Point(153, 10);
+            this.btnSend.Location = new System.Drawing.Point(153, 35);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(53, 21);
             this.btnSend.TabIndex = 6;
@@ -93,16 +95,17 @@ namespace WebServiceWindowsClient
             // lblTo
             // 
             this.lblTo.AutoSize = true;
-            this.lblTo.Location = new System.Drawing.Point(212, 10);
+            this.lblTo.Location = new System.Drawing.Point(212, 35);
             this.lblTo.Name = "lblTo";
             this.lblTo.Size = new System.Drawing.Size(29, 12);
             this.lblTo.TabIndex = 7;
             this.lblTo.Text = "Say:";
+            this.lblTo.Click += new System.EventHandler(this.lblTo_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(347, 10);
+            this.label1.Location = new System.Drawing.Point(347, 35);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(23, 12);
             this.label1.TabIndex = 9;
@@ -110,7 +113,7 @@ namespace WebServiceWindowsClient
             // 
             // txtTo
             // 
-            this.txtTo.Location = new System.Drawing.Point(376, 8);
+            this.txtTo.Location = new System.Drawing.Point(376, 33);
             this.txtTo.Name = "txtTo";
             this.txtTo.Size = new System.Drawing.Size(100, 21);
             this.txtTo.TabIndex = 8;
@@ -122,17 +125,35 @@ namespace WebServiceWindowsClient
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxClients.FormattingEnabled = true;
             this.listBoxClients.ItemHeight = 12;
-            this.listBoxClients.Location = new System.Drawing.Point(12, 49);
+            this.listBoxClients.Location = new System.Drawing.Point(12, 67);
             this.listBoxClients.Name = "listBoxClients";
-            this.listBoxClients.Size = new System.Drawing.Size(118, 196);
+            this.listBoxClients.Size = new System.Drawing.Size(135, 280);
             this.listBoxClients.TabIndex = 10;
             this.listBoxClients.DoubleClick += new System.EventHandler(this.listBoxClients_DoubleClick);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(14, 11);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(119, 12);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Message Bus server:";
+            // 
+            // txtMessageBusServer
+            // 
+            this.txtMessageBusServer.Location = new System.Drawing.Point(153, 2);
+            this.txtMessageBusServer.Name = "txtMessageBusServer";
+            this.txtMessageBusServer.Size = new System.Drawing.Size(513, 21);
+            this.txtMessageBusServer.TabIndex = 11;
             // 
             // MessageBusForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(678, 254);
+            this.ClientSize = new System.Drawing.Size(1029, 348);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txtMessageBusServer);
             this.Controls.Add(this.listBoxClients);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtTo);
@@ -143,7 +164,7 @@ namespace WebServiceWindowsClient
             this.Controls.Add(this.listBoxEvents);
             this.Controls.Add(this.buttonStartSession);
             this.Name = "MessageBusForm";
-            this.Text = "Test Web Service";
+            this.Text = "Test Message Bus";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WebServiceClientForm_FormClosing);
             this.Load += new System.EventHandler(this.MessageBusForm_Load);
             this.ResumeLayout(false);
@@ -162,6 +183,8 @@ namespace WebServiceWindowsClient
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.TextBox txtTo;
     private System.Windows.Forms.ListBox listBoxClients;
+    private System.Windows.Forms.Label label2;
+    private System.Windows.Forms.TextBox txtMessageBusServer;
   }
 }
 

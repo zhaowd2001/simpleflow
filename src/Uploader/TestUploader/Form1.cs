@@ -38,6 +38,7 @@ namespace TestUploader
 
             fileSystem_ = new WSFileSystem();
             fileSystem_.WSFileSystemEvent += this.onWSFileSystemEvent;
+            fileSystem_.Url = "http://localhost:21369/fileUploader.asmx";
         }
 
         /// <summary>

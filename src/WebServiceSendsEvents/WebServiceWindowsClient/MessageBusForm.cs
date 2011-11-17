@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +11,7 @@ namespace WebServiceWindowsClient
     public partial class MessageBusForm : Form
     {
         #region local members
-        private WebServiceWindowsClient.localhost.MessageBus m_service;
+        private uploaderWS.FileUploader m_service;
         private Guid m_sessionID;
         private String m_clientID;
         #endregion local members
@@ -22,10 +21,10 @@ namespace WebServiceWindowsClient
             InitializeComponent();
 
             // Create proxy for WebService
-            m_service = new WebServiceWindowsClient.localhost.MessageBus();
+            m_service = new uploaderWS.FileUploader();
 
             // Subscribe for event
-            m_service.GetMessageCompleted += new WebServiceWindowsClient.localhost.GetMessageCompletedEventHandler(m_service_GetActiveClientsCompleted);
+            m_service.GetMessageCompleted += new uploaderWS.GetMessageCompletedEventHandler(m_service_GetActiveClientsCompleted);
 
             buttonStartSession.Enabled = true;
             buttonStopSession.Enabled = false;
@@ -36,8 +35,8 @@ namespace WebServiceWindowsClient
             m_clientID = System.Net.Dns.GetHostName()+"-"+m_sessionID.ToByteArray()[0].ToString();
         }
 
-        void m_service_GetActiveClientsCompleted(object sender, 
-            WebServiceWindowsClient.localhost.GetMessageCompletedEventArgs e)
+        void m_service_GetActiveClientsCompleted(object sender,
+            uploaderWS.GetMessageCompletedEventArgs e)
         {
             if (e.Error != null)
             {
@@ -48,10 +47,10 @@ namespace WebServiceWindowsClient
             String[] clients = e.Result._ClientIDs;
 
             string msg1 = "";
-            foreach (localhost.Message msg in e.Result._Messages)
+            foreach (uploaderWS.Message msg in e.Result._Messages)
             {
                 msg1 += msg.From;
-                msg1 += " says:";
+                msg1 += " said to me:";
                 msg1 += msg.Data;
                 msg1 += ". ";
             }
@@ -72,21 +71,37 @@ namespace WebServiceWindowsClient
             buttonStopSession.Enabled = true;
             btnSend.Enabled = true;
 
-            // Start session
-            m_service.StartSession(m_sessionID, m_clientID);
+            m_service.Url = txtMessageBusServer.Text.Trim();
+            try
+            {
+                // Start session
+                m_service.StartSession(m_sessionID, m_clientID);
 
-            // Update listbox
-            listBoxEvents.Items.Add(string.Format("New session for client {0} started", m_clientID));
+                // Update listbox
+                listBoxEvents.Items.Add(string.Format("New session for client {0} started", m_clientID));
 
-            // This call activates GetActiveClients event listener
-            m_service.GetMessageAsync(m_sessionID);
+                // This call activates GetActiveClients event listener
+                m_service.GetMessageAsync(m_sessionID);
+            }
+            catch (Exception e1)
+            {
+                listBoxEvents.Items.Add(e1.ToString());
+            }
+
             txtMessage.Focus();
         }
 
         private void WebServiceClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Stop session
-            m_service.StopSession(m_sessionID);
+            try
+            {
+                // Stop session
+                m_service.StopSession(m_sessionID);
+            }
+            catch (Exception)
+            {
+                //...
+            }
         }
 
         private void buttonStopSession_Click(object sender, EventArgs e)
@@ -94,12 +109,18 @@ namespace WebServiceWindowsClient
             buttonStartSession.Enabled = true;
             buttonStopSession.Enabled = false;
 
-            // Stop session
-            m_service.StopSession(m_sessionID);
+            try
+            {
+                // Stop session
+                m_service.StopSession(m_sessionID);
 
-            // Update listbox
-            listBoxEvents.Items.Add(string.Format("Session for client {0} stopped", m_clientID));
-
+                // Update listbox
+                listBoxEvents.Items.Add(string.Format("Session for client {0} stopped", m_clientID));
+            }
+            catch (Exception e1)
+            {
+                listBoxEvents.Items.Add(e1.ToString());
+            }
             txtMessage.Focus();
         }
 
@@ -107,6 +128,12 @@ namespace WebServiceWindowsClient
         {
             listBoxClients.Items.Add(m_clientID);
             txtTo.Text = m_clientID;
+
+            txtMessageBusServer.Text =
+                string.Format("http://{0}/mb/FileUploader.asmx", "chnxsc808w2k3sp2");
+                //m_service.Url;
+            m_service.Url = txtMessageBusServer.Text;
+
             txtMessage.Focus();
         }
 
@@ -114,7 +141,7 @@ namespace WebServiceWindowsClient
         {
 
             //send message
-            localhost.Message msg = new localhost.Message();
+            uploaderWS.Message msg = new uploaderWS.Message();
             msg.Data = System.DateTime.Now.ToLongTimeString() + " "+txtMessage.Text.Trim();
             msg.To = txtTo.Text.Trim();
 
@@ -124,6 +151,7 @@ namespace WebServiceWindowsClient
                 return;
             }
 
+            listBoxEvents.Items.Add(string.Format(" I said to {0}:{1}", msg.To, msg.Data));
             try
             {
                 m_service.SendMessage(m_sessionID, msg);
@@ -153,6 +181,11 @@ namespace WebServiceWindowsClient
         }
 
         private void txtMessage_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblTo_Click(object sender, EventArgs e)
         {
 
         }

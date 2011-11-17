@@ -14,9 +14,10 @@ namespace WebserviceFileSystem
         public delegate void WSFileSystemEventHandler(object sender, WSFileSystemEventArgs e);
         public event WSFileSystemEventHandler WSFileSystemEvent;
 
+        Guid sessionID_ = Guid.NewGuid();
         public WSFileSystem()
         {
-            Url = new WebserviceFileSystem.Uploader.FileUploader().Url;
+            Url = new uploaderWS.FileUploader().Url;
         }
 
         /// <summary>
@@ -31,7 +32,7 @@ namespace WebserviceFileSystem
             String strFile = System.IO.Path.GetFileName(localFilePath);
 
             // create an instance fo the web service
-            WebserviceFileSystem.Uploader.FileUploader srv = newUploader();
+            uploaderWS.FileUploader srv = newUploader();
 
             LargeLocalFileReader file = new LargeLocalFileReader(localFilePath);
 
@@ -45,7 +46,7 @@ namespace WebserviceFileSystem
                 byte[] data = file.readFilePart(i);
                 string fileName = getFileName(localFilePath)+"-part" +
                     i.ToString().PadLeft(8, '0');
-                string sTmp = srv.UploadFile(data, remoteFolder +"\\" + fileName);
+                string sTmp = srv.UploadFile(sessionID_, data, remoteFolder + "\\" + fileName);
 
                 e.part_++;
                 RaiseWSFileSystemEvent(e);
@@ -70,7 +71,7 @@ namespace WebserviceFileSystem
             {
                 byte[] data = LargeLocalFileInfo.buildContent(fileParts.ToArray());
                 string largeFileName = remoteFolder+"\\"+ getFileName(localFilePath) + LargeLocalFileInfo.FILE_NAME_EXT;
-                string sTmp = srv.UploadFile(data, largeFileName);
+                string sTmp = srv.UploadFile(sessionID_, data, largeFileName);
                 msg += "\n" + sTmp;
             }
             return msg;
@@ -79,23 +80,23 @@ namespace WebserviceFileSystem
         public string Remove(string[] filenames)
         {
             // create an instance fo the web service
-            WebserviceFileSystem.Uploader.FileUploader srv = newUploader();
+            uploaderWS.FileUploader srv = newUploader();
             string ret = "";
             foreach (string f in filenames)
             {
-                ret += srv.Remove(f);
+                ret += srv.Remove(sessionID_, f);
                 ret += "\n";
             }
 
             return ret;
         }
 
-        private WebserviceFileSystem.Uploader.FileContent[] DownloadFile(string filename, string directory)
+        private uploaderWS.FileContent[] DownloadFile(string filename, string directory)
         {
             // create an instance fo the web service
-            WebserviceFileSystem.Uploader.FileUploader srv = newUploader();
+            uploaderWS.FileUploader srv = newUploader();
 
-            return srv.DownloadFile(filename, directory);
+            return srv.DownloadFile(sessionID_, filename, directory);
         }
 
         public string  DownloadLargeFile(
@@ -108,10 +109,10 @@ namespace WebserviceFileSystem
             string descriptionFileName = remoteFileName + LargeLocalFileInfo.FILE_NAME_EXT;
 
             // create an instance fo the web service
-            WebserviceFileSystem.Uploader.FileUploader srv = newUploader();
+            uploaderWS.FileUploader srv = newUploader();
 
-            WebserviceFileSystem.Uploader.FileContent[] descriptionFileContent =
-                srv.DownloadFile(descriptionFileName, remoteDirectory);
+            uploaderWS.FileContent[] descriptionFileContent =
+                srv.DownloadFile(sessionID_, descriptionFileName, remoteDirectory);
             listFilePart.Add(remoteDirectory + "\\" + descriptionFileName);
 
             string fileNameOnServer = descriptionFileContent[0].path_;
@@ -126,7 +127,8 @@ namespace WebserviceFileSystem
 
             foreach (string filePart in fileParts)
             {
-                WebserviceFileSystem.Uploader.FileContent[] partData = srv.DownloadFile(
+                uploaderWS.FileContent[] partData = srv.DownloadFile(
+                    sessionID_, 
                     getFileName(filePart),
                     getFolder(filePart));
                 LocalFileSystem.LocalFileSystemUtil.writeFile(partData[0].content_, destFilePath, FileMode.Append);
@@ -158,16 +160,16 @@ namespace WebserviceFileSystem
         public string[] List(string filename, string directory)
         {
             // create an instance fo the web service
-            WebserviceFileSystem.Uploader.FileUploader srv = newUploader();
-            string[] files = srv.List(filename, directory);
+            uploaderWS.FileUploader srv = newUploader();
+            string[] files = srv.List(sessionID_, filename, directory);
             return files;
         }
 
         public string Move(string oldfilename, string newfilename)
         {
             // create an instance fo the web service
-            WebserviceFileSystem.Uploader.FileUploader srv = newUploader();
-            return srv.Move(oldfilename, newfilename);
+            uploaderWS.FileUploader srv = newUploader();
+            return srv.Move(sessionID_, oldfilename, newfilename);
         }
         /// <summary>
         /// 
@@ -178,9 +180,9 @@ namespace WebserviceFileSystem
         /// 
         /// </summary>
         /// <returns></returns>
-        private Uploader.FileUploader newUploader()
+        private uploaderWS.FileUploader newUploader()
         {
-            Uploader.FileUploader ret = new WebserviceFileSystem.Uploader.FileUploader();
+            uploaderWS.FileUploader ret = new uploaderWS.FileUploader();
             ret.Url = Url;
             return ret;
         }
