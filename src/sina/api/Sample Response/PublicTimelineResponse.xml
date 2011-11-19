@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<statuses>
+  <status>
+    <created_at>Mon Aug 15 16:14:18 +0800 2011</created_at>
+    <id>3346687989485309</id>
+    <text>终于到了～[汗]累啊</text>
+    <source>
+      <a href="http://weibo.com/mobile/s60.php">S60客户端</a>
+    </source>
+    <favorited>false</favorited>
+    <truncated>false</truncated>
+    <geo/>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <in_reply_to_screen_name></in_reply_to_screen_name>
+    <mid>3346687989485309</mid>
+    <user>
+      <id>1669838490</id>
+      <screen_name>假期的旅行箱</screen_name>
+      <name>假期的旅行箱</name>
+      <province>31</province>
+      <city>13</city>
+      <location>上海 宝山区</location>
+      <description></description>
+      <url></url>
+      <profile_image_url>http://tp3.sinaimg.cn/1669838490/50/1287908839/1</profile_image_url>
+      <domain></domain>
+      <gender>m</gender>
+      <followers_count>42</followers_count>
+      <friends_count>68</friends_count>
+      <statuses_count>69</statuses_count>
+      <favourites_count>2</favourites_count>
+      <created_at>Sun Oct 24 00:00:00 +0800 2010</created_at>
+      <following>false</following>
+      <verified>false</verified>
+      <allow_all_act_msg>false</allow_all_act_msg>
+      <geo_enabled>true</geo_enabled>
+    </user>
+  </status>
+</statuses>

@@ -1,0 +1,18 @@
+AMicroblogAPI - 最新新浪微博开源C# SDK （微博API的深度封装）
+  
+    AMicroblogAPI 是一个基于C#实现，简单易用，采用强类型深度封装的.Net 程序集(dll)。微博应用开发者无需再为解析诸多HTTP Response而烦恼，也无需为HTTP Request传递参数而忧心，所有API Response都解析完毕并进行封装，所有Request参数只需提供值即可。微博应用开发者也无需为OAuth验证担心，AMicroblogAPI 集成OAuth登录，化繁为间将3步简化为一步。
+
+功能特色
+1) 所有API参数/返回值以强类型封装。(Strong-typed deep encapsulation) 
+2) 单步OAuth登陆。(OAuth worry-free) 
+3) 支持同步以及异步两种调用方式。(Sync vs. Async) 
+4) 可配置的统一Response Error处理机制。(Unified Response Error Handling Mechanism) 
+5) 可扩展的自定义API封装。(Customize your own API call) 
+6) 简单可查阅的API文档(in chm)。
+7) 演示示例程序可供快速上手。(Demo app available)
+
+更多详细介绍, 请访问开源社区CodePlex: http://amicroblogapi.codeplex.com/
+
+---------------------------------
+问题反馈、建议、技术支持, 请EMail至 AmicroblogAPI@sina.com, 
+或者访问AMicroblogAPI微博: http://weibo.com/amicroblogapi

@@ -1,0 +1,20 @@
+Introduction:
+
+AMicroBlogAPI is a C# implementation, a strong-typed deep encapsulation, a easy-to-use .net wrapper of SINA microblog APIs. 
+App developers no longer need to parse various HTTP responses -- all responses are parsed into strong types;
+No longer need to construt the request query strings -- just simply gives the values of parameters;
+No longer need to implement the OAuth -- a single call could logs the user on.
+
+---------------------------------
+How to use AMicroblogAPI?
+1. Creates your app in http://open.weibo.com and obtains the appKey and appSecret.
+2. Configures the appKey and appSecret in application configuation file(i.e: app.config).
+3. References AMicroblogAPI dll
+4. Calls APIs
+For details,  please visit http://amicroblogapi.codeplex.com/
+
+---------------------------------
+For issues, please mail to AmicroblogAPI@sina.com, 
+or visit AmicroblogAPI microblog at http://weibo.com/amicroblogapi
+
+

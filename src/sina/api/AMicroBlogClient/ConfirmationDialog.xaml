@@ -1,0 +1,31 @@
+﻿<local:WindowBase x:Class="AMicroblogAPISample.ConfirmationDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:AMicroblogAPISample"
+        Title="ConfirmationDialog" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        d:DesignHeight="150" d:DesignWidth="314" SizeToContent="WidthAndHeight" MinHeight="120" MinWidth="300" WindowStartupLocation="Manual">
+    <Border Name="container" BorderThickness="1" CornerRadius="4" Margin="4" Background="{DynamicResource popBGColor}"  BorderBrush="{DynamicResource highlightBorderColor}" TextElement.FontFamily="Arial">
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="1"/>
+        </Border.Effect>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Image Source="Images\QuestionMark.png" Stretch="None" />
+                <TextBlock Grid.Column="1" Margin="2,0" Text="{Binding Message,TargetNullValue=Are you sure to delete the status?}" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+            </Grid>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="4">
+                <Button IsDefault="True" Content="{Binding ConfirmButtonText,TargetNullValue=Delete}" MinWidth="50" VerticalAlignment="Center" MinHeight="20" Click="HandleConfirmBtnClicked"/>
+                <Button IsCancel="True" Content="{Binding CancelButtonText,TargetNullValue=Cancel}" MinWidth="50" VerticalAlignment="Center" MinHeight="20" Margin="4,0,0,0"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</local:WindowBase>

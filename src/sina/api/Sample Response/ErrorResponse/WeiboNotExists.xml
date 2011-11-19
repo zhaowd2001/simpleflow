@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<hash>
+  <request>/statuses/show/123123131231.xml</request>
+  <error_code>400</error_code>
+  <error>40031:Error: target weibo does not exist!</error>
+</hash>

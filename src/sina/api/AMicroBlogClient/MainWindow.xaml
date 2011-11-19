@@ -1,0 +1,667 @@
+﻿<local:WindowBase x:Class="AMicroblogAPISample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:AMicroblogAPISample"
+        Title="A demonstration app for AMicroBlogAPI" Height="750" Width="550" MinWidth="100" MinHeight="100"
+        Background="{x:Null}" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen" 
+        Loaded="HandleWindowLoaded" PreviewKeyDown="HandleWindowKeyDown" Style="{DynamicResource winStyle}">
+    <Border BorderThickness="1" CornerRadius="4" Background="{DynamicResource winBGColor}" BorderBrush="{DynamicResource highlightBorderColor}">
+        <Grid>
+            <Grid.Resources>
+                <local:NullToVisConverter x:Key="nullToVisConverter"/>
+                <local:StatusDateTimeConverter x:Key="dateTimeConverter" />
+
+                <!--notification msg bar style-->
+                <Style x:Key="notificationMsgStyle" TargetType="ContentControl">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <StackPanel Orientation="Horizontal" Grid.Row="3" Background="{DynamicResource barBgColor}">
+                                    <Ellipse Name="statusInd" Width="10" Height="10" Margin="4,0" Fill="Red"/>
+                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Name="txbMessage" Text="{Binding NotificationMessage}" />
+                                </StackPanel>
+                                <ControlTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding IsSuccessMsg}" Value="True">
+                                        <Setter TargetName="statusInd" Property="Fill" Value="#FF00FF00"/>
+                                    </DataTrigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+
+                <!--headerBar style-->
+                <Style x:Key="headerBarStyle" TargetType="ContentControl">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ContentControl">
+                                <ControlTemplate.Resources>
+
+                                    <Storyboard x:Key="fadeInAni">
+                                        <DoubleAnimation To="1" Duration="0:0:1" AccelerationRatio="0.8" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_Txt"/>
+                                    </Storyboard>
+
+                                    <Storyboard x:Key="fadeOutAni">
+                                        <DoubleAnimation To="0" Duration="0:0:1" AccelerationRatio="0.1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_Txt"/>
+                                    </Storyboard>
+
+                                </ControlTemplate.Resources>
+                                <Grid>
+                                    <Rectangle Height="16" Fill="{DynamicResource barBgColor}" RadiusX="4" RadiusY="4"/>
+                                    <TextBlock Name="PART_Txt" Visibility="Visible" Opacity="0" Margin="2,0" VerticalAlignment="Center" Background="Transparent">
+                                        <Run Text="Visit"/>
+                                        <Run Foreground="Green" Cursor="Hand" Text="http://AMicroblogAPI.codeplex.com" MouseLeftButtonDown="HandleVisitAMicroblogAPI">
+                                            <Run.TextDecorations>
+                                                <TextDecoration />
+                                            </Run.TextDecorations>
+                                        </Run>
+                                        <Run Text="for more information"/>
+                                    </TextBlock>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <!--<Setter TargetName="PART_Txt" Property="Visibility" Value="Visible"/>-->
+                                        <Trigger.EnterActions>
+                                            <BeginStoryboard Storyboard="{StaticResource fadeInAni}"/>
+                                        </Trigger.EnterActions>
+                                        <Trigger.ExitActions>
+                                            <BeginStoryboard Storyboard="{StaticResource fadeOutAni}"/>
+                                        </Trigger.ExitActions>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+
+                <!--status Display Style-->
+                <Style x:Key="statusDisplayStyle" TargetType="TextBox">
+                    <Setter Property="TextWrapping" Value="Wrap"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="IsReadOnly" Value="True"/>
+                    <Setter Property="Background" Value="{x:Null}"/>
+                </Style>
+                
+            </Grid.Resources>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="84" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="26" />
+            </Grid.RowDefinitions>
+
+            <!--Header-->
+            <StackPanel>
+                <ContentControl MouseDoubleClick="HandleSwitchWindowState" Style="{StaticResource headerBarStyle}"/>
+                <StackPanel Orientation="Horizontal" Background="Transparent">
+                    <Image Source="Images\AMicroblogAPI-Logo.png" />
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock VerticalAlignment="Top" Margin="10,12,0,0">
+                    <Run Text="Welcome,"/>
+                    <Run Name="tbScreenName" FontWeight="Bold" Text="{Binding CurrentUser.ScreenName}"/>
+                        </TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock VerticalAlignment="Top" Margin="10,12,0,0">
+                        <Run Text="Friends: "/>
+                        <Run FontWeight="Bold" Foreground="Green" Text="{Binding CurrentUser.FriendsCount}"/>
+                            </TextBlock>
+                            <TextBlock VerticalAlignment="Top" Margin="10,12,0,0">
+                        <Run Text="Fans: "/>
+                        <Run FontWeight="Bold"  Foreground="Green" Text="{Binding CurrentUser.FollowersCount}"/>
+                            </TextBlock>
+                            <TextBlock VerticalAlignment="Top" Margin="10,12,0,0">
+                        <Run Text="Statuses: "/>
+                        <Run FontWeight="Bold"  Foreground="Green" Text="{Binding CurrentUser.StatusesCount}"/>
+                            </TextBlock>
+                            <TextBlock VerticalAlignment="Top" Margin="10,12,0,0">
+                        <Run Text="Favorites: "/>
+                        <Run FontWeight="Bold"  Foreground="Green" Text="{Binding CurrentUser.FavouritesCount}"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+            <!--Close button-->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Button Style="{DynamicResource switchUserBtnSty}" ToolTip="Switch User" Content="--" HorizontalAlignment="Right" VerticalAlignment="Top" Width="15" Height="15" Margin="2" Click="HandleSwitchUserBtnClicked"/>
+                <Button Style="{DynamicResource closeBtnSty}" ToolTip="Closes the app" Content="X" HorizontalAlignment="Right" VerticalAlignment="Top" Width="15" Height="15" Margin="2" Click="HandleCloseBtnClicked"/>
+
+            </StackPanel>
+
+            <!--Poster-->
+            <Expander Grid.Row="1" Style="{StaticResource posterBarStyle}">
+                <local:Poster x:Name="poster"/>
+            </Expander>
+
+            <!--Status-->
+            <TabControl Background="{x:Null}" BorderThickness="0" Grid.Row="2" HorizontalAlignment="Stretch" Margin="10,4,10,4" VerticalAlignment="Stretch">
+                <TabControl.Resources>
+
+                    <!--Status Item Style-->
+                    <Style x:Key="statusItemStyle" TargetType="ListBoxItem">
+                        <Setter Property="Focusable" Value="False"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <!--Profile Img-->
+                                        <Border BorderBrush="{DynamicResource highlightBorderColor}" BorderThickness="1" CornerRadius="2" VerticalAlignment="Top" >
+                                            <local:ImageLoader Source="{Binding User.ProfileImageUrl}" Stretch="Uniform" PWidth="50" PHeight="50" Margin="2"/>
+                                        </Border>
+
+                                        <!--Status content-->
+                                        <Grid Grid.Column="1" Margin="2,4">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition />
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <!--Author-->
+                                            <StackPanel Orientation="Horizontal" Margin="0,1">
+                                                <TextBlock Text="{Binding User.ScreenName}" FontWeight="Bold"/>
+                                                <TextBlock Margin="10,0,0,0" Text="{Binding CreatedAt, Converter={StaticResource dateTimeConverter}}" />
+                                            </StackPanel>
+
+                                            <!--Status-->
+                                            <StackPanel Grid.Row="1" Margin="10,0">
+                                                <StackPanel>
+                                                    <TextBox Style="{StaticResource statusDisplayStyle}" Margin="0,0,0,6" Text="{Binding Text}"/>
+                                                    
+                                                    <!--Image-->
+                                                    <local:ImageLoader Source="{Binding ThumbnailPic}" HorizontalAlignment="Left" Cursor="Hand" Tag="{Binding}" MouseLeftButtonDown="HanleOpenImageViewerForStatus"/>
+
+                                                    <!--Forwarded status-->
+                                                    <Border Visibility="{Binding RetweetedStatus,Converter={StaticResource nullToVisConverter}}" MinHeight="50" Margin="10,5" Padding="2" CornerRadius="4" BorderBrush="{DynamicResource highlightBorderColor}" BorderThickness="1" Background="#1F00FF00">
+                                                        <StackPanel Orientation="Vertical" Margin="0,0,0,6">
+                                                            <TextBlock FontWeight="Bold">
+                                                        <Run Text="@"/>
+                                                        <Run Text="{Binding RetweetedStatus.User.ScreenName}" />
+                                                            </TextBlock>
+                                                            <TextBox Style="{StaticResource statusDisplayStyle}" Margin="0,2,0,6" Text="{Binding RetweetedStatus.Text}"/>
+                                                            
+                                                            <!--Image-->
+                                                            <local:ImageLoader Source="{Binding RetweetedStatus.ThumbnailPic}" Visibility="{Binding RetweetedStatus.ThumbnailPic, Converter={StaticResource nullToVisConverter}}" HorizontalAlignment="Left" Cursor="Hand" Tag="{Binding}" MouseLeftButtonDown="HandleOpenImgViewerForForwardedStatus"/>
+                                                        </StackPanel>
+                                                    </Border>
+                                                </StackPanel>
+                                            </StackPanel>
+
+                                            <!--Source-->
+                                            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,4" VerticalAlignment="Bottom">
+                                                <TextBlock>
+                                                        <Run Text="From: " />
+                                                        <Run Text="{Binding Source.Content.Text}" />
+                                                </TextBlock>
+                                            </StackPanel>
+
+                                            <!--Operations-->
+                                            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,4" TextElement.FontSize="9">
+                                                <Button Focusable="False" Height="20" HorizontalAlignment="Center" Margin="4,0" VerticalAlignment="Top" MinWidth="55" Tag="{Binding}" Click="HandleForward">
+                                                    <TextBlock Margin="2,0">
+                                                        <Run Text="Forward"/>
+                                                        <Run Text="("/>
+                                                        <Run Text="{Binding Forwards}"/>
+                                                        <Run Text=")"/>
+                                                    </TextBlock>
+                                                </Button>
+                                                <Button Focusable="False" Height="20" HorizontalAlignment="Left" Margin="4,0" Name="btnComment" VerticalAlignment="Top" MinWidth="55" Tag="{Binding}" Click="HandleComment">
+                                                    <TextBlock Margin="2,0">
+                                                        <Run Text="Comment"/>
+                                                        <Run Text="("/>
+                                                        <Run Text="{Binding Comments}"/>
+                                                        <Run Text=")"/>
+                                                    </TextBlock>
+                                                </Button>
+                                                <Button Focusable="False" Content="Repost" Height="20" HorizontalAlignment="Left" Margin="4,0" Name="PART_Repost" VerticalAlignment="Top" MinWidth="55" Tag="{Binding}" Click="HandleRepost" />
+                                                <Button Focusable="False" Content="AddToFav" Height="20" HorizontalAlignment="Left" Margin="4,0" Name="PART_AddToFavourite" VerticalAlignment="Top" MinWidth="55" Tag="{Binding}" Click="HandleAddToFavourite" />
+                                            </StackPanel>
+
+                                            <!--Status line separator-->
+                                            <Line Grid.Row="2" VerticalAlignment="Bottom"  Stroke="#6F00FF00" X1="0" X2="2000" StrokeDashArray="4,2"  StrokeThickness="1" StrokeDashCap="Round"/>
+
+                                        </Grid>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding Favorited}" Value="True">
+                                            <Setter TargetName="PART_AddToFavourite" Property="Content" Value="DelFromFav"/>
+                                        </DataTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                    <!--My Status Item Style-->
+                    <Style x:Key="myStatusItemStyle" TargetType="ListBoxItem">
+                        <Setter Property="Focusable" Value="False"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Grid Margin="0,4">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+
+                                        <!--Status content-->
+                                        <StackPanel Margin="10,5" >
+                                            <StackPanel>
+                                                <TextBox Style="{StaticResource statusDisplayStyle}" Margin="0,0,0,6" Text="{Binding Text}"/>
+
+                                                <!--Image-->
+                                                <local:ImageLoader Source="{Binding ThumbnailPic}" HorizontalAlignment="Left" Cursor="Hand" Tag="{Binding}" MouseLeftButtonDown="HanleOpenImageViewerForStatus"/>
+
+                                                <!--Forwarded status-->
+                                                <Border Visibility="{Binding RetweetedStatus,Converter={StaticResource nullToVisConverter}}" MinHeight="50" Margin="10,5" Padding="2" CornerRadius="4" BorderBrush="{DynamicResource highlightBorderColor}" BorderThickness="1" Background="#1F00FF00">
+                                                    <StackPanel Orientation="Vertical" Margin="0,0,0,6">
+                                                        <TextBlock FontWeight="Bold">
+                                                        <Run Text="@"/>
+                                                        <Run Text="{Binding RetweetedStatus.User.ScreenName}" />
+                                                        </TextBlock>
+                                                        <TextBox Style="{StaticResource statusDisplayStyle}" Margin="0,2,0,6" Text="{Binding RetweetedStatus.Text}"/>
+
+                                                        <!--Image-->
+                                                        <local:ImageLoader Source="{Binding RetweetedStatus.ThumbnailPic}" Visibility="{Binding RetweetedStatus.ThumbnailPic, Converter={StaticResource nullToVisConverter}}" HorizontalAlignment="Left" Cursor="Hand" Tag="{Binding}" MouseLeftButtonDown="HandleOpenImgViewerForForwardedStatus"/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                        </StackPanel>
+
+                                        <!--Source-->
+                                        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,4" VerticalAlignment="Bottom">
+                                            <TextBlock Margin="10,0,4,0" Text="{Binding CreatedAt, Converter={StaticResource dateTimeConverter}}" />
+                                            <TextBlock>
+                                                        <Run Text="From:" />
+                                                        <Run Text="{Binding Source.Content.Text}" />
+                                            </TextBlock>
+                                        </StackPanel>
+
+                                        <!--Operations-->
+                                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,4" TextElement.FontSize="9">
+                                            <Button Focusable="False" Content="Delete" Height="20" HorizontalAlignment="Left" Margin="4,0" VerticalAlignment="Top" MinWidth="55" Tag="{Binding}" Click="HandleDelete" />
+                                            <Button Focusable="False" Height="20" HorizontalAlignment="Center" Margin="4,0" VerticalAlignment="Top" MinWidth="55" Tag="{Binding}" Click="HandleForward">
+                                                <TextBlock Margin="2,0">
+                                                        <Run Text="Forward"/>
+                                                        <Run Text="("/>
+                                                        <Run Text="{Binding Forwards}"/>
+                                                        <Run Text=")"/>
+                                                </TextBlock>
+                                            </Button>
+                                            <Button Focusable="False" Height="20" HorizontalAlignment="Left" Margin="4,0" Name="btnComment" VerticalAlignment="Top" MinWidth="55" Tag="{Binding}" Click="HandleComment">
+                                                <TextBlock Margin="2,0">
+                                                        <Run Text="Comment"/>
+                                                        <Run Text="("/>
+                                                        <Run Text="{Binding Comments}"/>
+                                                        <Run Text=")"/>
+                                                </TextBlock>
+                                            </Button>
+                                            <Button Focusable="False" Content="AddToFav" Height="20" HorizontalAlignment="Left" Margin="4,0" Name="PART_AddToFavourite" VerticalAlignment="Top" MinWidth="55" Tag="{Binding}" Click="HandleAddToFavourite" />
+                                        </StackPanel>
+                                        
+                                        <!--Status line separator-->
+                                        <Line Grid.Row="1" VerticalAlignment="Bottom"  Stroke="#6F00FF00" X1="0" X2="2000" StrokeDashArray="4,2"  StrokeThickness="1" StrokeDashCap="Round"/>
+
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding Favorited}" Value="True">
+                                            <Setter TargetName="PART_AddToFavourite" Property="Content" Value="DelFromFav"/>
+                                        </DataTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                    <!--User (Friends/Fans) Item Style-->
+                    <Style x:Key="myFriendsItemStyle" TargetType="ListBoxItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Grid MinHeight="60">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <!--Profile Img-->
+                                        <StackPanel VerticalAlignment="Top" >
+                                            <Border BorderBrush="{DynamicResource highlightBorderColor}" BorderThickness="1" CornerRadius="2">
+                                                <local:ImageLoader Source="{Binding ProfileImageUrl}" Stretch="Uniform" PWidth="50" PHeight="50" Margin="2"/>
+                                            </Border>
+                                            <TextBlock Name="PART_FollowInd" Visibility="Collapsed" FontSize="9" Margin="2,0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                <Run Text="("/>
+                                                <Run Text="Bi-Follow"/>
+                                                <Run Text=")"/>
+                                            </TextBlock>
+                                        </StackPanel>
+
+                                        <!--Status content-->
+                                        <Grid Grid.Column="1" Margin="2,4">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition />
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <!--Author-->
+                                            <StackPanel Margin="0,1">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding ScreenName}" FontWeight="Bold"/>
+                                                    <TextBlock>
+                                                        <Run Text="("/>
+                                                        <Run  Text="{Binding Location}"/>
+                                                        <Run Text=")"/>
+                                                    </TextBlock>
+                                                    <TextBlock Margin="4,0">
+                                                        <Run Text="Fans:"/>
+                                                        <Run FontWeight="Bold" Foreground="Green" Text="{Binding FollowersCount}"/>
+                                                    </TextBlock>
+                                                    <TextBlock Margin="4,0">
+                                                        <Run Text="Friends:"/>
+                                                        <Run FontWeight="Bold" Foreground="Green" Text="{Binding FriendsCount}"/>
+                                                    </TextBlock>
+                                                    <TextBlock Margin="4,0">
+                                                        <Run Text="Statuses:"/>
+                                                        <Run FontWeight="Bold" Foreground="Green" Text="{Binding StatusesCount}"/>
+                                                    </TextBlock>
+                                                </StackPanel>
+                                                <TextBox Style="{StaticResource statusDisplayStyle}" Background="{DynamicResource lightHighlightBGColor}" Text="{Binding Description}" Visibility="{Binding Description, Converter={StaticResource nullToVisConverter}}" Margin="4,0" FontSize="10" FontStyle="Italic" TextWrapping="Wrap"/>
+                                            </StackPanel>
+
+                                            <!--Status-->
+                                            <StackPanel Grid.Row="1" Margin="10,5" Visibility="{Binding LatestStatus, Converter={StaticResource nullToVisConverter}}">
+                                                <StackPanel>
+                                                    <TextBox Style="{StaticResource statusDisplayStyle}" Margin="0,0,0,6" Text="{Binding LatestStatus.Text}"/>
+
+                                                    <!--Forwarded status-->
+                                                    <Border Visibility="{Binding LatestStatus.RetweetedStatus,Converter={StaticResource nullToVisConverter}}" MinHeight="50" Margin="10,5" Padding="2" CornerRadius="4" BorderBrush="{DynamicResource highlightBorderColor}" BorderThickness="1" Background="{DynamicResource lightHighlightBGColor}">
+                                                        <StackPanel Orientation="Vertical" Margin="0,0,0,6">
+                                                            <TextBlock FontWeight="Bold">
+                                                        <Run Text="@"/>
+                                                        <Run Text="{Binding LatestStatus.RetweetedStatus.User.ScreenName}" />
+                                                            </TextBlock>
+                                                            <TextBox Style="{StaticResource statusDisplayStyle}" Margin="0,2,0,6" Text="{Binding LatestStatus.RetweetedStatus.Text}"/>
+                                                            <!--<TextBlock Text="{Binding LatestStatus.RetweetedStatus.Text}" Margin="0,2,0,6"  TextWrapping="Wrap" />-->
+                                                        </StackPanel>
+                                                    </Border>
+                                                </StackPanel>
+                                            </StackPanel>
+
+                                            <!--Status line separator-->
+                                            <Line Grid.Row="2" VerticalAlignment="Bottom"  Stroke="#6F00FF00" X1="0" X2="2000" StrokeDashArray="4,2"  StrokeThickness="1" StrokeDashCap="Round"/>
+
+                                        </Grid>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding BiFollowing}" Value="True">
+                                            <Setter TargetName="PART_FollowInd" Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                    <!--Simple User Item Style-->
+                    <Style x:Key="userItemStyle" TargetType="ListBoxItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Grid MinHeight="60">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <!--Profile Img-->
+                                        <Border BorderBrush="{DynamicResource highlightBorderColor}" BorderThickness="1" CornerRadius="2" VerticalAlignment="Top" >
+                                            <local:ImageLoader Source="{Binding ProfileImageUrl}" Stretch="Uniform" PWidth="30" PHeight="30" Margin="2"/>
+                                        </Border>
+
+                                        <!--Status content-->
+                                        <Grid Grid.Column="1" Margin="2,4">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition />
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <!--Author-->
+                                            <StackPanel Margin="0,1">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding ScreenName}" FontWeight="Bold"/>
+                                                    <TextBlock>
+                                                        <Run Text="("/>
+                                                        <Run  Text="{Binding Location}"/>
+                                                        <Run Text=")"/>
+                                                    </TextBlock>
+                                                    <TextBlock Margin="4,0">
+                                                        <Run Text="Fans:"/>
+                                                        <Run FontWeight="Bold" Foreground="Green" Text="{Binding FollowersCount}"/>
+                                                    </TextBlock>
+                                                    <TextBlock Margin="4,0">
+                                                        <Run Text="Friends:"/>
+                                                        <Run FontWeight="Bold" Foreground="Green" Text="{Binding FriendsCount}"/>
+                                                    </TextBlock>
+                                                    <TextBlock Margin="4,0">
+                                                        <Run Text="Statuses:"/>
+                                                        <Run FontWeight="Bold" Foreground="Green" Text="{Binding StatusesCount}"/>
+                                                    </TextBlock>
+                                                </StackPanel>
+                                                <TextBox Style="{StaticResource statusDisplayStyle}" Background="{DynamicResource lightHighlightBGColor}" Text="{Binding Description}" Visibility="{Binding Description, Converter={StaticResource nullToVisConverter}}" Margin="4,0" FontSize="10" FontStyle="Italic" TextWrapping="Wrap"/>
+                                            </StackPanel>
+
+                                            <!--Status line separator-->
+                                            <Line Grid.Row="2" VerticalAlignment="Bottom"  Stroke="#6F00FF00" X1="0" X2="2000" StrokeDashArray="4,2"  StrokeThickness="1" StrokeDashCap="Round"/>
+
+                                        </Grid>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                    <!--CommentToMe Item Style-->
+                    <Style x:Key="commentsToMeItemStyle" TargetType="ListBoxItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Grid MinHeight="40">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <!--Profile Img-->
+                                        <Border BorderBrush="{DynamicResource highlightBorderColor}" BorderThickness="1" CornerRadius="2" VerticalAlignment="Top" >
+                                            <local:ImageLoader Source="{Binding User.ProfileImageUrl}" Stretch="Uniform" PWidth="30" PHeight="30" Margin="2"/>
+                                        </Border>
+
+                                        <!--Comments content-->
+                                        <Grid Grid.Column="1" Margin="2,4">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition />
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <!--Author-->
+                                            <StackPanel Margin="0,1">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding User.ScreenName}" FontWeight="Bold"/>
+                                                    <TextBlock>
+                                                        <Run Text="("/>
+                                                        <Run  Text="{Binding CreatedAt, Converter={StaticResource dateTimeConverter}}"/>
+                                                        <Run Text=")"/>
+                                                    </TextBlock>
+                                                    <TextBlock>
+                                                        <Run Text="("/>
+                                                        <Run  Text="{Binding User.Location}"/>
+                                                        <Run Text=")"/>
+                                                    </TextBlock>
+                                                    <TextBlock Margin="4,0">
+                                                        <Run Text="Fans:"/>
+                                                        <Run FontWeight="Bold" Foreground="Green" Text="{Binding User.FollowersCount}"/>
+                                                    </TextBlock>
+                                                    <TextBlock Margin="4,0">
+                                                        <Run Text="Friends:"/>
+                                                        <Run FontWeight="Bold" Foreground="Green" Text="{Binding User.FriendsCount}"/>
+                                                    </TextBlock>
+                                                    <TextBlock Margin="4,0">
+                                                        <Run Text="Statuses:"/>
+                                                        <Run FontWeight="Bold" Foreground="Green" Text="{Binding User.StatusesCount}"/>
+                                                    </TextBlock>
+                                                </StackPanel>
+                                                <TextBox Style="{StaticResource statusDisplayStyle}" Background="{DynamicResource lightHighlightBGColor}" Text="{Binding Text}" Margin="4,0" FontSize="11" TextWrapping="Wrap"/>
+                                            </StackPanel>
+
+
+                                            <Grid Grid.Row="2">
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                                    <Button Content="Reply" Height="20" HorizontalAlignment="Right" Margin="4,0" VerticalAlignment="Center" MinWidth="55" Tag="{Binding}" Click="HandleReplyComment"/>
+                                                    <Button Content="Delete" Height="20" HorizontalAlignment="Right" Margin="4,0" VerticalAlignment="Center" MinWidth="55" Tag="{Binding}" Click="HandleDeleteByMeComment"/>
+                                                </StackPanel>
+                                            </Grid>
+                                            <!--Status line separator-->
+                                            <Line Grid.Row="3" VerticalAlignment="Bottom"  Stroke="#6F00FF00" X1="0" X2="2000" StrokeDashArray="4,2"  StrokeThickness="1" StrokeDashCap="Round"/>
+
+                                        </Grid>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                    <!--CommentByMe Item Style-->
+                    <Style x:Key="commentsByMeItemStyle" TargetType="ListBoxItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+
+                                    <!--Comments content-->
+                                    <Grid Margin="2,4" MinHeight="40">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition />
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <!--Date-->
+                                        <StackPanel Margin="0,1">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock>
+                                                        <Run Text="To: "/>
+                                                        <Run FontWeight="Bold" Text="{Binding Status.User.ScreenName}"/>
+                                                </TextBlock>
+                                                <TextBlock>
+                                                        <Run Text="("/>
+                                                        <Run  Text="{Binding CreatedAt, Converter={StaticResource dateTimeConverter}}"/>
+                                                        <Run Text=")"/>
+                                                </TextBlock>
+                                            </StackPanel>
+                                            <TextBox Style="{StaticResource statusDisplayStyle}" Background="{DynamicResource lightHighlightBGColor}" Text="{Binding Text}" Margin="4,0" FontSize="11" TextWrapping="Wrap"/>
+                                        </StackPanel>
+
+                                        <Grid Grid.Row="2">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                                <Button Content="Reply" Height="20" HorizontalAlignment="Right" Margin="4,0" VerticalAlignment="Center" MinWidth="55" Tag="{Binding}" Click="HandleReplyComment"/>
+                                                <Button Content="Delete" Height="20" HorizontalAlignment="Right" Margin="4,0" VerticalAlignment="Center" MinWidth="55" Tag="{Binding}" Click="HandleDeleteToMeComment"/>
+                                            </StackPanel>
+                                        </Grid>
+                                        <!--Status line separator-->
+                                        <Line Grid.Row="3" VerticalAlignment="Bottom"  Stroke="#6F00FF00" X1="0" X2="2000" StrokeDashArray="4,2"  StrokeThickness="1" StrokeDashCap="Round"/>
+
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                </TabControl.Resources>
+
+                <TabItem Header="Home" MinWidth="50">
+                    <ListBox ItemsSource="{Binding MyHomeStatuses}" ItemContainerStyle="{StaticResource statusItemStyle}" />
+                </TabItem>
+
+                <TabItem Header="My Microblog">
+                    <ListBox ItemsSource="{Binding MyStatuses}" ItemContainerStyle="{StaticResource myStatusItemStyle}"/>
+                </TabItem>
+
+                <TabItem Header="@Me" MinWidth="50">
+                    <ListBox ItemsSource="{Binding AtMeStatuses}" ItemContainerStyle="{StaticResource statusItemStyle}"/>
+                </TabItem>
+
+                <TabItem Header="Favourites">
+                    <ListBox ItemsSource="{Binding FavouriteStatuses}" ItemContainerStyle="{StaticResource statusItemStyle}"/>
+                </TabItem>
+
+                <TabItem Header="Fans" MinWidth="50">
+                    <ListBox ItemsSource="{Binding Followers}" ItemContainerStyle="{StaticResource myFriendsItemStyle}"/>
+                </TabItem>
+
+                <TabItem Header="Friends">
+                    <ListBox ItemsSource="{Binding Followings}" ItemContainerStyle="{StaticResource myFriendsItemStyle}"/>
+                </TabItem>
+
+                <TabItem Header="Comments">
+                    <Border BorderBrush="{DynamicResource highlightBorderColor}" BorderThickness="1" CornerRadius="4">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <ListBox ItemsSource="{Binding CommentsToMe}" ItemContainerStyle="{StaticResource commentsToMeItemStyle}" BorderThickness="0"/>
+
+                            <Line Grid.Row="1" VerticalAlignment="Bottom" Stroke="#6F00FF00" X1="0" X2="2000" StrokeDashArray="4,2" StrokeThickness="2" StrokeDashCap="Round"/>
+
+                            <ListBox Grid.Row="2" ItemsSource="{Binding CommentsByMe}" ItemContainerStyle="{StaticResource commentsByMeItemStyle}" BorderThickness="0"/>
+                        </Grid>
+                    </Border>
+                </TabItem>
+                
+                <TabItem Name="tbItemSearchResult" Header="Search">
+                    <Border BorderBrush="{DynamicResource highlightBorderColor}" BorderThickness="1" CornerRadius="4">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!--Search-->
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,4,4,4" VerticalAlignment="Top">
+                                <TextBlock Text="Search status by: " VerticalAlignment="Center"/>
+                                <TextBox Name="txbSearchKeyword" Text="Aldrick" Height="21" Width="100" FontSize="11" VerticalAlignment="Center" VerticalContentAlignment="Center" TextChanged="HandleSearchKeywordTextChanged" KeyDown="HandleSearchKeyDown"/>
+                                <Button Content="Go" Height="23" Name="btnSearch" Width="25" Margin="2,0" Click="HandleSearch"/>
+                            </StackPanel>
+
+                            <!--Status Result-->
+                            <ListBox Grid.Row="1" BorderThickness="0" ItemsSource="{Binding StatusSearchResult}" ItemContainerStyle="{StaticResource statusItemStyle}" Margin="0,2"/>
+                            
+                            <Line Grid.Row="2" VerticalAlignment="Bottom" Stroke="#6F00FF00" X1="0" X2="2000" StrokeDashArray="4,2" StrokeThickness="2" StrokeDashCap="Round"/>
+
+                            <!--People Result-->
+                            <ListBox Grid.Row="3" BorderThickness="0" ItemsSource="{Binding PeopleSearchResult}" ItemContainerStyle="{StaticResource userItemStyle}"  Margin="0,2"/>
+                        </Grid>
+                    </Border>
+                </TabItem>
+            </TabControl>
+
+            <!--Operation Msg-->
+            <ContentControl Grid.Row="3" Style="{DynamicResource notificationMsgStyle}"/>
+        </Grid>
+    </Border>
+</local:WindowBase>

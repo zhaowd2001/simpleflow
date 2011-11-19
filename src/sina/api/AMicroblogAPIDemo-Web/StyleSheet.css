@@ -1,0 +1,143 @@
+﻿body 
+{
+    font-family:Arial;
+    font-size:10px;
+}
+
+img
+{
+    border: 0px;    
+}
+
+a
+{
+    color: Green;
+    text-decoration:underline;    
+}
+
+a:hover
+{
+    color: Green;
+    text-decoration:none;    
+}
+
+.boxStyle
+{
+    border:1px solid #00FF00;
+    padding: 4px; 
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-left: 10px;
+    background: #CCFFCC;
+}
+
+.userIconStyle
+{
+    border: 1px solid #00FF00; padding: 2px; 
+}
+
+.retweetedStatusStyle
+{
+    border:1px solid #00FF00;
+    padding: 4px; 
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-left: 10px;
+    background: #CCFFCC;
+    -moz--border-radius: 4px; 
+    -webkit-border-radius: 4px;
+}
+
+.picStyle
+{
+    padding: 2px; 
+    margin: 4px;    
+}
+
+.picViewerStyle
+{
+    position: relative;
+    top: 4px;
+    left: 4px;
+    border:1px solid #00FF00; 
+    background: #CCFFCC;    
+    cursor:pointer;
+    -webkit-border-radius: 2px;    
+}
+
+.menuStyle
+{
+    font-size:20px;
+}
+
+.menuItemStyle
+{
+    padding:2px;
+}
+
+.userNameStyle
+{
+    float: left;
+}
+.userNameStyle .followStyle
+{
+    display: none;
+    width: 110px;
+    height : 110px;
+    position: absolute;
+}
+
+.userNameStyle:hover .followStyle
+{
+    display: block;    
+}
+
+.followBoxStyle
+{
+    border: 1px solid #00FF00;
+    min-width: 230px;
+    min-height: 130px;
+    background: #CCFFCC;   
+    position: relative;
+    top: 4px;
+    left: 4px;
+    padding: 4px;
+    -moz--border-radius: 4px;
+    -moz-box-shadow: black 2px 2px 2px;    
+    -webkit-border-radius: 4px;
+    -webkit-box-shadow: black 2px 2px 2px;
+}
+
+.userDescStyle
+{
+    font-size:9px; 
+    color:gray; 
+}
+
+.postBoxStyle
+{
+    z-index:20;
+    position: absolute;
+    left: 140px;
+    margin-top: 20px;    
+    float: right; 
+    width: 400px; 
+    height: 250px;
+    border: 1px solid #00FF00;
+    background: #CCFFCC;
+    -moz--border-radius: 4px;
+    -moz-box-shadow: black 2px 2px 2px;    
+    -webkit-border-radius: 4px;
+    -webkit-box-shadow: black 2px 2px 2px;
+}
+
+#coverDiv
+{
+    z-index:5; 
+    position:fixed; 
+    background:lightgray;
+    width:100%;
+    height:100%;
+    display: none;
+    opacity: 0.4;
+}

@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<statuses>
+  <status>
+    <created_at>Sun Aug 21 15:57:32 +0800 2011</created_at>
+    <id>3348858098209014</id>
+    <text>it sure is</text>
+    <source>
+      <a href="">未通过审核应用</a>
+    </source>
+    <favorited>false</favorited>
+    <truncated>false</truncated>
+    <geo/>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <in_reply_to_screen_name></in_reply_to_screen_name>
+    <thumbnail_pic>http://ww4.sinaimg.cn/thumbnail/8a996a8ftw1dkp5dwj5nej.jpg</thumbnail_pic>
+    <bmiddle_pic>http://ww4.sinaimg.cn/bmiddle/8a996a8ftw1dkp5dwj5nej.jpg</bmiddle_pic>
+    <original_pic>http://ww4.sinaimg.cn/large/8a996a8ftw1dkp5dwj5nej.jpg</original_pic>
+    <mid>3348858098209014</mid>
+    <user>
+      <id>2313429311</id>
+      <screen_name>DTY001</screen_name>
+      <name>DTY001</name>
+      <province>31</province>
+      <city>1000</city>
+      <location>上海</location>
+      <description></description>
+      <url></url>
+      <profile_image_url>http://tp4.sinaimg.cn/2313429311/50/0/1</profile_image_url>
+      <domain></domain>
+      <gender>m</gender>
+      <followers_count>1</followers_count>
+      <friends_count>0</friends_count>
+      <statuses_count>24</statuses_count>
+      <favourites_count>0</favourites_count>
+      <created_at>Sat Aug 20 00:00:00 +0800 2011</created_at>
+      <following>false</following>
+      <verified>false</verified>
+      <allow_all_act_msg>false</allow_all_act_msg>
+      <geo_enabled>true</geo_enabled>
+    </user>
+    <retweeted_status>
+      <created_at>Sun Aug 21 15:57:23 +0800 2011</created_at>
+      <id>3348858061308546</id>
+      <text>nice day</text>
+      <source>
+        <a href="">未通过审核应用</a>
+      </source>
+      <favorited>false</favorited>
+      <truncated>false</truncated>
+      <geo xmlns:georss="http://www.georss.org/georss">
+        <georss:point>31.22 121.48</georss:point>
+      </geo>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <in_reply_to_screen_name></in_reply_to_screen_name>
+      <mid>3348858061308546</mid>
+      <user>
+        <id>2313429311</id>
+        <screen_name>DTY001</screen_name>
+        <name>DTY001</name>
+        <province>31</province>
+        <city>1000</city>
+        <location>上海</location>
+        <description></description>
+        <url></url>
+        <profile_image_url>http://tp4.sinaimg.cn/2313429311/50/0/1</profile_image_url>
+        <domain></domain>
+        <gender>m</gender>
+        <followers_count>1</followers_count>
+        <friends_count>0</friends_count>
+        <statuses_count>24</statuses_count>
+        <favourites_count>0</favourites_count>
+        <created_at>Sat Aug 20 00:00:00 +0800 2011</created_at>
+        <following>false</following>
+        <verified>false</verified>
+        <allow_all_act_msg>false</allow_all_act_msg>
+        <geo_enabled>true</geo_enabled>
+      </user>
+    </retweeted_status>
+  </status>
+  <status>
+    <created_at>Sun Aug 21 15:57:23 +0800 2011</created_at>
+    <id>3348858061308546</id>
+    <text>nice day</text>
+    <source>
+      <a href="">未通过审核应用</a>
+    </source>
+    <favorited>false</favorited>
+    <truncated>false</truncated>
+    <geo xmlns:georss="http://www.georss.org/georss">
+      <georss:point>31.22 121.48</georss:point>
+    </geo>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <in_reply_to_screen_name></in_reply_to_screen_name>
+    <mid>3348858061308546</mid>
+    <user>
+      <id>2313429311</id>
+      <screen_name>DTY001</screen_name>
+      <name>DTY001</name>
+      <province>31</province>
+      <city>1000</city>
+      <location>上海</location>
+      <description></description>
+      <url></url>
+      <profile_image_url>http://tp4.sinaimg.cn/2313429311/50/0/1</profile_image_url>
+      <domain></domain>
+      <gender>m</gender>
+      <followers_count>1</followers_count>
+      <friends_count>0</friends_count>
+      <statuses_count>24</statuses_count>
+      <favourites_count>0</favourites_count>
+      <created_at>Sat Aug 20 00:00:00 +0800 2011</created_at>
+      <following>false</following>
+      <verified>false</verified>
+      <allow_all_act_msg>false</allow_all_act_msg>
+      <geo_enabled>true</geo_enabled>
+    </user>
+  </status>
+</statuses>

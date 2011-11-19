@@ -1,0 +1,207 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Skeleton.master.cs" Inherits="Skeleton" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link href="StyleSheet.css" rel="stylesheet" type="text/css" />
+    <title>AMicroblogAPI demo app</title>
+
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-26413492-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+
+    <script type="text/javascript">
+        function ShowPostBox() {
+            var postBox = document.getElementById("postBox");
+            postBox.setAttribute("style", "display:block");
+
+            var coverDiv = document.getElementById("coverDiv");
+            coverDiv.setAttribute("style", "display:block");
+        }
+
+        function HidePostBox() {
+            var postBox = document.getElementById("postBox");
+            postBox.setAttribute("style", "display:none");
+
+            var coverDiv = document.getElementById("coverDiv");
+            coverDiv.setAttribute("style", "display:none");
+        }
+
+        function CheckStatus() {
+            var txbStatus = document.getElementById("txbStatus");
+            var status = txbStatus.value;
+
+            if (status == '') {
+                txbStatus.focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        function ShowPic(id, src) {
+            var picViewer = document.getElementById(id);
+            var thumbnailViewer = picViewer.children[0];
+            thumbnailViewer.setAttribute("style", "display:none");
+
+            var middlePicViewer = picViewer.children[1];
+            middlePicViewer.setAttribute("style", "display:block");
+
+            var middlePic = middlePicViewer.children[1];
+            middlePic.src = src;
+        }
+
+        function HidePic(id) {
+            var picViewer = document.getElementById(id);
+            var thumbnailViewer = picViewer.children[0];
+            thumbnailViewer.setAttribute("style", "display:block");
+
+            var middlePicViewer = picViewer.children[1];
+            middlePicViewer.setAttribute("style", "display:none");
+        }
+
+    </script>
+</head>
+<body>
+    <form runat="server">
+    <div id="coverDiv"></div>
+
+    <div style="width: 768px; position: relative;">
+        <asp:ContentPlaceHolder ID="header" runat="server">
+            <p style="text-align: left">
+                <img alt="" src="Image/AMicroblogAPI-Logo.png" />
+                <strong>a web-based demonstration app</strong></p>
+            <div runat="server" id="divMsg" class="boxStyle" style="position: absolute; width: auto;
+                height: 140px; top: 100px; left: 218px; text-align: center;">
+                <br />
+                You haven&#39;t logged on yet.
+                <br />
+                <br />
+                <br />
+                <asp:LinkButton runat="server" Text="Connect Now" ID="btnLogon" OnClick="HandleLogonClicked" />
+                <br />
+                <br />
+                <asp:CheckBox runat="server" ID="saveCredential" Checked="false" Text="Save my credential" />
+                <br />
+                (Click &#39;Connect Now&#39; will navigate you to sina weibo authorization page)
+                <br />
+                (Test Account: AMicroblogTest@sina.com Password: amicroblogtest)
+                <br />
+                (Check the port no. of 'callbackUrl' in web.config if navigation back failure)
+            </div>
+        </asp:ContentPlaceHolder>
+        <table runat="server" id="tbContent" width="768px" cellpadding="0" cellspacing="0">
+            <tr>
+                <td style="width: auto; vertical-align: top; border-right: 1px; border-right-color: green;
+                    border-right-style: dashed;">
+
+                    <!--User Info-->
+                    <div>
+                        <br />
+                        Welcome&nbsp;
+                        <asp:Label ForeColor="Green" Font-Bold="true" runat="server" ID="lbUserName" />
+                        <br />
+                        <table style="font-size: 15px; font-weight: bold; text-align: center; margin: 8px"
+                            cellpadding="0" cellspacing="8">
+                            <tr>
+                                <td>
+                                    Statuses
+                                </td>
+                                <td>
+                                    Friends
+                                </td>
+                                <td>
+                                    Fans
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="MyMicroblog.aspx">
+                                        <asp:Label ForeColor="Green" Font-Bold="true" runat="server" ID="lbStatusCounter" /></a>
+                                </td>
+                                <td>
+                                    <a href="Friends.aspx">
+                                        <asp:Label ForeColor="Green" Font-Bold="true" runat="server" ID="lbFriendsCounter" /></a>
+                                </td>
+                                <td>
+                                    <a href="Fans.aspx">
+                                        <asp:Label ForeColor="Green" Font-Bold="true" runat="server" ID="lbFansCounter" /></a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!--Post Now-->
+                    <div onclick="ShowPostBox()" style="float: right; position: relative; bottom: 8px;
+                        right: 4px; cursor: pointer; font-weight: bold; text-decoration: underline;">
+                        Post a weibo</div>
+
+                    <!--Post Box-->
+                    <div id="postBox" class="postBoxStyle" style="display: none;">
+                        <div style="float: right; cursor: pointer; z-index: 2; position: relative; right: 4px;
+                            top: 4px; font-weight: bold; color: Green" onclick="HidePostBox()">
+                            X
+                        </div>
+                        <div style="position: relative; top: 4px; left: 4px; z-index: 1">
+                            Type something to post below:</div>
+                        <div style="height: 76%; width: 98%; position: relative; left: 4px; top: 8px; right: 204px;
+                            border: 1px solid green; -moz--border-radius: 4px; -moz-box-shadow: black 2px 2px 2px;">
+                            <asp:TextBox runat="server" TextMode="MultiLine" ID="txbStatus" Style="background: transparent;
+                                height: 99%; width: 99%; border: 0px solid green" />
+                        </div>
+                        <div style="text-align: right; font-size: 20px; position: absolute; bottom: 8px;
+                            right: 8px;">
+                            <asp:LinkButton runat="server" Text="Post Now!" OnClientClick="return CheckStatus()"
+                                OnClick="HandlePostClicked"></asp:LinkButton>
+                        </div>
+                    </div>
+
+                    <!--Main Menu-->
+                    <div class="menuStyle">
+                        <div class="menuItemStyle">
+                            <a href="Default.aspx">Home</a>
+                        </div>
+                        <div class="menuItemStyle">
+                            <a href="MyMicroblog.aspx">MyMicroblog</a>
+                        </div>
+                        <div class="menuItemStyle">
+                            <a href="AtMe.aspx">@Me</a>
+                        </div>
+                        <div class="menuItemStyle">
+                            <a href="Friends.aspx">Friends</a>
+                        </div>
+                        <div class="menuItemStyle">
+                            <a href="Fans.aspx">Fans</a>
+                        </div>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <asp:LinkButton runat="server" Text="Logout" OnClick="HandleLogout"></asp:LinkButton>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <asp:LinkButton  runat="server" Text="Logout /w Delete Cache" OnClick="HandleDeleteCachedCredential"></asp:LinkButton>
+                    </div>
+                </td>
+                <td style="background: #FFFFFF;">
+                    <div style="margin: 2px 4px">
+                        <asp:ContentPlaceHolder ID="content" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    </form>
+</body>
+</html>

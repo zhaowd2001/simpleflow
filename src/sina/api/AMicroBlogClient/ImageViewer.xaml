@@ -1,0 +1,36 @@
+﻿<local:WindowBase x:Class="AMicroblogAPISample.ImageViewer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:local="clr-namespace:AMicroblogAPISample"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ImageViewer" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        d:DesignHeight="187" d:DesignWidth="457" ResizeMode="CanResizeWithGrip" MinWidth="200" MinHeight="200" Width="500" Height="500" WindowStartupLocation="Manual" EnableBlurEffect="True" PreviewKeyDown="HandleKeyDown">
+    <Border Name="container" BorderThickness="1" CornerRadius="4" Background="{DynamicResource popBGColor}" BorderBrush="{DynamicResource highlightBorderColor}">
+        <Grid Margin="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <ContentControl MouseDoubleClick="HandleSwitchWindowState">
+                <Rectangle Height="16" Fill="{DynamicResource barBgColor}"/>
+            </ContentControl>
+            
+            <!--Close button-->
+            <Button Style="{DynamicResource closeBtnSty}" ToolTip="Closes the app" Content="X" HorizontalAlignment="Right" VerticalAlignment="Top" Width="15" Height="15" Margin="2" Click="HandleCloseBtnClicked"/>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="4,2" Focusable="False">
+                <Button Width="30" Click="HandleNavPrivious">
+                    &lt;
+                </Button>
+                <Button Content=">" Width="30" Margin="4,0,0,0" Click="HandleNavNext"/>
+                <Button Content="Save-As" Width="50" Margin="10,0,0,0" Click="HandleSaveAs"/>
+            </StackPanel>
+
+            <ScrollViewer Grid.Row="2" Focusable="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <local:ImageLoader x:Name="imgLoader" IsHitTestVisible="False" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </ScrollViewer>
+
+        </Grid>
+    </Border>
+</local:WindowBase>

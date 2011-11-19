@@ -1,0 +1,23 @@
+// This file lists the methods that not use AsynGen to generate async version of method.
+Login
+Logout
+
+// The async version of following methods are implemented manually. See AMicroblog.Async.m.cs
+GetRequestToken
+Authorize
+GetAccessToken
+GetRateLimitStatus
+GetEmotions
+DeleteTags
+GetBlockingListIDs
+IsBlocked
+FollowTrend
+UnfollowTrend
+GetShortUrlSharedStatuses
+GetShortUrlComments
+SearchStatuses
+SearchUsers
+GetUserTrends
+
+// This is not a remote call.
+GetStatusUrl

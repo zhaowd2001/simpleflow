@@ -1,0 +1,37 @@
+http://api.t.sina.com.cn/oauth/authorize?oauth_token=1aa21d5819e81928dc48ed892490cb9d&userId=AmicroblogTest%40sina.com&passwd=1234&oauth_callback=xml
+
+* Request_Token过期或不存在
+您所访问的站点在新浪微博连接失败。
+请您联系微博开放平台(weibo_app@vip.sina.com)或者稍后再试。
+(error_code:40113)
+
+* 用户名或者密码参数未提供
+  <hash>
+    <request>/oauth/authorize</request>
+    <error_code>403</error_code>
+    <error>40302:Error: auth faild!</error>
+  </hash>
+
+* 用户名或者密码参数名不正确
+  <hash>
+    <request>/oauth/authorize</request>
+    <error_code>500</error_code>
+    <error>50001:Error: system error!</error>
+  </hash>
+
+* 提供的用户名或密码不正确
+  <hash>
+    <request>/oauth/authorize</request>
+    <error_code>403</error_code>
+    <error>40309:Error: password error!</error>
+  </hash>
+
+* 成功
+<oauth>
+<oauth_token>1aa21d5819e81928dc48ed892490cb9d</oauth_token>
+<oauth_verifier>663725</oauth_verifier>
+</oauth>
+
+
+<?xml version="1.0" encoding="UTF-8"?><oauth><oauth_token>1aa21d5819e81928dc48ed892490cb9d</oauth_token><oauth_verifier>663725</oauth_verifier></oauth>
+

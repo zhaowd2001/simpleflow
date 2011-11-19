@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<users>
+  <user>
+    <id>1135616617</id>
+    <screen_name>Aldrick</screen_name>
+    <name>Aldrick</name>
+    <province>31</province>
+    <city>15</city>
+    <location>上海 浦东新区</location>
+    <description>一般人的忧虑40%属于过去，50%属于未来，只有10%属于现在，而92%的忧虑从未发生过，剩下的8%则能轻易应付。其实生活没那么烦。</description>
+    <url>http://daydayup.blog.163.com</url>
+    <profile_image_url>http://tp2.sinaimg.cn/1135616617/50/5607012617/1</profile_image_url>
+    <domain>aldrick</domain>
+    <gender>m</gender>
+    <followers_count>134</followers_count>
+    <friends_count>100</friends_count>
+    <statuses_count>173</statuses_count>
+    <favourites_count>12</favourites_count>
+    <created_at>Wed Apr 14 00:00:00 +0800 2010</created_at>
+    <following>false</following>
+    <verified>false</verified>
+    <allow_all_act_msg>true</allow_all_act_msg>
+    <geo_enabled>true</geo_enabled>
+    <status>
+      <created_at>Sat Aug 13 10:55:07 +0800 2011</created_at>
+      <id>3345882888498480</id>
+      <text>近日美国发射了#史上最快飞机# #猎鹰#HTV-2号，据说速度达音速20倍，20000公里/每小时(普通飞机的速度大概是800公里/每小时)。这辆无人机可以在12分钟内横跨美国从纽约飞到洛杉矶。不过，幸亏这辆飞机发射出去后，就再也没回来。谁要是在路上捡到了千万别告诉美国啊。http://t.cn/aEbvqw</text>
+      <source>
+        <a href="http://weibo.com">新浪微博</a>
+      </source>
+      <favorited>false</favorited>
+      <truncated>false</truncated>
+      <geo/>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <in_reply_to_screen_name></in_reply_to_screen_name>
+      <thumbnail_pic>http://ww4.sinaimg.cn/thumbnail/43b02269tw1dk3qdudbozj.jpg</thumbnail_pic>
+      <bmiddle_pic>http://ww4.sinaimg.cn/bmiddle/43b02269tw1dk3qdudbozj.jpg</bmiddle_pic>
+      <original_pic>http://ww4.sinaimg.cn/large/43b02269tw1dk3qdudbozj.jpg</original_pic>
+      <mid>3345882888498480</mid>
+    </status>
+  </user>
+  <user>
+    <id>1805176565</id>
+    <screen_name>苗拉</screen_name>
+    <name>苗拉</name>
+    <province>31</province>
+    <city>15</city>
+    <location>上海 浦东新区</location>
+    <description></description>
+    <url></url>
+    <profile_image_url>http://tp2.sinaimg.cn/1805176565/50/1288959651/0</profile_image_url>
+    <domain>rukyzh</domain>
+    <gender>f</gender>
+    <followers_count>43</followers_count>
+    <friends_count>26</friends_count>
+    <statuses_count>407</statuses_count>
+    <favourites_count>0</favourites_count>
+    <created_at>Sun Aug 29 00:00:00 +0800 2010</created_at>
+    <following>false</following>
+    <verified>false</verified>
+    <allow_all_act_msg>false</allow_all_act_msg>
+    <geo_enabled>true</geo_enabled>
+    <status>
+      <created_at>Thu Sep 08 20:07:44 +0800 2011</created_at>
+      <id>3355444043254542</id>
+      <text>[赞]</text>
+      <source>
+        <a href="http://weibo.com">新浪微博</a>
+      </source>
+      <favorited>false</favorited>
+      <truncated>false</truncated>
+      <geo/>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <in_reply_to_screen_name></in_reply_to_screen_name>
+      <mid>3355444043254542</mid>
+      <retweeted_status>
+        <created_at>Wed Sep 07 22:16:51 +0800 2011</created_at>
+        <id>3355114148467170</id>
+        <text>AMicroblogAPI is now a SINA weibo recommended C# SDK. Find out how AMicroblogAPI can help now: http://t.cn/auPvjK</text>
+        <source>
+          <a href="http://weibo.com">新浪微博</a>
+        </source>
+        <favorited>false</favorited>
+        <truncated>false</truncated>
+        <geo/>
+        <in_reply_to_status_id></in_reply_to_status_id>
+        <in_reply_to_user_id></in_reply_to_user_id>
+        <in_reply_to_screen_name></in_reply_to_screen_name>
+        <thumbnail_pic>http://ww1.sinaimg.cn/thumbnail/8a996a8ftw1dkx6mqkij5j.jpg</thumbnail_pic>
+        <bmiddle_pic>http://ww1.sinaimg.cn/bmiddle/8a996a8ftw1dkx6mqkij5j.jpg</bmiddle_pic>
+        <original_pic>http://ww1.sinaimg.cn/large/8a996a8ftw1dkx6mqkij5j.jpg</original_pic>
+        <mid>3355114148467170</mid>
+        <user>
+          <id>2325310095</id>
+          <screen_name>Sina-Open-API-CSharp</screen_name>
+          <name>Sina-Open-API-CSharp</name>
+          <province>31</province>
+          <city>1000</city>
+          <location>上海</location>
+          <description>A C# implementation, a strong-typed deep encapsulation, a easy-to-use .net wrapper of SINA microblog APIs.</description>
+          <url>http://amicroblogapi.codeplex.com/</url>
+          <profile_image_url>http://tp4.sinaimg.cn/2325310095/50/5610008334/1</profile_image_url>
+          <domain>amicroblogapi</domain>
+          <gender>m</gender>
+          <followers_count>21</followers_count>
+          <friends_count>57</friends_count>
+          <statuses_count>6</statuses_count>
+          <favourites_count>0</favourites_count>
+          <created_at>Fri Aug 26 00:00:00 +0800 2011</created_at>
+          <following>false</following>
+          <verified>false</verified>
+          <allow_all_act_msg>true</allow_all_act_msg>
+          <geo_enabled>true</geo_enabled>
+        </user>
+      </retweeted_status>
+    </status>
+  </user>
+  <user>
+    <id>2157279723</id>
+    <screen_name>longgel</screen_name>
+    <name>longgel</name>
+    <province>100</province>
+    <city>1000</city>
+    <location>其他</location>
+    <description></description>
+    <url></url>
+    <profile_image_url>http://tp4.sinaimg.cn/2157279723/50/0/1</profile_image_url>
+    <domain></domain>
+    <gender>m</gender>
+    <followers_count>0</followers_count>
+    <friends_count>18</friends_count>
+    <statuses_count>2</statuses_count>
+    <favourites_count>0</favourites_count>
+    <created_at>Wed Jun 01 00:00:00 +0800 2011</created_at>
+    <following>false</following>
+    <verified>false</verified>
+    <allow_all_act_msg>false</allow_all_act_msg>
+    <geo_enabled>true</geo_enabled>
+    <status>
+      <created_at>Sun Aug 28 11:01:39 +0800 2011</created_at>
+      <id>3351320351076894</id>
+      <text>[嘻嘻] 新浪的微博还是给力的.</text>
+      <source>
+        <a href="http://weibo.com">新浪微博</a>
+      </source>
+      <favorited>false</favorited>
+      <truncated>false</truncated>
+      <geo/>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <in_reply_to_screen_name></in_reply_to_screen_name>
+      <mid>3351320351076894</mid>
+    </status>
+  </user>
+  <user>
+    <id>2325310095</id>
+    <screen_name>Sina-Open-API-CSharp</screen_name>
+    <name>Sina-Open-API-CSharp</name>
+    <province>31</province>
+    <city>1000</city>
+    <location>上海</location>
+    <description>A C# implementation, a strong-typed deep encapsulation, a easy-to-use .net wrapper of SINA microblog APIs.</description>
+    <url>http://amicroblogapi.codeplex.com/</url>
+    <profile_image_url>http://tp4.sinaimg.cn/2325310095/50/5610008334/1</profile_image_url>
+    <domain>amicroblogapi</domain>
+    <gender>m</gender>
+    <followers_count>27</followers_count>
+    <friends_count>63</friends_count>
+    <statuses_count>0</statuses_count>
+    <favourites_count>0</favourites_count>
+    <created_at>Fri Aug 26 00:00:00 +0800 2011</created_at>
+    <following>false</following>
+    <verified>false</verified>
+    <allow_all_act_msg>true</allow_all_act_msg>
+    <geo_enabled>true</geo_enabled>
+    <status>
+      <created_at>Thu Sep 08 20:57:24 +0800 2011</created_at>
+      <id>3355456542332245</id>
+      <text>如何使用AMicroblogAPI，这是一个例子：</text>
+      <source>
+        <a href="http://weibo.com">新浪微博</a>
+      </source>
+      <favorited>false</favorited>
+      <truncated>false</truncated>
+      <geo/>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <in_reply_to_screen_name></in_reply_to_screen_name>
+      <thumbnail_pic>http://ww2.sinaimg.cn/thumbnail/8a996a8ftw1dky9yynsokj.jpg</thumbnail_pic>
+      <bmiddle_pic>http://ww2.sinaimg.cn/bmiddle/8a996a8ftw1dky9yynsokj.jpg</bmiddle_pic>
+      <original_pic>http://ww2.sinaimg.cn/large/8a996a8ftw1dky9yynsokj.jpg</original_pic>
+      <mid>3355456542332245</mid>
+    </status>
+  </user>
+  <user>
+    <id>2196823812</id>
+    <screen_name>令狐玉精的微博</screen_name>
+    <name>令狐玉精的微博</name>
+    <province>50</province>
+    <city>84</city>
+    <location>重庆 南川市</location>
+    <description></description>
+    <url></url>
+    <profile_image_url>http://tp1.sinaimg.cn/2196823812/50/5604062456/0</profile_image_url>
+    <domain></domain>
+    <gender>f</gender>
+    <followers_count>39</followers_count>
+    <friends_count>513</friends_count>
+    <statuses_count>0</statuses_count>
+    <favourites_count>0</favourites_count>
+    <created_at>Sun Jun 26 00:00:00 +0800 2011</created_at>
+    <following>false</following>
+    <verified>false</verified>
+    <allow_all_act_msg>false</allow_all_act_msg>
+    <geo_enabled>true</geo_enabled>
+  </user>
+  <user>
+    <id>2318654653</id>
+    <screen_name>fhq756</screen_name>
+    <name>fhq756</name>
+    <province>44</province>
+    <city>1</city>
+    <location>广东 广州</location>
+    <description></description>
+    <url></url>
+    <profile_image_url>http://tp2.sinaimg.cn/2318654653/50/5609133297/0</profile_image_url>
+    <domain>akxbc47826</domain>
+    <gender>f</gender>
+    <followers_count>28</followers_count>
+    <friends_count>189</friends_count>
+    <statuses_count>89</statuses_count>
+    <favourites_count>0</favourites_count>
+    <created_at>Tue Aug 23 00:00:00 +0800 2011</created_at>
+    <following>false</following>
+    <verified>false</verified>
+    <allow_all_act_msg>false</allow_all_act_msg>
+    <geo_enabled>true</geo_enabled>
+    <status>
+      <created_at>Thu Sep 08 08:22:50 +0800 2011</created_at>
+      <id>3355266650139842</id>
+      <text>很多人以为，是因为感情淡了，人才会变得懒惰，其实人是先被惰性征服，然后感情才慢慢变淡的。现在越来越多的人只想谈一辈子恋爱，却迟迟不肯走入婚姻。因为，婚姻容易让人变得懒惰。</text>
+      <source>
+        <a href="http://weibo.com">新浪微博</a>
+      </source>
+      <favorited>false</favorited>
+      <truncated>false</truncated>
+      <geo/>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <in_reply_to_screen_name></in_reply_to_screen_name>
+      <mid>3355266650139842</mid>
+    </status>
+  </user>
+  <user>
+    <id>2242264047</id>
+    <screen_name>炯泽祁</screen_name>
+    <name>炯泽祁</name>
+    <province>44</province>
+    <city>8</city>
+    <location>广东 湛江</location>
+    <description></description>
+    <url></url>
+    <profile_image_url>http://tp4.sinaimg.cn/2242264047/50/5606087799/0</profile_image_url>
+    <domain></domain>
+    <gender>f</gender>
+    <followers_count>19</followers_count>
+    <friends_count>244</friends_count>
+    <statuses_count>0</statuses_count>
+    <favourites_count>0</favourites_count>
+    <created_at>Wed Jul 13 00:00:00 +0800 2011</created_at>
+    <following>false</following>
+    <verified>false</verified>
+    <allow_all_act_msg>false</allow_all_act_msg>
+    <geo_enabled>true</geo_enabled>
+  </user>
+</users>

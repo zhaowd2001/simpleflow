@@ -1,0 +1,137 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample Responses", "Sample Responses", "{36C8A767-5788-450C-9058-463038C09C79}"
+	ProjectSection(SolutionItems) = preProject
+		Sample Response\GetEmotionsResponse.xml = Sample Response\GetEmotionsResponse.xml
+		Sample Response\GetFriendsResponse.xml = Sample Response\GetFriendsResponse.xml
+		Sample Response\GetTrends.xml = Sample Response\GetTrends.xml
+		Sample Response\MuitiPartRequest-FromHTTPWatch.txt = Sample Response\MuitiPartRequest-FromHTTPWatch.txt
+		Sample Response\PublicTimelineResponse.xml = Sample Response\PublicTimelineResponse.xml
+		Sample Response\RateLimitStatusResponse.xml = Sample Response\RateLimitStatusResponse.xml
+		Sample Response\RepostReponse.xml = Sample Response\RepostReponse.xml
+		Sample Response\StatusesResponse.xml = Sample Response\StatusesResponse.xml
+		Sample Response\UpdateStatusResponse.xml = Sample Response\UpdateStatusResponse.xml
+		Sample Response\UserInfo.xml = Sample Response\UserInfo.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tool", "Tool", "{59DFFC11-5251-4396-9990-A10E3F1AA604}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMicroblogAPIDemo-WPF", "AMicroBlogClient\AMicroblogAPIDemo-WPF.csproj", "{01CC32FC-E84B-4E5E-93B5-07EF46171D96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMicroblogAPI", "AMicroBlogAPI\AMicroblogAPI.csproj", "{A35C9592-41CD-4DCA-A820-B57D4C7DBAEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMicroblogAPITest", "AMicroBlogAPITest\AMicroblogAPITest.csproj", "{6E441272-1D8E-4E4A-9438-12B0C546746B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncMethodGenerator", "Tool\AsyncMethodGenerator\AsyncMethodGenerator.csproj", "{F1718E05-5C6A-468C-8F7D-B088FD87A01A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIMappingGenerator", "Tool\APIMappingGenerator\APIMappingGenerator.csproj", "{4D8DA287-3941-4D3A-B345-176B33A3E9BF}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AMicroblogAPIDemo-Web", "AMicroblogAPIDemo-Web\", "{9EE3ED24-C4C8-4FB9-B2EB-D8AD2173F5AD}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		ProjectReferences = "{A35C9592-41CD-4DCA-A820-B57D4C7DBAEF}|AMicroblogAPI.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/AMicroblogAPIDemo-Web"
+		Debug.AspNetCompiler.PhysicalPath = "AMicroblogAPIDemo-Web\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\AMicroblogAPIDemo-Web\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/AMicroblogAPIDemo-Web"
+		Release.AspNetCompiler.PhysicalPath = "AMicroblogAPIDemo-Web\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\AMicroblogAPIDemo-Web\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "30632"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = AMicro-blogAPI.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01CC32FC-E84B-4E5E-93B5-07EF46171D96}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{01CC32FC-E84B-4E5E-93B5-07EF46171D96}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{01CC32FC-E84B-4E5E-93B5-07EF46171D96}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{01CC32FC-E84B-4E5E-93B5-07EF46171D96}.Debug|x86.ActiveCfg = Debug|x86
+		{01CC32FC-E84B-4E5E-93B5-07EF46171D96}.Debug|x86.Build.0 = Debug|x86
+		{01CC32FC-E84B-4E5E-93B5-07EF46171D96}.Release|Any CPU.ActiveCfg = Release|x86
+		{01CC32FC-E84B-4E5E-93B5-07EF46171D96}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{01CC32FC-E84B-4E5E-93B5-07EF46171D96}.Release|Mixed Platforms.Build.0 = Release|x86
+		{01CC32FC-E84B-4E5E-93B5-07EF46171D96}.Release|x86.ActiveCfg = Release|x86
+		{01CC32FC-E84B-4E5E-93B5-07EF46171D96}.Release|x86.Build.0 = Release|x86
+		{A35C9592-41CD-4DCA-A820-B57D4C7DBAEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A35C9592-41CD-4DCA-A820-B57D4C7DBAEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A35C9592-41CD-4DCA-A820-B57D4C7DBAEF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A35C9592-41CD-4DCA-A820-B57D4C7DBAEF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A35C9592-41CD-4DCA-A820-B57D4C7DBAEF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A35C9592-41CD-4DCA-A820-B57D4C7DBAEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A35C9592-41CD-4DCA-A820-B57D4C7DBAEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A35C9592-41CD-4DCA-A820-B57D4C7DBAEF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A35C9592-41CD-4DCA-A820-B57D4C7DBAEF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A35C9592-41CD-4DCA-A820-B57D4C7DBAEF}.Release|x86.ActiveCfg = Release|Any CPU
+		{6E441272-1D8E-4E4A-9438-12B0C546746B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E441272-1D8E-4E4A-9438-12B0C546746B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E441272-1D8E-4E4A-9438-12B0C546746B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6E441272-1D8E-4E4A-9438-12B0C546746B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6E441272-1D8E-4E4A-9438-12B0C546746B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6E441272-1D8E-4E4A-9438-12B0C546746B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E441272-1D8E-4E4A-9438-12B0C546746B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E441272-1D8E-4E4A-9438-12B0C546746B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6E441272-1D8E-4E4A-9438-12B0C546746B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6E441272-1D8E-4E4A-9438-12B0C546746B}.Release|x86.ActiveCfg = Release|Any CPU
+		{F1718E05-5C6A-468C-8F7D-B088FD87A01A}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{F1718E05-5C6A-468C-8F7D-B088FD87A01A}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{F1718E05-5C6A-468C-8F7D-B088FD87A01A}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{F1718E05-5C6A-468C-8F7D-B088FD87A01A}.Debug|x86.ActiveCfg = Debug|x86
+		{F1718E05-5C6A-468C-8F7D-B088FD87A01A}.Debug|x86.Build.0 = Debug|x86
+		{F1718E05-5C6A-468C-8F7D-B088FD87A01A}.Release|Any CPU.ActiveCfg = Release|x86
+		{F1718E05-5C6A-468C-8F7D-B088FD87A01A}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{F1718E05-5C6A-468C-8F7D-B088FD87A01A}.Release|Mixed Platforms.Build.0 = Release|x86
+		{F1718E05-5C6A-468C-8F7D-B088FD87A01A}.Release|x86.ActiveCfg = Release|x86
+		{F1718E05-5C6A-468C-8F7D-B088FD87A01A}.Release|x86.Build.0 = Release|x86
+		{4D8DA287-3941-4D3A-B345-176B33A3E9BF}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{4D8DA287-3941-4D3A-B345-176B33A3E9BF}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{4D8DA287-3941-4D3A-B345-176B33A3E9BF}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{4D8DA287-3941-4D3A-B345-176B33A3E9BF}.Debug|x86.ActiveCfg = Debug|x86
+		{4D8DA287-3941-4D3A-B345-176B33A3E9BF}.Debug|x86.Build.0 = Debug|x86
+		{4D8DA287-3941-4D3A-B345-176B33A3E9BF}.Release|Any CPU.ActiveCfg = Release|x86
+		{4D8DA287-3941-4D3A-B345-176B33A3E9BF}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{4D8DA287-3941-4D3A-B345-176B33A3E9BF}.Release|Mixed Platforms.Build.0 = Release|x86
+		{4D8DA287-3941-4D3A-B345-176B33A3E9BF}.Release|x86.ActiveCfg = Release|x86
+		{4D8DA287-3941-4D3A-B345-176B33A3E9BF}.Release|x86.Build.0 = Release|x86
+		{9EE3ED24-C4C8-4FB9-B2EB-D8AD2173F5AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EE3ED24-C4C8-4FB9-B2EB-D8AD2173F5AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EE3ED24-C4C8-4FB9-B2EB-D8AD2173F5AD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9EE3ED24-C4C8-4FB9-B2EB-D8AD2173F5AD}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9EE3ED24-C4C8-4FB9-B2EB-D8AD2173F5AD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9EE3ED24-C4C8-4FB9-B2EB-D8AD2173F5AD}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EE3ED24-C4C8-4FB9-B2EB-D8AD2173F5AD}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{9EE3ED24-C4C8-4FB9-B2EB-D8AD2173F5AD}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9EE3ED24-C4C8-4FB9-B2EB-D8AD2173F5AD}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9EE3ED24-C4C8-4FB9-B2EB-D8AD2173F5AD}.Release|x86.ActiveCfg = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F1718E05-5C6A-468C-8F7D-B088FD87A01A} = {59DFFC11-5251-4396-9990-A10E3F1AA604}
+		{4D8DA287-3941-4D3A-B345-176B33A3E9BF} = {59DFFC11-5251-4396-9990-A10E3F1AA604}
+	EndGlobalSection
+EndGlobal

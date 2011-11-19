@@ -1,0 +1,29 @@
+﻿POST /interface/pic_upload.php?app=miniblog&logo=1&nick=@Aldrick&url=weibo.com%2Faldrick&markpos=1&s=rdxt&cb=http://weibo.com/upimgback.html&rq=http%3A%2F%2Fphoto.i.weibo.com%2Fpic%2Fadd.php%3Fapp%3D1 HTTP/1.1
+Accept: text/html, application/xhtml+xml, */*
+Referer: http://weibo.com/aldrick/profile
+Accept-Language: zh-CN
+User-Agent: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; BOIE9;ZHCN)
+Content-Type: multipart/form-data; boundary=---------------------------7db2b61c40302
+Accept-Encoding: gzip, deflate
+Host: picupload.service.weibo.com
+Content-Length: 2004
+Connection: Keep-Alive
+Cache-Control: no-cache
+Cookie: UOR=,weibo.com,; SINAGLOBAL=7162061341853.339.1308715703024; ULV=1313660532971:5:3:3:5017055142961.452.1313660532925:1313660223952; ALF=1314263616; un=shoocstorm; WNP=1135616617%2C255; SinaRot//=36; wvr=3; USRHAJAWB=usrmdins19108; SUE=es%3Dbc8d8390a4610595c23fe952960dbe3e%26ev%3Dv1%26es2%3D9aa58414058fc86ea199ca3e04e6071e%26rs0%3DaUU01VsJB7OB5rcQ76EQjr5RaN4ibOmNeR1%252F4wE1YqotoFImX9OE4ZzJa6tw9kD9dW9MdAtVvq8IbgQMFuAdVjIW0R8VyHO86CEDsJh6dv%252FpfldHNP2tsfk%252BHg7G3%252Fe56bFc0QS9jdUDto1mu1VrgcSjhhwrHLEkfKMWJydm8aI%253D%26rv%3D0; SUP=cv%3D1%26bt%3D1313660659%26et%3D1313747059%26lt%3D1%26uid%3D1135616617%26user%3Dshoocstorm%26ag%3D2%26name%3Dshoocstorm%2540sina.com%26nick%3Dshoocstorm%26sex%3D1%26ps%3D0%26email%3Dshoocstorm%2540sina.com%26dob%3D1983-07-01%26ln%3D1135616617%26os%3D%26fmp%3D%26lcp%3D; SSOLoginState=1313660661; _s_tentry=login.sina.com.cn; ads_ck=1; Apache=5017055142961.452.1313660532925
+
+-----------------------------7db2b61c40302
+Content-Disposition: form-data; name="pic1"; filename="NetIcon.png"
+Content-Type: image/x-png
+
+塒NG
+
+   
+IHDR   9   )    ?I   sRGB ?   gAMA  睆黙   	pHYs  ?  ?莖╠  獻DATXG瓨賠?EHrkdm蝱煅.?)<3wZ ┉RaZ?懈8hpx|耕zr魕o玷p骧栲飨?菄o敷.o=苓蜍埤眇鄰慧k⒔7潍硗觋驕醻亢??僳砑嬁稔飾虣鐊慵?霊a慐?
+~zx瘽W屆@?郧饧酗纀%?忮?龖賶€28/??慙ㄚ?厱崥Ｈ挝馨g昕惑鸝娍?c%7釯涭歐谔??>sk康鳡蜹	YQ窸忳o?熚嬄潔淤閠?鰧gp栴AB;硧髈枷S;愠dg茲R溛>?鉏空麪z:綱UU?馘豹叝醫鼚_彖镧実d?柕<z?2wb??g璚錟乃?~wq 3抹澱椨??竞颴蕄楀c苚匪嘴_y}?y'E縭Zf强q犮_T{蕴	Z悫3j铧U,.┶願＃儩漁乔嚪纷<wQ!f鴬搽x秥
+酆|?f<薦馘"鲜Q嘉?9#荰 皽5$?哝菌'~与王OU"_=謈?崧盼叻p竈-"餔^?佝ㄔw?黲VdK?縭坐?u6屺UvC鞌6烯?Y挠,Z??N仫d戻0Vl陬w?讆踄 ?诘*H鮐臼Q揸Tk︱?J=绹w煼嵱r?恜蠌靭隥\?r轙燄8誚峜烉ig癔.Xw2Z鄢鼺鍖a詽?酲??:暉鼦?蔜T腈N鄃鴯L楞??踊$N項?_Y顆晍??杉祺┛礨贻韣,⒗~y??O8€v?岷?h氟晠&嘱炪_U偼.Fy潩淯幉躿(帰趹漴:q_+蟌2\?8f/枰6vYㄚ^禑?cn?&獗畊
+名導鏺塄魌峆6?cgWpK?噃?{户亢镫xf?_欭儋)#`鰀巠薆谪镮籠唇d缈譬湛跈j?驔駎枷xz掘耮N幔儴奅d|?;?ЭW硖GuF馷黰淩銌賣<ｇ蜄c.Y矞+瑵觎霶頀潓?馵_銄$,?J緾8汅??t??;%谡?踯7卧幨閨g葂_=避?+?b莃﹀鈷漚蛂4<砷e準ry軑g俗詶嫾縱?胙?嗫狈猔T3??Ｚ俸6反i|騂d鶽潆G?歴+霅*B;?#|?e?'=熐棷o觡??隟Om諲鞷Q?x軗-隬嶍溣醟
+Y视瑽脷a躞I縖睛 1鋬釖	?F岒槬<枀?恛-s#9O?1彵?u0?b??额篼@港jm諓河S恢楐荝.}g灥7?暝5?e@?up綫08愆儹|瓀裐_??u籮骬.茋8髚?篂褐?q?8yE砘?缶珍R闗搽}?循Si(ｈ?墸?n帲芉邞?舗?u瑌燦蚟Vr缝8:丝(5q珹崈F鼢繝uy寪贜燘8;胚褐飫r 祌瀚蕁@?v匍
+﹔T5?oW,8j{伝?q鋏緜y鬯?U?;穜嬺溊蟳鐔?U??茼猡6
+/k繊?嶯浅潍鷺騌惟??
+K惊勿u壔眥!??P隳縸'?蝜紱?砉._s3她}蔧鉒脬餽框;硷鶌Xt歧骄~桀秗Q鷐AVw厩8揖?l]棠    IEND瓸`?
+-----------------------------7db2b61c40302--

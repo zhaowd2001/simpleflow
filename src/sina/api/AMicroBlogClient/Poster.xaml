@@ -1,0 +1,144 @@
+﻿<UserControl x:Class="AMicroblogAPISample.Poster"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AMicroblogAPISample"
+             mc:Ignorable="d" 
+             d:DesignHeight="169" d:DesignWidth="392" Loaded="HandleLoaded">
+    <Grid Name="container">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24*" />
+            <RowDefinition Height="156*" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+
+        <!--Pic popup-->
+        <Popup Name="postPicPopup" IsOpen="{Binding IsPicAttached}" AllowsTransparency="True" Placement="Left" 
+               PlacementTarget="{Binding ElementName=container}" HorizontalOffset="-4">
+            <Border Margin="2" BorderBrush="{StaticResource highlightBorderColor}" BorderThickness="1" CornerRadius="4" Background="{StaticResource popBGColor}" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="1"/>
+                </Border.Effect>
+                <Grid Margin="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Button Style="{DynamicResource closeBtnSty}" ToolTip="Discards the pic"  Content="X" Width="15" Height="15" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" Click="HandleDiscardPic"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="4,0" FontSize="10" Text="Post with below image:" />
+                    <TextBlock Grid.Row="1" Text="{Binding AttachedPicName, Mode=OneWay}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="10"/>
+                    <Image Margin="2" Grid.Row="2" Source="{Binding AttachedPicLocation}" Name="imgSource" Width="200" Height="200"/>
+                </Grid>
+            </Border>
+        </Popup>
+
+        <!--Post as Gen-Img-->
+        <Popup Name="imgGenPop" IsOpen="{Binding IsPostAsPic}" Placement="Right" PlacementTarget="{Binding ElementName=container}" AllowsTransparency="True" HorizontalOffset="4" Opened="HandlePostAsImgPopOpened" Closed="HandlePostAsImgPopClosed">
+            <Border Margin="2" MinWidth="200" MinHeight="200" BorderBrush="{StaticResource highlightBorderColor}" BorderThickness="1" CornerRadius="4" Background="{StaticResource popBGColor}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="1"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Margin="2" FontSize="10" TextWrapping="Wrap">
+                            <Run Text="Ready to generate the following pic to post"/>
+                            <LineBreak/>
+                            <Run Text="(you can still edit the status text without closing this popup)"/>
+                    </TextBlock>
+
+                    <StackPanel Margin="2,2" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" TextElement.FontSize="9">
+                        <TextBlock Text="Size:" VerticalAlignment="Center"/>
+                        <Button Width="20" Height="20" Content="+" Click="HandleIncFontSize" Margin="2,0" />
+                        <Button Width="20" Height="20"  Content="-" Click="HandleDecFontSize" Margin="2,0"/>
+                    </StackPanel>
+
+                    <Grid Margin="4" Grid.Row="2">
+                        <Border Name="imgGen" BorderBrush="{StaticResource highlightBorderColor}" BorderThickness="1" Background="{StaticResource highlightBGColor}" CornerRadius="4">                           
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Name="imgBlock" Text="{Binding Text,ElementName=txbStatus}" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="4"/>
+
+                                <Image Margin="2" Grid.Row="1" Source="{Binding GenAttachedPicLocation}"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+                    <StackPanel Margin="2,2" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" TextElement.FontSize="9">
+                        <Button Width="50" Height="20" Content="OK" Click="HandleGenerateImg" />
+                        <Button Width="50" Height="20"  Content="Cancel" Click="HandleCancelGenerateImg" Margin="4,0"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Popup>
+
+        <!--Suggestion-->
+        <Popup Name="suggestionPop" StaysOpen="False" Placement="Relative" PlacementTarget="{Binding ElementName=txbStatus}" AllowsTransparency="True" VerticalOffset="4" Closed="HandleSuggestionPopClosed">
+            <Border MinWidth="200" MinHeight="200" MaxWidth="400" BorderBrush="{StaticResource highlightBorderColor}" BorderThickness="1" CornerRadius="4" Background="{StaticResource popBGColor}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Suggestions below:" FontSize="10" Margin="4,2"/>
+                    <Border Grid.Row="1" Margin="4,2" BorderBrush="{StaticResource highlightBorderColor}" BorderThickness="1" CornerRadius="4" Background="{StaticResource highlightBGColor}" VerticalAlignment="Stretch">
+                        <ListBox Name="lbSuggestion" FontSize="11" ItemsSource="{Binding UserSuggestions}" BorderThickness="0" Background="{x:Null}" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListBoxItem">
+                                                <Border Name="PART_BD" Margin="1" Background="Transparent" Tag="{Binding}" MouseLeftButtonDown="HandleSelectSuggestion">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+
+                                                        <!--Profile Img-->
+                                                        <Border BorderBrush="{StaticResource highlightBorderColor}" BorderThickness="1" CornerRadius="2" VerticalAlignment="Top" Margin="2">
+                                                            <local:ImageLoader Source="{Binding ProfileImageUrl}" Stretch="Uniform" PWidth="25" PHeight="25" Margin="2"/>
+                                                        </Border>
+
+                                                        <TextBlock Text="{Binding ScreenName}" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+                                                    </StackPanel>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsSelected" Value="True">
+                                                        <Setter TargetName="PART_BD" Property="Background" Value="#5F00FF00"/>
+                                                    </Trigger>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="PART_BD" Property="Background" Value="#8F00FF00"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                        </ListBox>
+                    </Border>
+                </Grid>
+            </Border>
+        </Popup>
+
+        <TextBox Text="{Binding Text}" AcceptsReturn="True" AcceptsTab="True" FontFamily="Arial" FontSize="15" Margin="8,0" MaxHeight="400" MinHeight="110" Name="txbStatus" ScrollViewer.VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Row="1"  TextChanged="HandStatusTextChanged" PreviewKeyDown="HandleStatusTextBoxKeyDown"/>
+
+        <!--Status Options-->
+        <StackPanel Name="optionBar" Orientation="Horizontal" Grid.Row="2" Margin="8,0" HorizontalAlignment="Left" VerticalAlignment="Center" TextElement.FontSize="9">
+            <Button Content="Attach Pic..." Height="20" HorizontalAlignment="Left" Name="btnBrowser" VerticalAlignment="Center" Width="75" Click="HandleBrowserBtnClicked"/>
+            <ToggleButton IsChecked="{Binding IsPostAsPic}" Content="Post as Pic..."  Height="20" HorizontalAlignment="Left" Name="btnPostAsImg" VerticalAlignment="Top" Width="75" Margin="4,0" />
+        </StackPanel>
+
+        <!--Post button-->
+        <TextBlock Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,95,0" Name="txbStatusAvailableCharsMsg" VerticalAlignment="Center" />
+        <Button Grid.Row="2" IsEnabled="False" Content="Post" FontSize="20" Height="30" HorizontalAlignment="Right" Margin="8,4" Name="btnPost" VerticalAlignment="Center" Width="75" Click="HandlePostBtnClicked"/>
+
+    </Grid>
+</UserControl>

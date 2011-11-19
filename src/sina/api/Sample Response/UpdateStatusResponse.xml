@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<status>
+  <created_at>Thu Aug 18 10:45:59 +0800 2011</created_at>
+  <id>3347692531083792</id>
+  <text>goood</text>
+  <source>
+    <a href="http://open.t.sina.com.cn">未通过审核应用</a>
+  </source>
+  <favorited>false</favorited>
+  <truncated>false</truncated>
+  <geo xmlns:georss="http://www.georss.org/georss">
+    <georss:point>0 0</georss:point>
+  </geo>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <mid>3347692531083792</mid>
+  <user>
+    <id>1135616617</id>
+    <screen_name>Aldrick</screen_name>
+    <name>Aldrick</name>
+    <province>31</province>
+    <city>15</city>
+    <location>上海 浦东新区</location>
+    <description>一般人的忧虑40%属于过去，50%属于未来，只有10%属于现在，而92%的忧虑从未发生过，剩下的8%则能轻易应付。其实生活没那么烦。</description>
+    <url>http://daydayup.blog.163.com</url>
+    <profile_image_url>http://tp2.sinaimg.cn/1135616617/50/5607012617/1</profile_image_url>
+    <domain>aldrick</domain>
+    <gender>m</gender>
+    <followers_count>123</followers_count>
+    <friends_count>95</friends_count>
+    <statuses_count>175</statuses_count>
+    <favourites_count>12</favourites_count>
+    <created_at>Wed Apr 14 00:00:00 +0800 2010</created_at>
+    <following>false</following>
+    <verified>false</verified>
+    <allow_all_act_msg>true</allow_all_act_msg>
+    <geo_enabled>true</geo_enabled>
+  </user>
+</status>

@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A35C9592-41CD-4DCA-A820-B57D4C7DBAEF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AMicroblogAPI</RootNamespace>
+    <AssemblyName>AMicroblogAPI</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\AMicroblogAPI.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AMicoblog.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AMicroblog.Async.g.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AMicroblog.Async.m.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\AMicroblogAPIConfiguration.cs" />
+    <Compile Include="Common\AMicroblogException.cs" />
+    <Compile Include="Common\APIUri.cs" />
+    <Compile Include="Common\AsyncCallback.cs" />
+    <Compile Include="Common\AsyncCallResult.cs" />
+    <Compile Include="Common\LocalErrorCode.cs" />
+    <Compile Include="Common\IResponseErrorHandler.cs" />
+    <Compile Include="Common\ResponseErrorData.cs" />
+    <Compile Include="Common\ResponseErrorEventArgs.cs" />
+    <Compile Include="DataContract\Comment\CommentInfo.cs" />
+    <Compile Include="DataContract\Comment\Comments.cs" />
+    <Compile Include="DataContract\Common\Source.cs" />
+    <Compile Include="DataContract\Common\Geo.cs" />
+    <Compile Include="DataContract\Common\GeoPoint.cs" />
+    <Compile Include="DataContract\Common\ErrorResponse.cs" />
+    <Compile Include="DataContract\Counter\CounterType.cs" />
+    <Compile Include="DataContract\Counter\CounterInfo.cs" />
+    <Compile Include="DataContract\Counter\Counters.cs" />
+    <Compile Include="DataContract\Common\BooleanResultInfo.cs" />
+    <Compile Include="DataContract\DirectMessage\DirectMessages.cs" />
+    <Compile Include="DataContract\DirectMessage\DirectMessageInfo.cs" />
+    <Compile Include="DataContract\Emotion\EmotionInfo.cs" />
+    <Compile Include="DataContract\Emotion\Emotions.cs" />
+    <Compile Include="DataContract\Emotion\EmotionType.cs" />
+    <Compile Include="DataContract\Account\PrivacyInfo.cs" />
+    <Compile Include="DataContract\Account\RateLimitStatus.cs" />
+    <Compile Include="DataContract\Relationship\RelationshipInfo.cs" />
+    <Compile Include="DataContract\Relationship\RelationshipPart.cs" />
+    <Compile Include="DataContract\Tag\TagIDs.cs" />
+    <Compile Include="DataContract\Tag\TagInfo.cs" />
+    <Compile Include="DataContract\Tag\Tags.cs" />
+    <Compile Include="DataContract\Account\UpdateProfileInfo.cs" />
+    <Compile Include="DataContract\Trend\PeriodTrends.cs" />
+    <Compile Include="DataContract\Trend\Trends.cs" />
+    <Compile Include="DataContract\Trend\TrendInfo.cs" />
+    <Compile Include="DataContract\Url\Urls.cs" />
+    <Compile Include="DataContract\User\UserSuggestionInfo.cs" />
+    <Compile Include="DataContract\User\UserIDs.cs" />
+    <Compile Include="DataContract\User\Users.cs" />
+    <Compile Include="DataContract\Status\Statuses.cs" />
+    <Compile Include="DataContract\Status\StatusType.cs" />
+    <Compile Include="DataContract\Status\UpdateStatusWithPicInfo.cs" />
+    <Compile Include="DataContract\Common\UnreadInfo.cs" />
+    <Compile Include="DataContract\User\UserSuggestions.cs" />
+    <Compile Include="Environment.cs" />
+    <Compile Include="Common\HttpMethod.cs" />
+    <Compile Include="HttpRequests\OAuthHttpDelete.cs" />
+    <Compile Include="HttpRequests\HttpRequest.cs" />
+    <Compile Include="HttpRequests\IHttpRequest.cs" />
+    <Compile Include="HttpRequests\MultiPartField.cs" />
+    <Compile Include="HttpRequests\MultiPartHttpPost.cs" />
+    <Compile Include="HttpRequests\OAuthHttpGet.cs" />
+    <Compile Include="HttpRequests\OAuthHttpPost.cs" />
+    <Compile Include="HttpRequests\TokenObtainRequest.cs" />
+    <Compile Include="Common\OAuthHelper.cs" />
+    <Compile Include="HttpRequests\OAuthMultiPartHttpPost.cs" />
+    <Compile Include="Common\OAuthTokens.cs" />
+    <Compile Include="Common\ParamCollection.cs" />
+    <Compile Include="Common\ParamPair.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Common\RFC3986Encoder.cs" />
+    <Compile Include="DataContract\Common\HpyerLink.cs" />
+    <Compile Include="DataContract\Status\StatusInfo.cs" />
+    <Compile Include="DataContract\Status\UpdateStatusInfo.cs" />
+    <Compile Include="DataContract\User\UserInfo.cs" />
+    <Compile Include="Common\Constants.cs" />
+    <Compile Include="HttpRequests\HttpGet.cs" />
+    <Compile Include="HttpRequests\HttpPost.cs" />
+    <Compile Include="Common\XmlSerializationHelper.cs" />
+    <Compile Include="DataContract\Url\UrlInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DataContract\DataContracts.cd" />
+    <None Include="HttpRequests\HttpRequests.cd" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>..\..\..\Tool\sgen /a:$(TargetPath) /f</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

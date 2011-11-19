@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hash>
+  <request>/statuses/friends_timeline.xml</request>
+  <error_code>403</error_code>
+  <error>40302:Error: auth faild!</error>
+</hash>

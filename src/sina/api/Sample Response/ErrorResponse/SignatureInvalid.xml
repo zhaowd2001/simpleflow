@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <hash>
+    <request>/statuses/followers.xml</request>
+    <error_code>401</error_code>
+    <error>40107:Oauth Error: signature_invalid!</error>
+  </hash>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<emotions>
+  <emotion>
+    <phrase>[星期五]</phrase>
+    <type>cartoon</type>
+    <url>http://ss13.sinaimg.cn/square/50e326f1t92f4360a30dc&690</url>
+    <is_hot>false</is_hot>
+    <is_common>true</is_common>
+    <order_number>0</order_number>
+    <category></category>
+  </emotion>
+  <emotion>
+    <phrase>[我要長大]</phrase>
+    <type>cartoon</type>
+    <url>http://ww2.sinaimg.cn/large/67785d22jw6ddgnvv7naig.gif</url>
+    <is_hot>false</is_hot>
+    <is_common>true</is_common>
+    <order_number>0</order_number>
+    <category></category>
+  </emotion>
+</emotions>

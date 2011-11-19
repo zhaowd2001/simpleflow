@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <!--Element selector, ID selector, class selector, group selector, descendant selector, child selector, adjacent sibling selector, attribute selector-->
+    <style type="text/css">
+        #myContent
+        {
+            font-size: 12px;
+            color: gray;
+        }
+        
+        body div > p + p
+        {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .userStatus
+        {
+            font-size: 23px;
+            border: 1px dashed Silver;
+            position: relative;
+            width: 500px;
+            min-height: 100px;
+            height: 150px;            
+            z-index: 1;
+            left: 100px;
+            top: 50px;
+        }
+        
+        .userStatus div .followBox
+        {
+            display: none;
+            cursor:default;
+            height: 100px;
+            position: absolute;
+            top: -90px;
+            left:10px;
+        }
+        
+        .userStatus div:hover .followBox
+        {
+            display: block;
+        }
+        
+        .followBoxContent
+        {
+            border: 1px solid #00FF00;
+            width: 200px;
+            height: 90px;
+            background:  #CCFFCC;
+        }
+    </style>
+</head>
+<body style="width: 768px;">
+    <div id="myContent" style="position: relative; top:40px; left:40px">
+        <p>
+            1st paragraph&nbsp;</p>
+        <p>
+            This is a test of descendant selector and child selector.
+        </p>
+        <div class="userStatus">
+            <div style="float: left;background:red">
+                <span style="cursor:pointer;">@Aldrick:</span> 
+                <div class="followBox">
+                    <div class="followBoxContent">
+                        <a href="#">关注</a>
+                    </div>
+                </div>
+            </div>
+            <div>
+                Today is a nice day!
+            </div>
+        </div>
+        <br />
+        <div class="userStatus">
+            <div style="cursor:pointer; float: left; text-align: left; width: auto; background:red">
+                @苗拉: Yes, it sure is.!
+                <div class="followBox">
+                   <div class="followBoxContent">
+                        <a href="#">关注</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <div style="position:relative; left: 50px; top:50px; border:1px solid red">
+            @Aldrick:
+            <div style="position:fixed;">
+                aaaa
+            </div>
+        </div>
+    </div>
+</body>
+</html>

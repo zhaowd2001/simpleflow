@@ -1,0 +1,7 @@
+// This following methods are ignored while generating mapping.
+EncodeXmlCharsPreprocess
+ProcessAsyncCallbackVoidResponse
+ProcessAsyncCallbackResponse``1
+ProcessAsyncCallbackResponseCustom``1
+ConstructPagedRecordsParams
+ValidateArgument

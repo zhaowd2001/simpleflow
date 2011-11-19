@@ -1,0 +1,111 @@
+﻿<local:WindowBase x:Class="AMicroblogAPISample.PostWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:AMicroblogAPISample"
+        Title="PostWindow" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterOwner"
+        mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="314" d:DesignWidth="465">
+    <Border Margin="2" MinWidth="400" MaxWidth="600" MaxHeight="600" BorderBrush="{DynamicResource highlightBorderColor}" BorderThickness="1" Background="{DynamicResource popBGColor}" CornerRadius="4">
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="1"/>
+        </Border.Effect>
+        <Grid>
+            <Grid.Resources>
+                <local:NullToVisConverter x:Key="nullToVisConverter"/>
+                
+                <!--Comments Item Style-->
+                <Style x:Key="commentItemStyle" TargetType="ListBoxItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <Grid MinHeight="60">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--Author Img-->
+                                    <Border BorderBrush="{StaticResource highlightBorderColor}" BorderThickness="1" CornerRadius="2" VerticalAlignment="Top" >
+                                        <local:ImageLoader Source="{Binding User.ProfileImageUrl}" Stretch="Uniform" PWidth="50" PHeight="50" Margin="2"/>
+                                    </Border>
+
+                                    <!--Status content-->
+                                    <Grid Grid.Column="1" Margin="2,4">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition />
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <!--Author & Comments-->
+                                        <StackPanel Margin="0,1">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding User.ScreenName}" FontWeight="Bold"/>
+                                                <TextBlock>
+                                                        <Run Text="("/>
+                                                        <Run  Text="{Binding User.Location}"/>
+                                                        <Run Text=")"/>
+                                                </TextBlock>
+                                                <TextBlock Margin="4,0">
+                                                        <Run Text="Fans:"/>
+                                                        <Run FontWeight="Bold" Foreground="Green" Text="{Binding User.FollowersCount}"/>
+                                                </TextBlock>
+                                                <TextBlock Margin="4,0">
+                                                        <Run Text="Friends:"/>
+                                                        <Run FontWeight="Bold" Foreground="Green" Text="{Binding User.FriendsCount}"/>
+                                                </TextBlock>
+                                                <TextBlock Margin="4,0">
+                                                        <Run Text="Statuses:"/>
+                                                        <Run FontWeight="Bold" Foreground="Green" Text="{Binding User.StatusesCount}"/>
+                                                </TextBlock>
+                                            </StackPanel>
+                                            
+                                            <TextBlock Background="{DynamicResource lightHighlightBGColor}" Text="{Binding Text}" Margin="4,2" HorizontalAlignment="Left" FontSize="12" TextWrapping="Wrap"/>
+                                        </StackPanel>
+
+                                        <!--Status line separator-->
+                                        <!--<Line Grid.Row="2" VerticalAlignment="Bottom"  Stroke="#6F00FF00" X1="0" X2="2000" StrokeDashArray="4,2"  StrokeThickness="1" StrokeDashCap="Round"/>-->
+
+                                    </Grid>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Grid.Resources>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition MinHeight="50" Height="Auto"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Name="tbTitle" Margin="4,2" FontSize="14" FontWeight="Bold"/>
+                <CheckBox Name="ckbOption" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="10" Content="Makes it a comment too." Checked="HandleOptionChecked" Unchecked="HandleOptionUnchecked"/>
+            </StackPanel>
+            
+            <Button Style="{DynamicResource closeBtnSty}" ToolTip="Closes the window" Content="X" HorizontalAlignment="Right" VerticalAlignment="Top" Width="15" Height="15" Margin="2" Click="HandleCloseBtnClicked"/>
+
+            <Border Name="targetStatusContainer" Grid.Row="1" Margin="8" MaxHeight="400" Padding="2" CornerRadius="4" BorderBrush="{StaticResource highlightBorderColor}" BorderThickness="1" Background="{DynamicResource lightHighlightBGColor}">
+                <StackPanel Orientation="Vertical" Margin="0,0,0,6">
+                    <TextBlock FontWeight="Bold">
+                                                        <Run Text="@"/>
+                                                        <Run Text="{Binding User.ScreenName}" />
+                    </TextBlock>
+                    <TextBlock Text="{Binding Text}" Margin="2"  TextWrapping="Wrap"/>
+
+                    <!--Image-->
+                    <local:ImageLoader Source="{Binding ThumbnailPic}" Visibility="{Binding ThumbnailPic, Converter={StaticResource nullToVisConverter}}" HorizontalAlignment="Left" Cursor="Hand"/>
+                </StackPanel>
+            </Border>
+
+            <local:Poster x:Name="poster" Grid.Row="2" Posting="HandlePosting"/>
+
+            <ListBox Name="lbComments" Grid.Row="3" Margin="8,4" ItemContainerStyle="{StaticResource commentItemStyle}" Visibility="Collapsed">
+                
+            </ListBox>            
+        </Grid>
+    </Border>
+</local:WindowBase>
