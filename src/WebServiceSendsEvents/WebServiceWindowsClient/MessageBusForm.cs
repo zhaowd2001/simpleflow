@@ -71,7 +71,7 @@ namespace WebServiceWindowsClient
             buttonStopSession.Enabled = true;
             btnSend.Enabled = true;
 
-            m_service.Url = txtMessageBusServer.Text.Trim();
+            m_service.Url = combServer.Text.Trim();
             try
             {
                 // Start session
@@ -129,10 +129,12 @@ namespace WebServiceWindowsClient
             listBoxClients.Items.Add(m_clientID);
             txtTo.Text = m_clientID;
 
-            txtMessageBusServer.Text =
-                string.Format("http://{0}/mb/FileUploader.asmx", "chnxsc808w2k3sp2");
-                //m_service.Url;
-            m_service.Url = txtMessageBusServer.Text;
+            combServer.Items.Add("http://upload.3wfocus.com/zhaowd/FileUploader.asmx");
+            combServer.Items.Add(string.Format("http://{0}/mb/FileUploader.asmx", "chnxsc808w2k3sp2"));
+            combServer.Items.Add("http://localhost:21369/FileUploader.asmx");
+
+            //m_service.Url;
+            combServer.SelectedIndex = 0;
 
             txtMessage.Focus();
         }

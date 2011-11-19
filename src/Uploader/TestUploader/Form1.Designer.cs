@@ -40,6 +40,8 @@ namespace TestUploader
             this.txtNewName = new System.Windows.Forms.TextBox();
             this.lblFileName = new System.Windows.Forms.Label();
             this.lblProgross = new System.Windows.Forms.Label();
+            this.btnIntranetUrl = new System.Windows.Forms.Button();
+            this.btnLocalUrl = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -96,9 +98,9 @@ namespace TestUploader
             // 
             // btnSetWebUrl
             // 
-            this.btnSetWebUrl.Location = new System.Drawing.Point(12, 109);
+            this.btnSetWebUrl.Location = new System.Drawing.Point(12, 98);
             this.btnSetWebUrl.Name = "btnSetWebUrl";
-            this.btnSetWebUrl.Size = new System.Drawing.Size(75, 21);
+            this.btnSetWebUrl.Size = new System.Drawing.Size(129, 21);
             this.btnSetWebUrl.TabIndex = 5;
             this.btnSetWebUrl.Text = "&Web Url";
             this.btnSetWebUrl.UseVisualStyleBackColor = true;
@@ -150,11 +152,33 @@ namespace TestUploader
             this.lblProgross.TabIndex = 10;
             this.lblProgross.Text = "lblProgross";
             // 
+            // btnIntranetUrl
+            // 
+            this.btnIntranetUrl.Location = new System.Drawing.Point(12, 125);
+            this.btnIntranetUrl.Name = "btnIntranetUrl";
+            this.btnIntranetUrl.Size = new System.Drawing.Size(129, 21);
+            this.btnIntranetUrl.TabIndex = 11;
+            this.btnIntranetUrl.Text = "&Intranet Url";
+            this.btnIntranetUrl.UseVisualStyleBackColor = true;
+            this.btnIntranetUrl.Click += new System.EventHandler(this.btnIntranetUrl_Click);
+            // 
+            // btnLocalUrl
+            // 
+            this.btnLocalUrl.Location = new System.Drawing.Point(14, 71);
+            this.btnLocalUrl.Name = "btnLocalUrl";
+            this.btnLocalUrl.Size = new System.Drawing.Size(129, 21);
+            this.btnLocalUrl.TabIndex = 12;
+            this.btnLocalUrl.Text = "Local &Url";
+            this.btnLocalUrl.UseVisualStyleBackColor = true;
+            this.btnLocalUrl.Click += new System.EventHandler(this.btnLocalUrl_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(311, 264);
+            this.Controls.Add(this.btnLocalUrl);
+            this.Controls.Add(this.btnIntranetUrl);
             this.Controls.Add(this.lblProgross);
             this.Controls.Add(this.lblFileName);
             this.Controls.Add(this.txtNewName);
@@ -189,6 +213,8 @@ namespace TestUploader
         private System.Windows.Forms.TextBox txtNewName;
         private System.Windows.Forms.Label lblFileName;
         private System.Windows.Forms.Label lblProgross;
+        private System.Windows.Forms.Button btnIntranetUrl;
+        private System.Windows.Forms.Button btnLocalUrl;
     }
 }
 

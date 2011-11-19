@@ -38,7 +38,7 @@ namespace WebServiceWindowsClient
             this.txtTo = new System.Windows.Forms.TextBox();
             this.listBoxClients = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtMessageBusServer = new System.Windows.Forms.TextBox();
+            this.combServer = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // listBoxEvents
@@ -140,20 +140,21 @@ namespace WebServiceWindowsClient
             this.label2.TabIndex = 12;
             this.label2.Text = "Message Bus server:";
             // 
-            // txtMessageBusServer
+            // combServer
             // 
-            this.txtMessageBusServer.Location = new System.Drawing.Point(153, 2);
-            this.txtMessageBusServer.Name = "txtMessageBusServer";
-            this.txtMessageBusServer.Size = new System.Drawing.Size(513, 21);
-            this.txtMessageBusServer.TabIndex = 11;
+            this.combServer.FormattingEnabled = true;
+            this.combServer.Location = new System.Drawing.Point(153, 11);
+            this.combServer.Name = "combServer";
+            this.combServer.Size = new System.Drawing.Size(669, 20);
+            this.combServer.TabIndex = 13;
             // 
             // MessageBusForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1029, 348);
+            this.Controls.Add(this.combServer);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtMessageBusServer);
             this.Controls.Add(this.listBoxClients);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtTo);
@@ -184,7 +185,7 @@ namespace WebServiceWindowsClient
     private System.Windows.Forms.TextBox txtTo;
     private System.Windows.Forms.ListBox listBoxClients;
     private System.Windows.Forms.Label label2;
-    private System.Windows.Forms.TextBox txtMessageBusServer;
+    private System.Windows.Forms.ComboBox combServer;
   }
 }
 

@@ -38,7 +38,7 @@ namespace TestUploader
 
             fileSystem_ = new WSFileSystem();
             fileSystem_.WSFileSystemEvent += this.onWSFileSystemEvent;
-            fileSystem_.Url = "http://localhost:21369/fileUploader.asmx";
+            fileSystem_.Url = "http://chnxsc808w2k3sp2/mb/FileUploader.asmx";
         }
 
         /// <summary>
@@ -151,11 +151,6 @@ namespace TestUploader
             }
         }
 
-        private void btnSetWebUrl_Click(object sender, EventArgs e)
-        {
-            fileSystem_.Url = "http://upload.3wfocus.com/zhaowd/FileUploader.asmx";
-        }
-
         private void btnList_Click(object sender, EventArgs e)
         {
             try
@@ -191,5 +186,20 @@ namespace TestUploader
             fileSystem_ = null;
         }
 
-   }
+        private void btnIntranetUrl_Click(object sender, EventArgs e)
+        {
+            fileSystem_.Url = "http://chnxsc808w2k3sp2/mb/FileUploader.asmx";
+        }
+
+        private void btnLocalUrl_Click(object sender, EventArgs e)
+        {
+            fileSystem_.Url = "http://localhost:21369/FileUploader.asmx";
+        }
+
+        private void btnSetWebUrl_Click(object sender, EventArgs e)
+        {
+            fileSystem_.Url = "http://upload.3wfocus.com/zhaowd/FileUploader.asmx";
+        }
+
+    }
 }
