@@ -27,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncMethodGenerator", "Too
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIMappingGenerator", "Tool\APIMappingGenerator\APIMappingGenerator.csproj", "{4D8DA287-3941-4D3A-B345-176B33A3E9BF}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AMicroblogAPIDemo-Web", "AMicroblogAPIDemo-Web\", "{9EE3ED24-C4C8-4FB9-B2EB-D8AD2173F5AD}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AMicroblogAPIDemo-Web", "AMicroblogAPIDemo-Web", "{9EE3ED24-C4C8-4FB9-B2EB-D8AD2173F5AD}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		ProjectReferences = "{A35C9592-41CD-4DCA-A820-B57D4C7DBAEF}|AMicroblogAPI.dll;"
@@ -50,10 +50,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AMicroblogAPIDemo-Web", "AM
 	EndProjectSection
 EndProject
 Global
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
-	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = AMicro-blogAPI.vsmdi
 	EndGlobalSection
@@ -133,5 +129,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F1718E05-5C6A-468C-8F7D-B088FD87A01A} = {59DFFC11-5251-4396-9990-A10E3F1AA604}
 		{4D8DA287-3941-4D3A-B345-176B33A3E9BF} = {59DFFC11-5251-4396-9990-A10E3F1AA604}
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
 	EndGlobalSection
 EndGlobal
