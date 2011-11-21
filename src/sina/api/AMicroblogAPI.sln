@@ -30,7 +30,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AMicroblogAPIDemo-Web", "AMicroblogAPIDemo-Web", "{9EE3ED24-C4C8-4FB9-B2EB-D8AD2173F5AD}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{A35C9592-41CD-4DCA-A820-B57D4C7DBAEF}|AMicroblogAPI.dll;"
+		ProjectReferences = ""
 		Debug.AspNetCompiler.VirtualPath = "/AMicroblogAPIDemo-Web"
 		Debug.AspNetCompiler.PhysicalPath = "AMicroblogAPIDemo-Web\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\AMicroblogAPIDemo-Web\"

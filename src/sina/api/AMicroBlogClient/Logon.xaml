@@ -17,7 +17,7 @@
             <StackPanel Orientation="Vertical" Margin="10,27,0,3" Grid.Row="1" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="User Name: " Width="80" HorizontalAlignment="Left" Name="lbName" VerticalAlignment="Center"/>
-                    <TextBox Text="AMicroblogTest@sina.com" FontWeight="Bold" Height="23" HorizontalAlignment="Left"  Name="txbUserName" VerticalAlignment="Center" VerticalContentAlignment="Center" Width="170"/>
+                    <TextBox Text="zhaowd2001@yahoo.com" FontWeight="Bold" Height="23" HorizontalAlignment="Left"  Name="txbUserName" VerticalAlignment="Center" VerticalContentAlignment="Center" Width="170"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,2">
                     <TextBlock Text="Password: " Width="80" Name="lbPwd" VerticalAlignment="Center"  />
