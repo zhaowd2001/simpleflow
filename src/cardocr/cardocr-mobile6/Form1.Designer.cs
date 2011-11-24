@@ -30,14 +30,82 @@ namespace cardocr_mobile6
         private void InitializeComponent()
         {
             this.mainMenu1 = new System.Windows.Forms.MainMenu();
-            this.Menu = this.mainMenu1;
-            this.components = new System.ComponentModel.Container();
+            this.btnUpload = new System.Windows.Forms.Button();
+            this.lblInfo = new System.Windows.Forms.Label();
+            this.btnStartSession = new System.Windows.Forms.Button();
+            this.btnStopSession = new System.Windows.Forms.Button();
+            this.btnSendMessage = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // btnUpload
+            // 
+            this.btnUpload.Location = new System.Drawing.Point(19, 83);
+            this.btnUpload.Name = "btnUpload";
+            this.btnUpload.Size = new System.Drawing.Size(134, 31);
+            this.btnUpload.TabIndex = 0;
+            this.btnUpload.Text = "&Upload";
+            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
+            // 
+            // lblInfo
+            // 
+            this.lblInfo.Location = new System.Drawing.Point(20, 14);
+            this.lblInfo.Name = "lblInfo";
+            this.lblInfo.Size = new System.Drawing.Size(220, 66);
+            this.lblInfo.Text = "lblInfo";
+            // 
+            // btnStartSession
+            // 
+            this.btnStartSession.Location = new System.Drawing.Point(20, 132);
+            this.btnStartSession.Name = "btnStartSession";
+            this.btnStartSession.Size = new System.Drawing.Size(133, 30);
+            this.btnStartSession.TabIndex = 2;
+            this.btnStartSession.Text = "&Start Session";
+            this.btnStartSession.Click += new System.EventHandler(this.btnStartSession_Click);
+            // 
+            // btnStopSession
+            // 
+            this.btnStopSession.Location = new System.Drawing.Point(21, 223);
+            this.btnStopSession.Name = "btnStopSession";
+            this.btnStopSession.Size = new System.Drawing.Size(133, 30);
+            this.btnStopSession.TabIndex = 3;
+            this.btnStopSession.Text = "S&top Session";
+            this.btnStopSession.Click += new System.EventHandler(this.btnStopSession_Click);
+            // 
+            // btnSendMessage
+            // 
+            this.btnSendMessage.Location = new System.Drawing.Point(19, 168);
+            this.btnSendMessage.Name = "btnSendMessage";
+            this.btnSendMessage.Size = new System.Drawing.Size(134, 31);
+            this.btnSendMessage.TabIndex = 4;
+            this.btnSendMessage.Text = "Sen&d Message";
+            this.btnSendMessage.Click += new System.EventHandler(this.btnSendMessage_Click);
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.Text = "Form1";
             this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(240, 268);
+            this.Controls.Add(this.btnSendMessage);
+            this.Controls.Add(this.btnStopSession);
+            this.Controls.Add(this.btnStartSession);
+            this.Controls.Add(this.lblInfo);
+            this.Controls.Add(this.btnUpload);
+            this.Menu = this.mainMenu1;
+            this.Name = "Form1";
+            this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btnUpload;
+        private System.Windows.Forms.Label lblInfo;
+        private System.Windows.Forms.Button btnStartSession;
+        private System.Windows.Forms.Button btnStopSession;
+        private System.Windows.Forms.Button btnSendMessage;
     }
 }
 
