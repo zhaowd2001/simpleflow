@@ -44,8 +44,8 @@ src/sina/api/Tool/MappingGen/APIMappingGenerator.pdb
 src/sina/api/AMicroblogAPIDemo-Web/Bin/
 src/sina/api/Tool/AsyncGen/AsyncGen.exe
 src/sina/api/Tool/MappingGen/APIMappingGenerator.exe
-src/cardocr/cardocr/bin/
-src/cardocr/cardocr/obj/
+src/cardocr/cardocr-ppc2003/bin/
+src/cardocr/cardocr-ppc2003/obj/
 *.ncb
 *.suo
 *.fbl4

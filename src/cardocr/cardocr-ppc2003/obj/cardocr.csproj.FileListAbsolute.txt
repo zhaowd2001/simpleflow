@@ -1,7 +1,0 @@
-j:\temp\sf2\src\cardocr\cardocr\bin\Release\cardocr.exe
-j:\temp\sf2\src\cardocr\cardocr\bin\Release\cardocr.pdb
-j:\temp\sf2\src\cardocr\cardocr\obj\Release\ResolveAssemblyReference.cache
-j:\temp\sf2\src\cardocr\cardocr\obj\Release\cardocr.Properties.Resources.resources
-j:\temp\sf2\src\cardocr\cardocr\obj\Release\cardocr.csproj.GenerateResource.Cache
-j:\temp\sf2\src\cardocr\cardocr\obj\Release\cardocr.exe
-j:\temp\sf2\src\cardocr\cardocr\obj\Release\cardocr.pdb
