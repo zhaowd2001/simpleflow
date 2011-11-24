@@ -47,19 +47,28 @@ namespace WebServiceWindowsClient
             String[] clients = e.Result._ClientIDs;
 
             string msg1 = "";
+            string message = null;
             foreach (uploaderWS.Message msg in e.Result._Messages)
             {
                 msg1 += msg.From;
                 msg1 += " said to me:";
                 msg1 += msg.Data;
                 msg1 += ". ";
+                if(message==null)
+                    message = msg.Data;
             }
+
+            string r = app_handle_message(message);
+            if (r != null)
+                msg1 += ", handler->" + r;
 
             listBoxClients.Items.Clear();
             listBoxClients.Items.Add(m_clientID);
             listBoxClients.Items.AddRange(clients);
             listBoxEvents.Items.Add(string.Format("{0}", msg1));
 
+            //
+            //
             // This call reactivates GetActiveClients event listener only if we are not closing it
             if (!e.Result._Done)
                 m_service.GetMessageAsync(m_sessionID, new object());
@@ -130,12 +139,31 @@ namespace WebServiceWindowsClient
         }
         private void MessageBusForm_Load(object sender, EventArgs e)
         {
+            app_init();
+            form_init();
+        }
+
+        public static void app_init()
+        {
+            cardocr.MessageHandlerFactory.init();
+        }
+        public static string app_handle_message(string message)
+        {
+            cardocr.IMessageHandler h = cardocr.MessageHandlerFactory.findHandler(message);
+            if (h == null)
+                return null;
+            string ret = h.Execute(message);
+            return ret;
+        }
+
+        private void form_init()
+        {
             listBoxClients.Items.Add(m_clientID);
             txtTo.Text = getTargetAll();// m_clientID;
 
-            combServer.Items.Add("http://upload.3wfocus.com/zhaowd/FileUploader.asmx");
             combServer.Items.Add(string.Format("http://{0}/mb/FileUploader.asmx", "chnxsc808w2k3sp2"));
             combServer.Items.Add("http://localhost:21369/FileUploader.asmx");
+            combServer.Items.Add("http://upload.3wfocus.com/zhaowd/FileUploader.asmx");
 
             //m_service.Url;
             combServer.SelectedIndex = 0;
@@ -145,7 +173,6 @@ namespace WebServiceWindowsClient
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-
             //send message
             uploaderWS.Message msg = new uploaderWS.Message();
             msg.Data = System.DateTime.Now.ToLongTimeString() + " "+txtMessage.Text.Trim();

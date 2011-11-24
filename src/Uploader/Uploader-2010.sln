@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wsfileconsole", "wsfilecons
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBusClient", "..\WebServiceSendsEvents\WebServiceWindowsClient\MessageBusClient.csproj", "{ADC963B8-6854-4C63-AB49-8DFDFFF26317}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cardocr", "cardocr\cardocr.csproj", "{2D8F286B-F21C-47C8-B61E-97B2CE69C643}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,16 @@ Global
 		{ADC963B8-6854-4C63-AB49-8DFDFFF26317}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{ADC963B8-6854-4C63-AB49-8DFDFFF26317}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{ADC963B8-6854-4C63-AB49-8DFDFFF26317}.Release|x86.ActiveCfg = Release|Any CPU
+		{2D8F286B-F21C-47C8-B61E-97B2CE69C643}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D8F286B-F21C-47C8-B61E-97B2CE69C643}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D8F286B-F21C-47C8-B61E-97B2CE69C643}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2D8F286B-F21C-47C8-B61E-97B2CE69C643}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2D8F286B-F21C-47C8-B61E-97B2CE69C643}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2D8F286B-F21C-47C8-B61E-97B2CE69C643}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D8F286B-F21C-47C8-B61E-97B2CE69C643}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D8F286B-F21C-47C8-B61E-97B2CE69C643}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2D8F286B-F21C-47C8-B61E-97B2CE69C643}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2D8F286B-F21C-47C8-B61E-97B2CE69C643}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

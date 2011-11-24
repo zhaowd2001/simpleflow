@@ -9,6 +9,8 @@ src/Uploader/TestUploader/bin/Debug/
 src/Uploader/TestUploader/bin/Release/
 src/Uploader/TestUploader/obj/
 src/Uploader/Uploader/TransientStorage/
+src/Uploader/cardocr/bin
+src/Uploader/cardocr/obj
 src/Uploader/Uploader/obj/
 src/Uploader/Uploader/bin/Uploader.dll
 src/Uploader/Uploader/bin/Uploader.pdb

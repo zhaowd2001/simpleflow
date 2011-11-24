@@ -168,6 +168,12 @@
   <ItemGroup>
     <None Include="Web References\uploaderWS\FileUploader.disco" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Uploader\cardocr\cardocr.csproj">
+      <Project>{2D8F286B-F21C-47C8-B61E-97B2CE69C643}</Project>
+      <Name>cardocr</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

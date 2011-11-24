@@ -92,7 +92,7 @@ namespace cardocr_mobile6
             {
                 Cursor.Current = Cursors.WaitCursor;
                 //
-                string ret = messageBus_.UploadLargeFile(getCameraFilePath(), getRemoteFolder());
+                string ret = messageBus_.UploadLargeFile(camera_const.getCameraFilePath(), camera_const.getRemoteFolder());
                 MessageBox.Show(string.Format("Upload ->{0}", ret));
                 lblInfo.Text = ret;
             }
@@ -103,20 +103,6 @@ namespace cardocr_mobile6
             }
         }
 
-        static string getMessagePrefix()
-        {
-            return "cardocr:";
-        }
-
-        private static string getRemoteFolder()
-        {
-            return "temp";
-        }
-
-        private static string getRemoteFilePath()
-        {
-            return getRemoteFolder() + @"\" + CAMERA_FILENAME;
-        }
 
         private void btnStartSession_Click(object sender, EventArgs e)
         {
@@ -146,8 +132,8 @@ namespace cardocr_mobile6
             try
             {
                 uploaderWS.Message msg = new cardocr_mobile6.uploaderWS.Message();
-                msg.Data = getMessagePrefix() + getRemoteFilePath();
-                msg.To = getTargetAll();
+                msg.Data = camera_const.getMessagePrefix() + camera_const.getRemoteFilePath();
+                msg.To = camera_const.getTargetAll();
                 m_service.SendMessage(sessionID_, msg);
 
                 lblInfo.Text = "sent ok";
@@ -159,10 +145,6 @@ namespace cardocr_mobile6
             }
         }
 
-        private static string getTargetAll()
-        {
-            return "<all>";
-        }
 
         private void btnStopSession_Click(object sender, EventArgs e)
         {
@@ -188,13 +170,6 @@ namespace cardocr_mobile6
             Cursor.Current = Cursors.Default;
         }
 
-        public static string CAMERA_FOLDER = @"\My Documents";
-        public static string CAMERA_FILENAME = @"test.jpg";
-
-        public static string getCameraFilePath()
-        {
-            return CAMERA_FOLDER + @"\" + CAMERA_FILENAME;
-        }
 
         private void btnCamera_Click(object sender, EventArgs e)
         {
@@ -202,8 +177,8 @@ namespace cardocr_mobile6
             CameraCaptureDialog cameraCapture = new CameraCaptureDialog();
 
             cameraCapture.Owner = null;
-            cameraCapture.InitialDirectory = CAMERA_FOLDER;
-            cameraCapture.DefaultFileName = CAMERA_FILENAME;
+            cameraCapture.InitialDirectory = camera_const.CAMERA_FOLDER;
+            cameraCapture.DefaultFileName = camera_const.CAMERA_FILENAME;
             cameraCapture.Title = "Camera Demo";
             cameraCapture.VideoTypes = CameraCaptureVideoTypes.Standard;
             cameraCapture.Resolution = new Size(176, 144);

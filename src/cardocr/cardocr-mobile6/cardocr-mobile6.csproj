@@ -69,6 +69,7 @@
     <Compile Include="..\..\Uploader\WebserviceFileSystem\WSFileSystemEventArgs.cs">
       <Link>WSFileSystemEventArgs.cs</Link>
     </Compile>
+    <Compile Include="camera_const.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
