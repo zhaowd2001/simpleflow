@@ -20,6 +20,7 @@ namespace cardocr_mobile6
         String clientID_;
 
         WSFileSystem messageBus_;
+        private uploaderWS.FileUploader m_service = new cardocr_mobile6.uploaderWS.FileUploader();
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -38,17 +39,62 @@ namespace cardocr_mobile6
 
             btnStartSession.Focus();
 
+            // Subscribe for event
+            //m_service.GetMessageCompleted += new uploaderWS.GetMessageCompletedEventHandler(m_service_GetActiveClientsCompleted);
+        }
+
+        void m_service_GetActiveClientsCompleted(IAsyncResult ar)
+        {
+            uploaderWS.GetMessageResult r = m_service.EndGetMessage(ar);
+            /*
+            if (e.Error != null)
+            {
+                listBoxClients.Items.Add(e.Error.ToString());
+                return;
+            }
+            */
+            displayMessageFromServer(r);
+
+            // This call reactivates GetActiveClients event listener only if we are not closing it
+            if ( !r._Done)
+                m_service.BeginGetMessage(sessionID_, new AsyncCallback(m_service_GetActiveClientsCompleted), new object());
+        }
+
+        public delegate void UpdateTextInListBox(string message);
+
+        private void displayMessageFromServer(uploaderWS.GetMessageResult e)
+        {
+            // Add current list of active clients to list box
+            String[] clients = e._ClientIDs;
+
+            string msg1 = "Server:";
+            foreach (uploaderWS.Message msg in e._Messages)
+            {
+                msg1 += msg.From;
+                msg1 += " said to me:";
+                msg1 += msg.Data;
+                msg1 += ". ";
+            }
+
+            lblInfo.BeginInvoke(new UpdateTextInListBox(lblInfo_setText), new object[] { msg1 });
+        }
+
+        void lblInfo_setText(string t)
+        {
+            lblInfo.Text = t;
         }
 
         private void btnUpload_Click(object sender, EventArgs e)
         {
+            lblInfo.Text = "uploading";
             btnUpload.Enabled = false;
             try
             {
                 Cursor.Current = Cursors.WaitCursor;
                 //
-                string ret = messageBus_.UploadLargeFile(getCameraFilePath(), "temp");
+                string ret = messageBus_.UploadLargeFile(getCameraFilePath(), getRemoteFolder());
                 MessageBox.Show(string.Format("Upload ->{0}", ret));
+                lblInfo.Text = ret;
             }
             finally
             {
@@ -57,12 +103,31 @@ namespace cardocr_mobile6
             }
         }
 
+        static string getMessagePrefix()
+        {
+            return "cardocr:";
+        }
+
+        private static string getRemoteFolder()
+        {
+            return "temp";
+        }
+
+        private static string getRemoteFilePath()
+        {
+            return getRemoteFolder() + @"\" + CAMERA_FILENAME;
+        }
+
         private void btnStartSession_Click(object sender, EventArgs e)
         {
             btnStartSession.Enabled = false;
             Cursor.Current = Cursors.WaitCursor;
-            
-            messageBus_.newUploader().StartSession(sessionID_, clientID_);
+
+            lblInfo.Text = "";
+
+            m_service.Url = messageBus_.Url_;
+            m_service.StartSession(sessionID_, clientID_);
+            m_service.BeginGetMessage(sessionID_, new AsyncCallback(m_service_GetActiveClientsCompleted), m_service);
             
             btnStopSession.Enabled = true;
             btnSendMessage.Enabled = true;
@@ -70,18 +135,22 @@ namespace cardocr_mobile6
 
             Cursor.Current = Cursors.Default;
             btnSendMessage.Focus();
+            lblInfo.Text = "started";
         }
 
         private void btnSendMessage_Click(object sender, EventArgs e)
         {
+            lblInfo.Text = "sending";
             Cursor.Current = Cursors.WaitCursor;
             btnSendMessage.Enabled = false;
             try
             {
                 uploaderWS.Message msg = new cardocr_mobile6.uploaderWS.Message();
-                msg.Data = DateTime.Now.ToLongTimeString();
-                msg.To = "all";
-                messageBus_.newUploader().SendMessage(sessionID_, msg);
+                msg.Data = getMessagePrefix() + getRemoteFilePath();
+                msg.To = getTargetAll();
+                m_service.SendMessage(sessionID_, msg);
+
+                lblInfo.Text = "sent ok";
             }
             finally
             {
@@ -90,18 +159,25 @@ namespace cardocr_mobile6
             }
         }
 
+        private static string getTargetAll()
+        {
+            return "<all>";
+        }
+
         private void btnStopSession_Click(object sender, EventArgs e)
         {
+            lblInfo.Text = "stopping";
             btnStopSession.Enabled = false;
             btnSendMessage.Enabled = false;
             btnUpload.Enabled = false;
             btnStartSession.Enabled = true;
             Cursor.Current = Cursors.WaitCursor;
 
-            messageBus_.newUploader().StopSession(sessionID_);
+            m_service.StopSession(sessionID_);
             
             Cursor.Current = Cursors.Default;
             btnStartSession.Focus();
+            lblInfo.Text = "stopped";
         }
 
         private void btnQuit_Click(object sender, EventArgs e)
@@ -122,6 +198,7 @@ namespace cardocr_mobile6
 
         private void btnCamera_Click(object sender, EventArgs e)
         {
+            lblInfo.Text = "cameraing";
             CameraCaptureDialog cameraCapture = new CameraCaptureDialog();
 
             cameraCapture.Owner = null;
@@ -137,6 +214,7 @@ namespace cardocr_mobile6
             {
                 MessageBox.Show(string.Format("The picture or video has been successfully captured to:\n{0}", cameraCapture.FileName));
             }
+            lblInfo.Text = "ok";
         }
 
     }

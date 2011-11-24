@@ -124,10 +124,14 @@ namespace WebServiceWindowsClient
             txtMessage.Focus();
         }
 
+        static string getTargetAll()
+        {
+            return "<all>";
+        }
         private void MessageBusForm_Load(object sender, EventArgs e)
         {
             listBoxClients.Items.Add(m_clientID);
-            txtTo.Text = m_clientID;
+            txtTo.Text = getTargetAll();// m_clientID;
 
             combServer.Items.Add("http://upload.3wfocus.com/zhaowd/FileUploader.asmx");
             combServer.Items.Add(string.Format("http://{0}/mb/FileUploader.asmx", "chnxsc808w2k3sp2"));

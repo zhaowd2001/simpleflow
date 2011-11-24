@@ -21,6 +21,9 @@ namespace MessageBus
         private String m_clientID;
         #endregion private members
 
+        public static Guid m_sessionAllID = new Guid("{11111111-1111-1111-1111-111111111111}");
+        public static string m_sessionAllName = "<all>";
+
         public MessageBusImpl()
         {
         }
@@ -31,11 +34,19 @@ namespace MessageBus
         //[WebEvent]
         //public event ActiveClientsChangedDelegate OnActiveClientsChanged = null;
 
+        void addSessionAll()
+        {
+            if (s_services.ContainsKey(m_sessionAllID))
+                return;
+            s_services.Add(m_sessionAllID,new ClientSessionData(m_sessionAllName));
+        }
+
         #region WebService interface
         public void StartSession(Guid sessionID, String clientID)
         {
             lock (s_services)
             {
+                addSessionAll();
                 if (s_services.ContainsKey(sessionID))
                 {
                     // Session found in the list
@@ -90,7 +101,25 @@ namespace MessageBus
                 Guid toSessionID = appendMessageToTargetSession(to, msg);
 
                 //notify target session
-                s_services[toSessionID].GetMessageCompleted.Set();
+                notifyTargetSession(toSessionID);
+            }
+        }
+
+        private void notifyTargetSession(Guid to)
+        {
+            if (to == m_sessionAllID)
+            {
+                foreach (Guid key in s_services.Keys)
+                {
+                    if (key == m_sessionAllID)
+                        continue;
+                    //
+                    s_services[key].GetMessageCompleted.Set();
+                }
+            }
+            else
+            {
+                s_services[to].GetMessageCompleted.Set();
             }
         }
 
@@ -98,7 +127,20 @@ namespace MessageBus
         {
             msg.ToSessionID = to.ToString();
 
-            s_services[to].Messages.Add(msg);
+            if (to == m_sessionAllID)
+            {
+                foreach (Guid key in s_services.Keys)
+                {
+                    if (key == m_sessionAllID)
+                        continue;
+                    //
+                    s_services[key].Messages.Add(msg);
+                }
+            }
+            else
+            {
+                s_services[to].Messages.Add(msg);
+            }
             return to;
         }
 
@@ -156,15 +198,11 @@ namespace MessageBus
                 return new GetMessageResult(new String[] { }, true);
             }
 
-            //DateTime dt = DateTime.Now;
             bool signalled = s_services[sessionID].GetMessageCompleted.WaitOne();  // wait for GetActiveClientsCompleted event
             if (signalled)
             {
                 lock (s_services)
                 {
-                    //string message = string.Format("GetActiveClientsCompleted event detected during {0} ms timeout", (DateTime.Now - dt).TotalMilliseconds);
-                    //System.Diagnostics.Debug.WriteLine(message);
-
                     List<Message> msgs = new List<Message>();
 
                     // Create client list and return it
