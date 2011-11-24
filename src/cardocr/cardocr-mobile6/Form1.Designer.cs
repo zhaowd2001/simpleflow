@@ -41,10 +41,10 @@ namespace cardocr_mobile6
             // 
             // btnUpload
             // 
-            this.btnUpload.Location = new System.Drawing.Point(19, 83);
+            this.btnUpload.Location = new System.Drawing.Point(19, 116);
             this.btnUpload.Name = "btnUpload";
-            this.btnUpload.Size = new System.Drawing.Size(134, 31);
-            this.btnUpload.TabIndex = 0;
+            this.btnUpload.Size = new System.Drawing.Size(101, 31);
+            this.btnUpload.TabIndex = 1;
             this.btnUpload.Text = "&Upload";
             this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
             // 
@@ -52,15 +52,15 @@ namespace cardocr_mobile6
             // 
             this.lblInfo.Location = new System.Drawing.Point(20, 14);
             this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(220, 66);
+            this.lblInfo.Size = new System.Drawing.Size(220, 65);
             this.lblInfo.Text = "lblInfo";
             // 
             // btnStartSession
             // 
             this.btnStartSession.Location = new System.Drawing.Point(20, 153);
             this.btnStartSession.Name = "btnStartSession";
-            this.btnStartSession.Size = new System.Drawing.Size(133, 30);
-            this.btnStartSession.TabIndex = 1;
+            this.btnStartSession.Size = new System.Drawing.Size(100, 30);
+            this.btnStartSession.TabIndex = 2;
             this.btnStartSession.Text = "&Start Session";
             this.btnStartSession.Click += new System.EventHandler(this.btnStartSession_Click);
             // 
@@ -68,8 +68,8 @@ namespace cardocr_mobile6
             // 
             this.btnStopSession.Location = new System.Drawing.Point(21, 223);
             this.btnStopSession.Name = "btnStopSession";
-            this.btnStopSession.Size = new System.Drawing.Size(133, 30);
-            this.btnStopSession.TabIndex = 3;
+            this.btnStopSession.Size = new System.Drawing.Size(100, 30);
+            this.btnStopSession.TabIndex = 4;
             this.btnStopSession.Text = "S&top Session";
             this.btnStopSession.Click += new System.EventHandler(this.btnStopSession_Click);
             // 
@@ -77,26 +77,26 @@ namespace cardocr_mobile6
             // 
             this.btnSendMessage.Location = new System.Drawing.Point(19, 189);
             this.btnSendMessage.Name = "btnSendMessage";
-            this.btnSendMessage.Size = new System.Drawing.Size(134, 31);
-            this.btnSendMessage.TabIndex = 2;
+            this.btnSendMessage.Size = new System.Drawing.Size(101, 31);
+            this.btnSendMessage.TabIndex = 3;
             this.btnSendMessage.Text = "Sen&d Message";
             this.btnSendMessage.Click += new System.EventHandler(this.btnSendMessage_Click);
             // 
             // btnQuit
             // 
-            this.btnQuit.Location = new System.Drawing.Point(161, 84);
+            this.btnQuit.Location = new System.Drawing.Point(127, 223);
             this.btnQuit.Name = "btnQuit";
-            this.btnQuit.Size = new System.Drawing.Size(43, 30);
-            this.btnQuit.TabIndex = 4;
+            this.btnQuit.Size = new System.Drawing.Size(110, 30);
+            this.btnQuit.TabIndex = 5;
             this.btnQuit.Text = "&Quit";
             this.btnQuit.Click += new System.EventHandler(this.btnQuit_Click);
             // 
             // btnCamera
             // 
-            this.btnCamera.Location = new System.Drawing.Point(19, 118);
+            this.btnCamera.Location = new System.Drawing.Point(19, 82);
             this.btnCamera.Name = "btnCamera";
-            this.btnCamera.Size = new System.Drawing.Size(134, 31);
-            this.btnCamera.TabIndex = 6;
+            this.btnCamera.Size = new System.Drawing.Size(101, 31);
+            this.btnCamera.TabIndex = 0;
             this.btnCamera.Text = "&Camera";
             this.btnCamera.Click += new System.EventHandler(this.btnCamera_Click);
             // 

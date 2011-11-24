@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.IO;
 
-using FileSystem;
-using LocalFileSystem;
-
-namespace WebserviceFileSystem
+namespace cardocr_mobile6
 {
     public class WSFileSystem 
     {
         public delegate void WSFileSystemEventHandler(object sender, WSFileSystemEventArgs e);
         public event WSFileSystemEventHandler WSFileSystemEvent;
 
-        Guid sessionID_ = Guid.NewGuid();
-        public WSFileSystem()
+        Guid sessionID_;
+        public WSFileSystem(Guid sessionID)
         {
-            Url = new uploaderWS.FileUploader().Url;
+            sessionID_ = sessionID;
+            Url_ = new uploaderWS.FileUploader().Url;
         }
 
         /// <summary>
@@ -34,7 +31,7 @@ namespace WebserviceFileSystem
             // create an instance fo the web service
             uploaderWS.FileUploader srv = newUploader();
 
-            LargeLocalFileReader file = new LargeLocalFileReader(localFilePath);
+            LocalFileSystem.LargeLocalFileReader file = new LocalFileSystem.LargeLocalFileReader(localFilePath, 4*1024);
 
             WSFileSystemEventArgs e = new WSFileSystemEventArgs();
             e.filePath_ = localFilePath;
@@ -69,8 +66,8 @@ namespace WebserviceFileSystem
             }
             //write large info file
             {
-                byte[] data = LargeLocalFileInfo.buildContent(fileParts.ToArray());
-                string largeFileName = remoteFolder+"\\"+ getFileName(localFilePath) + LargeLocalFileInfo.FILE_NAME_EXT;
+                byte[] data = LocalFileSystem.LargeLocalFileInfo.buildContent(fileParts.ToArray());
+                string largeFileName = remoteFolder + "\\" + getFileName(localFilePath) + LocalFileSystem.LargeLocalFileInfo.FILE_NAME_EXT;
                 string sTmp = srv.UploadFile(sessionID_, data, largeFileName);
                 msg += "\n" + sTmp;
             }
@@ -106,7 +103,7 @@ namespace WebserviceFileSystem
             out string[] arrFilePart)
         {
             List<String> listFilePart = new List<string>();
-            string descriptionFileName = remoteFileName + LargeLocalFileInfo.FILE_NAME_EXT;
+            string descriptionFileName = remoteFileName + LocalFileSystem.LargeLocalFileInfo.FILE_NAME_EXT;
 
             // create an instance fo the web service
             uploaderWS.FileUploader srv = newUploader();
@@ -116,7 +113,7 @@ namespace WebserviceFileSystem
             listFilePart.Add(remoteDirectory + "\\" + descriptionFileName);
 
             string fileNameOnServer = descriptionFileContent[0].path_;
-            fileNameOnServer = fileNameOnServer.Substring(0, fileNameOnServer.Length - LargeLocalFileInfo.FILE_NAME_EXT.Length);
+            fileNameOnServer = fileNameOnServer.Substring(0, fileNameOnServer.Length - LocalFileSystem.LargeLocalFileInfo.FILE_NAME_EXT.Length);
             
             WSFileSystemEventArgs e = new WSFileSystemEventArgs();
             e.filePath_ = fileNameOnServer;
@@ -144,15 +141,20 @@ namespace WebserviceFileSystem
 
         static string[] content2string(byte[] d)
         {
-            return UTF8Encoding.UTF8.GetString(d).Split(new char[] { '\n' });
+            return UTF8Encoding.UTF8.GetString(d,0,d.Length).Split(new char[] { '\n' });
         }
 
         public string[] ListLargeFile(string filename, string directory)
         {
             List<string> ret = new List<string>();
+            int extLen = LocalFileSystem.LargeLocalFileInfo.FILE_NAME_EXT.Length;
             foreach (string f in List(filename, directory))
             {
-                ret.Add(f.Remove(f.Length - LargeLocalFileInfo.FILE_NAME_EXT.Length));
+
+                ret.Add(
+                    f.Remove(f.Length - extLen,
+                    extLen
+                    ));
             }
             return ret.ToArray();
         }
@@ -174,16 +176,16 @@ namespace WebserviceFileSystem
         /// <summary>
         /// 
         /// </summary>
-        public string Url { get; set; }
+        public string Url_;
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        private uploaderWS.FileUploader newUploader()
+        public uploaderWS.FileUploader newUploader()
         {
             uploaderWS.FileUploader ret = new uploaderWS.FileUploader();
-            ret.Url = Url;
+            ret.Url = Url_;
             return ret;
         }
 

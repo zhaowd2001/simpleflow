@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.IO;
 
 using WebserviceFileSystem;
+using cardocr_mobile6;
 
 namespace TestUploader
 {
@@ -17,7 +18,7 @@ namespace TestUploader
     /// </summary>
     public partial class Form1 : Form
     {
-
+        Guid sessionID_ = Guid.NewGuid();
         WSFileSystem fileSystem_;
 
         public Form1()
@@ -36,9 +37,9 @@ namespace TestUploader
             lblFileName.Text = "";
             lblProgross.Text = "";
 
-            fileSystem_ = new WSFileSystem();
+            fileSystem_ = new WSFileSystem(sessionID_);
             fileSystem_.WSFileSystemEvent += this.onWSFileSystemEvent;
-            fileSystem_.Url = "http://chnxsc808w2k3sp2/mb/FileUploader.asmx";
+            fileSystem_.Url_ = "http://chnxsc808w2k3sp2/mb/FileUploader.asmx";
         }
 
         /// <summary>
@@ -188,17 +189,17 @@ namespace TestUploader
 
         private void btnIntranetUrl_Click(object sender, EventArgs e)
         {
-            fileSystem_.Url = "http://chnxsc808w2k3sp2/mb/FileUploader.asmx";
+            fileSystem_.Url_ = "http://chnxsc808w2k3sp2/mb/FileUploader.asmx";
         }
 
         private void btnLocalUrl_Click(object sender, EventArgs e)
         {
-            fileSystem_.Url = "http://localhost:21369/FileUploader.asmx";
+            fileSystem_.Url_ = "http://localhost:21369/FileUploader.asmx";
         }
 
         private void btnSetWebUrl_Click(object sender, EventArgs e)
         {
-            fileSystem_.Url = "http://upload.3wfocus.com/zhaowd/FileUploader.asmx";
+            fileSystem_.Url_ = "http://upload.3wfocus.com/zhaowd/FileUploader.asmx";
         }
 
     }

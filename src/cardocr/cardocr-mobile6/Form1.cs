@@ -18,14 +18,17 @@ namespace cardocr_mobile6
 
         Guid sessionID_ = Guid.NewGuid();
         String clientID_;
-        uploaderWS.FileUploader messageBus_ = new cardocr_mobile6.uploaderWS.FileUploader();
+
+        WSFileSystem messageBus_;
 
         private void Form1_Load(object sender, EventArgs e)
         {
             clientID_ = sessionID_.ToByteArray()[0].ToString();
+            messageBus_ = new WSFileSystem(sessionID_);
+
             lblInfo.Text = sessionID_.ToString() + " - " + clientID_;
             lblInfo.Text += "\n";
-            lblInfo.Text += messageBus_.Url;
+            lblInfo.Text += messageBus_.Url_;
 
             btnUpload.Enabled = false;
 
@@ -43,6 +46,9 @@ namespace cardocr_mobile6
             try
             {
                 Cursor.Current = Cursors.WaitCursor;
+                //
+                string ret = messageBus_.UploadLargeFile(getCameraFilePath(), "temp");
+                MessageBox.Show(string.Format("Upload ->{0}", ret));
             }
             finally
             {
@@ -56,10 +62,11 @@ namespace cardocr_mobile6
             btnStartSession.Enabled = false;
             Cursor.Current = Cursors.WaitCursor;
             
-            messageBus_.StartSession(sessionID_, clientID_);
+            messageBus_.newUploader().StartSession(sessionID_, clientID_);
             
             btnStopSession.Enabled = true;
             btnSendMessage.Enabled = true;
+            btnUpload.Enabled = true;
 
             Cursor.Current = Cursors.Default;
             btnSendMessage.Focus();
@@ -74,7 +81,7 @@ namespace cardocr_mobile6
                 uploaderWS.Message msg = new cardocr_mobile6.uploaderWS.Message();
                 msg.Data = DateTime.Now.ToLongTimeString();
                 msg.To = "all";
-                messageBus_.SendMessage(sessionID_, msg);
+                messageBus_.newUploader().SendMessage(sessionID_, msg);
             }
             finally
             {
@@ -87,10 +94,11 @@ namespace cardocr_mobile6
         {
             btnStopSession.Enabled = false;
             btnSendMessage.Enabled = false;
+            btnUpload.Enabled = false;
             btnStartSession.Enabled = true;
             Cursor.Current = Cursors.WaitCursor;
-            
-            messageBus_.StopSession(sessionID_);
+
+            messageBus_.newUploader().StopSession(sessionID_);
             
             Cursor.Current = Cursors.Default;
             btnStartSession.Focus();
@@ -104,13 +112,21 @@ namespace cardocr_mobile6
             Cursor.Current = Cursors.Default;
         }
 
+        public static string CAMERA_FOLDER = @"\My Documents";
+        public static string CAMERA_FILENAME = @"test.jpg";
+
+        public static string getCameraFilePath()
+        {
+            return CAMERA_FOLDER + @"\" + CAMERA_FILENAME;
+        }
+
         private void btnCamera_Click(object sender, EventArgs e)
         {
             CameraCaptureDialog cameraCapture = new CameraCaptureDialog();
 
             cameraCapture.Owner = null;
-            cameraCapture.InitialDirectory = @"\My Documents";
-            cameraCapture.DefaultFileName = @"test.jpg";
+            cameraCapture.InitialDirectory = CAMERA_FOLDER;
+            cameraCapture.DefaultFileName = CAMERA_FILENAME;
             cameraCapture.Title = "Camera Demo";
             cameraCapture.VideoTypes = CameraCaptureVideoTypes.Standard;
             cameraCapture.Resolution = new Size(176, 144);

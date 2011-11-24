@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace LocalFileSystem
@@ -26,7 +25,7 @@ namespace LocalFileSystem
 
         public static string[] parseContent(byte[] data)
         {
-            string s = UTF8Encoding.UTF8.GetString(data);
+            string s = UTF8Encoding.UTF8.GetString(data,0,data.Length);
             string[] lines = s.Split(new char[] { '\n' });
             return lines;
         }

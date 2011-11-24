@@ -6,6 +6,7 @@ using System.Text;
 using FileSystem;
 using LocalFileSystem;
 using WebserviceFileSystem;
+using cardocr_mobile6;
 
 namespace wsfileconsole
 {
@@ -34,9 +35,10 @@ namespace wsfileconsole
 
         void doMain(string[] args)
         {
-            fileSystem_ = new WSFileSystem();
+            Guid sessionID = Guid.NewGuid();
+            fileSystem_ = new WSFileSystem(sessionID);
             if( getWebServiceUrl().Length >0)
-                fileSystem_.Url = getWebServiceUrl();
+                fileSystem_.Url_ = getWebServiceUrl();
             fileSystem_.WSFileSystemEvent += this.onWSFileSystemEvent;
             //
             handleCommandLine(args);

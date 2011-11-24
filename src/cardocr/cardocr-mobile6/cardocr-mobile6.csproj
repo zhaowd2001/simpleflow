@@ -54,6 +54,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\Uploader\LocalFileSystem\LargeLocalFileInfo.cs">
+      <Link>LargeLocalFileInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Uploader\LocalFileSystem\LargeLocalFileReader.cs">
+      <Link>LargeLocalFileReader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Uploader\LocalFileSystem\LocalFileSystemUtil.cs">
+      <Link>LocalFileSystemUtil.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Uploader\WebserviceFileSystem\WSFileSystem.cs">
+      <Link>WSFileSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Uploader\WebserviceFileSystem\WSFileSystemEventArgs.cs">
+      <Link>WSFileSystemEventArgs.cs</Link>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 using System.IO;
@@ -84,7 +83,6 @@ namespace LocalFileSystem
             br.Close();
 
             fStream.Close();
-            fStream.Dispose();
 
             return data;
         }
