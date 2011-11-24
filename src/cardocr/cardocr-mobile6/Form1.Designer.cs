@@ -36,6 +36,7 @@ namespace cardocr_mobile6
             this.btnStopSession = new System.Windows.Forms.Button();
             this.btnSendMessage = new System.Windows.Forms.Button();
             this.btnQuit = new System.Windows.Forms.Button();
+            this.btnCamera = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnUpload
@@ -56,7 +57,7 @@ namespace cardocr_mobile6
             // 
             // btnStartSession
             // 
-            this.btnStartSession.Location = new System.Drawing.Point(20, 132);
+            this.btnStartSession.Location = new System.Drawing.Point(20, 153);
             this.btnStartSession.Name = "btnStartSession";
             this.btnStartSession.Size = new System.Drawing.Size(133, 30);
             this.btnStartSession.TabIndex = 1;
@@ -74,7 +75,7 @@ namespace cardocr_mobile6
             // 
             // btnSendMessage
             // 
-            this.btnSendMessage.Location = new System.Drawing.Point(19, 168);
+            this.btnSendMessage.Location = new System.Drawing.Point(19, 189);
             this.btnSendMessage.Name = "btnSendMessage";
             this.btnSendMessage.Size = new System.Drawing.Size(134, 31);
             this.btnSendMessage.TabIndex = 2;
@@ -90,12 +91,22 @@ namespace cardocr_mobile6
             this.btnQuit.Text = "&Quit";
             this.btnQuit.Click += new System.EventHandler(this.btnQuit_Click);
             // 
+            // btnCamera
+            // 
+            this.btnCamera.Location = new System.Drawing.Point(19, 118);
+            this.btnCamera.Name = "btnCamera";
+            this.btnCamera.Size = new System.Drawing.Size(134, 31);
+            this.btnCamera.TabIndex = 6;
+            this.btnCamera.Text = "&Camera";
+            this.btnCamera.Click += new System.EventHandler(this.btnCamera_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(240, 268);
+            this.Controls.Add(this.btnCamera);
             this.Controls.Add(this.btnQuit);
             this.Controls.Add(this.btnSendMessage);
             this.Controls.Add(this.btnStopSession);
@@ -118,6 +129,7 @@ namespace cardocr_mobile6
         private System.Windows.Forms.Button btnStopSession;
         private System.Windows.Forms.Button btnSendMessage;
         private System.Windows.Forms.Button btnQuit;
+        private System.Windows.Forms.Button btnCamera;
     }
 }
 

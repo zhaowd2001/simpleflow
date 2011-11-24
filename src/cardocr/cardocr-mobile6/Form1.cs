@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Microsoft.WindowsMobile.Forms;
 
 namespace cardocr_mobile6
 {
@@ -101,6 +102,25 @@ namespace cardocr_mobile6
             this.Close();
             Application.Exit();
             Cursor.Current = Cursors.Default;
+        }
+
+        private void btnCamera_Click(object sender, EventArgs e)
+        {
+            CameraCaptureDialog cameraCapture = new CameraCaptureDialog();
+
+            cameraCapture.Owner = null;
+            cameraCapture.InitialDirectory = @"\My Documents";
+            cameraCapture.DefaultFileName = @"test.jpg";
+            cameraCapture.Title = "Camera Demo";
+            cameraCapture.VideoTypes = CameraCaptureVideoTypes.Standard;
+            cameraCapture.Resolution = new Size(176, 144);
+            cameraCapture.VideoTimeLimit = new TimeSpan(0, 0, 15);  // Limited to 15 seconds of video.
+            cameraCapture.Mode = CameraCaptureMode.Still;
+
+            if (DialogResult.OK == cameraCapture.ShowDialog())
+            {
+                MessageBox.Show(string.Format("The picture or video has been successfully captured to:\n{0}", cameraCapture.FileName));
+            }
         }
 
     }
