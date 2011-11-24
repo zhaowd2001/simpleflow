@@ -4,7 +4,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>efc30eb1-7330-44be-b823-e6dee3b28540</ProjectGuid>
+    <ProjectGuid>{4F602474-6064-4FC8-B62A-8C810F88E125}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>cardocr</RootNamespace>
@@ -15,6 +15,8 @@
     <OSVersion>4.20</OSVersion>
     <DeployDirSuffix>cardocr</DeployDirSuffix>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FormFactorID>
+    </FormFactorID>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
