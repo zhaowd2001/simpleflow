@@ -12,6 +12,11 @@ namespace cardocr
         {
             if (message == null)
                 return null;
+            Jsoncon
+            Newtonsoft.Json. js = new Newtonsoft.Json.JavaScriptConvert();
+            
+            Newtonsoft.Json.JsonConverter c = new Newtonsoft.Json.JsonConverter();
+            Newtonsoft.Json.JsonReader r = new Newtonsoft.Json.JsonReader()
 
             string[] fields = splitMessage(message);
             string appKey = buildAppID(fields);

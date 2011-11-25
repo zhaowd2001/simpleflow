@@ -9,6 +9,7 @@ namespace cardocr
     {
         string getAppID();
         string getVersion();
+
         string Execute(string message);
     }
 }

@@ -132,7 +132,7 @@ namespace cardocr_mobile6
             try
             {
                 uploaderWS.Message msg = new cardocr_mobile6.uploaderWS.Message();
-                msg.Data = camera_const.getMessagePrefix() + camera_const.getRemoteFilePath();
+                msg.Data = buildJobInfo();
                 msg.To = camera_const.getTargetAll();
                 m_service.SendMessage(sessionID_, msg);
 
@@ -143,6 +143,25 @@ namespace cardocr_mobile6
                 Cursor.Current = Cursors.Default;
                 btnSendMessage.Enabled = true;
             }
+        }
+
+        private static string buildJobInfo()
+        {
+            cardocr.JobInfo job = new cardocr.JobInfo();
+            job.RemoteFilePath = camera_const.getRemoteFilePath();
+            job.AppID = camera_const.getCardOcr_AppID();
+            job.Version = camera_const.getCardOcr_Version();
+
+            //
+            return toString(job);
+        }
+
+        private static string toString(cardocr.JobInfo job)
+        {
+            StringBuilder sb = new StringBuilder();
+            CodeBetter.Json.JsonWriter w = new CodeBetter.Json.JsonWriter(sb);
+            CodeBetter.Json.JsonSerializer.Serialize(w, job);
+            return sb.ToString();
         }
 
 

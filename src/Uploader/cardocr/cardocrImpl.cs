@@ -16,7 +16,7 @@ namespace cardocr
 
             ret += remoteFilePath;
             //
-d            //
+            //
             return ret;
         }
 

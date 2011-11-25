@@ -44,6 +44,10 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CodeBetter.Json.CF, Version=1.0.3206.14650, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\json\netcf\CodeBetter.Json.CF.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.WindowsMobile.Forms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
@@ -54,6 +58,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\Uploader\cardocr\JobInfo.cs">
+      <Link>JobInfo.cs</Link>
+    </Compile>
     <Compile Include="..\..\Uploader\LocalFileSystem\LargeLocalFileInfo.cs">
       <Link>LargeLocalFileInfo.cs</Link>
     </Compile>
@@ -76,6 +83,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="HandlerInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

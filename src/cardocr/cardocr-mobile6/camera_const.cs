@@ -6,9 +6,14 @@ namespace cardocr_mobile6
 {
     public class camera_const
     {
-        public static string getMessagePrefix()
+        public static string getCardOcr_AppID()
         {
-            return "`cardocr`1.0`";
+            return "cardocr";
+        }
+
+        public static string getCardOcr_Version()
+        {
+            return "1.0";
         }
 
         public static string getRemoteFolder()
