@@ -8,8 +8,8 @@
     <ProjectGuid>{2D8F286B-F21C-47C8-B61E-97B2CE69C643}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>cardocr</RootNamespace>
-    <AssemblyName>cardocr</AssemblyName>
+    <RootNamespace>cardocrNS</RootNamespace>
+    <AssemblyName>cardocrNS</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,13 +32,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\json\net2.0\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\json\net4.0\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>

@@ -7,13 +7,10 @@ namespace cardocr
 {
     public class CardOcrImpl : IMessageHandler
     {
-        public string Execute(string message)
+        public string Execute(string remoteFilePath)
         {
             string ret = "result:";
             //
-            string[] fields = message.Split(new char[] { '`' });
-            string remoteFilePath = fields[3];
-
             ret += remoteFilePath;
             //
             //

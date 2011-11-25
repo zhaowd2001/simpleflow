@@ -48,17 +48,21 @@ namespace WebServiceWindowsClient
 
             string msg1 = "";
             string message = null;
+            string fromSession = null;
             foreach (uploaderWS.Message msg in e.Result._Messages)
             {
                 msg1 += msg.From;
                 msg1 += " said to me:";
                 msg1 += msg.Data;
                 msg1 += ". ";
-                if(message==null)
+
+                if (fromSession == null)
+                    fromSession = msg.From;
+                if (message == null)
                     message = msg.Data;
             }
 
-            string r = app_handle_message(message);
+            string r = app_handle_message(fromSession, message);
             if (r != null)
                 msg1 += ", handler->" + r;
 
@@ -147,13 +151,36 @@ namespace WebServiceWindowsClient
         {
             cardocr.MessageHandlerFactory.init();
         }
-        public static string app_handle_message(string message)
+
+        public string app_handle_message(string fromSession, string message)
         {
-            cardocr.IMessageHandler h = cardocr.MessageHandlerFactory.findHandler(message);
-            if (h == null)
+            cardocr.JobInfo job = null;
+            cardocr.IMessageHandler h = cardocr.MessageHandlerFactory.findHandler(message, out job);
+            if (h == null || job==null)
                 return null;
-            string ret = h.Execute(message);
+
+            job.SessionFrom = fromSession;
+            string ret = h.Execute(job.RemoteFilePath);
+            //
+            sendJobResult(job, ret);
             return ret;
+        }
+
+        void sendJobResult(cardocr.JobInfo job, string result)
+        {
+            //send message
+            uploaderWS.Message msg = new uploaderWS.Message();
+            msg.Data = result;
+            msg.To = job.SessionFrom;
+            try
+            {
+                m_service.SendMessage(m_sessionID, msg);
+            }
+            catch (Exception e1)
+            {
+                listBoxEvents.Items.Add(e1.ToString());
+            }
+            txtMessage.Focus();
         }
 
         private void form_init()

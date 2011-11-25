@@ -186,6 +186,7 @@ namespace cardocr_mobile6
         {
             uploaderWS.FileUploader ret = new uploaderWS.FileUploader();
             ret.Url = Url_;
+            ret.Timeout = -1;
             return ret;
         }
 

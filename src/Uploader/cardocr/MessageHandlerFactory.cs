@@ -8,38 +8,45 @@ namespace cardocr
     public class MessageHandlerFactory
     {
         static Dictionary<string, IMessageHandler> s_services = new Dictionary<string, IMessageHandler>();
-        public static IMessageHandler findHandler(string message)
+        public static IMessageHandler findHandler(string message, out JobInfo job)
         {
+            job = null;
             if (message == null)
                 return null;
-            Jsoncon
-            Newtonsoft.Json. js = new Newtonsoft.Json.JavaScriptConvert();
-            
-            Newtonsoft.Json.JsonConverter c = new Newtonsoft.Json.JsonConverter();
-            Newtonsoft.Json.JsonReader r = new Newtonsoft.Json.JsonReader()
+            //
+            JobInfo j = buildJobInfo(message);
+            if (j == null)
+                return null;
+            job = j;
 
-            string[] fields = splitMessage(message);
-            string appKey = buildAppID(fields);
+            string appKey = buildAppID(j);
             if (appKey == null)
                 return null;
 
             if (s_services.ContainsKey(appKey))
                 return s_services[appKey];
+            return null;
+        }
+
+        private static JobInfo buildJobInfo(string message)
+        {
+            if (message.StartsWith("{") &&
+                message.EndsWith("}"))
+            {
+                JobInfo j = (JobInfo)Newtonsoft.Json.JsonConvert.DeserializeObject<JobInfo>(message);
+                return j;
+            }
 
             return null;
         }
 
-        public static string buildAppID(string[] fields)
+        public static string buildAppID(JobInfo j)
         {
-            if(fields.Length >= 3)
-                return fields[1] + "-" + fields[2];
-            return null;
+            if (j == null)
+                return null;
+            return j.AppID + "-" + j.Version;
         }
 
-        public static string[] splitMessage(string message)
-        {
-            return message.Split(new char[] { '`' });
-        }
         //
         public static void init()
         {

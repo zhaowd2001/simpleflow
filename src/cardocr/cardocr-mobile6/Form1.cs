@@ -114,6 +114,7 @@ namespace cardocr_mobile6
             m_service.Url = messageBus_.Url_;
             m_service.StartSession(sessionID_, clientID_);
             m_service.BeginGetMessage(sessionID_, new AsyncCallback(m_service_GetActiveClientsCompleted), m_service);
+            m_service.Timeout = -1;
             
             btnStopSession.Enabled = true;
             btnSendMessage.Enabled = true;
