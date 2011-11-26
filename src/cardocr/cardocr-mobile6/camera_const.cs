@@ -21,9 +21,9 @@ namespace cardocr_mobile6
             return "temp";
         }
 
-        public static string getRemoteFilePath()
+        public static string getRemoteFilePath(string fileName)
         {
-            return getRemoteFolder() + @"\" + CAMERA_FILENAME;
+            return getRemoteFolder() + @"\" + fileName;
         }
 
         public static string getTargetAll()
@@ -31,12 +31,11 @@ namespace cardocr_mobile6
             return "<all>";
         }
 
-        public static string getCameraFilePath()
+        public static string getCameraFilePath(string fileName)
         {
-            return CAMERA_FOLDER + @"\" + CAMERA_FILENAME;
+            return CAMERA_FOLDER + @"\" + fileName;
         }
 
         public static string CAMERA_FOLDER = @"\My Documents";
-        public static string CAMERA_FILENAME = @"test.jpg";
     }
 }

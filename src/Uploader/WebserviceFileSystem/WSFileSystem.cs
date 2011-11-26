@@ -31,7 +31,8 @@ namespace cardocr_mobile6
             // create an instance fo the web service
             uploaderWS.FileUploader srv = newUploader();
 
-            LocalFileSystem.LargeLocalFileReader file = new LocalFileSystem.LargeLocalFileReader(localFilePath, 4*1024);
+            LocalFileSystem.LargeLocalFileReader file = new 
+                LocalFileSystem.LargeLocalFileReader(localFilePath, 4*1024);//4K
 
             WSFileSystemEventArgs e = new WSFileSystemEventArgs();
             e.filePath_ = localFilePath;
