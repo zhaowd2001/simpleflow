@@ -188,6 +188,7 @@ namespace WebServiceWindowsClient
             listBoxClients.Items.Add(m_clientID);
             txtTo.Text = getTargetAll();// m_clientID;
 
+            combServer.Items.Add(string.Format("http://{0}/mb/FileUploader.asmx", "192.168.72.130"));
             combServer.Items.Add(string.Format("http://{0}/mb/FileUploader.asmx", "chnxsc808w2k3sp2"));
             combServer.Items.Add("http://localhost:21369/FileUploader.asmx");
             combServer.Items.Add("http://upload.3wfocus.com/zhaowd/FileUploader.asmx");

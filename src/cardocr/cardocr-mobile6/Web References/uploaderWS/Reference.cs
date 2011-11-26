@@ -28,7 +28,11 @@ namespace cardocr_mobile6.uploaderWS {
         
         /// <remarks/>
         public FileUploader() {
-            this.Url = "http://13.187.242.140/mb/FileUploader.asmx";
+            //sdcc:
+            //this.Url = "http://13.187.242.140/mb/FileUploader.asmx";
+            //home:
+            this.Url = "http://192.168.72.130/mb/FileUploader.asmx";
+            //bad:this.Url = "http://192.168.72.1:21369/mb/FileUploader.asmx";
         }
         
         /// <remarks/>
