@@ -145,6 +145,9 @@ namespace WebServiceWindowsClient
         {
             app_init();
             form_init();
+
+            //auto test
+            this.buttonStartSession.PerformClick();
         }
 
         public static void app_init()
@@ -160,17 +163,39 @@ namespace WebServiceWindowsClient
                 return null;
 
             job.SessionFrom = fromSession;
-            string ret = h.Execute(job.RemoteFilePath);
+            job = h.Execute( m_sessionID, job);
             //
-            sendJobResult(job, ret);
-            return ret;
+            sendJobResult(job);
+            return job.Result.ToString();
         }
 
-        void sendJobResult(cardocr.JobInfo job, string result)
+        string encodeFilePathForJson(string path)
+        {
+            if (path == null)
+                return path;
+            return path.Replace('\\', '/');
+        }
+
+        private string encodeJobInfo(cardocr.JobInfo job)
+        {
+            job.RemoteFilePath = encodeFilePathForJson(
+                job.RemoteFilePath);
+            job.ResultRemoteFilePath = encodeFilePathForJson(
+                job.ResultRemoteFilePath);
+            return toString(job);
+        }
+
+        private static string toString(cardocr.JobInfo job)
+        {
+            job.setNullFieldToEmpty();
+            return Newtonsoft.Json.JsonConvert.SerializeObject(job);
+        }
+
+        void sendJobResult(cardocr.JobInfo job)
         {
             //send message
             uploaderWS.Message msg = new uploaderWS.Message();
-            msg.Data = result;
+            msg.Data = encodeJobInfo(job);
             msg.To = job.SessionFrom;
             try
             {

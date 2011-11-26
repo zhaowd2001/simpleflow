@@ -8,8 +8,8 @@
     <ProjectGuid>{2D8F286B-F21C-47C8-B61E-97B2CE69C643}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>cardocrNS</RootNamespace>
-    <AssemblyName>cardocrNS</AssemblyName>
+    <RootNamespace>cardocr</RootNamespace>
+    <AssemblyName>cardocr</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -42,12 +42,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppConfigImpl.cs" />
+    <Compile Include="AppConfigInfo.cs" />
     <Compile Include="cardocrImpl.cs" />
     <Compile Include="HandlerInfo.cs" />
     <Compile Include="IMessageHandler.cs" />
     <Compile Include="JobInfo.cs" />
     <Compile Include="MessageHandlerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FileSystem\FileSystem.csproj">
+      <Project>{70F2BB4A-D74C-4C5A-9148-6E990FBAD3AD}</Project>
+      <Name>FileSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LocalFileSystem\LocalFileSystem.csproj">
+      <Project>{A02BE2BA-5E03-47DC-8961-EB810F090EB3}</Project>
+      <Name>LocalFileSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebserviceFileSystem\WebserviceFileSystem.csproj">
+      <Project>{7B67BBB0-26E4-4662-A7BB-BBAC28D0C5A3}</Project>
+      <Name>WebserviceFileSystem</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

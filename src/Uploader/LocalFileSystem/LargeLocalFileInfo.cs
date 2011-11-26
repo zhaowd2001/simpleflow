@@ -10,6 +10,8 @@ namespace LocalFileSystem
 
         public static byte[] buildContent(string[] fileParts)
         {
+            if (fileParts.Length == 0)
+                return new byte[0];
             //convert to UTF-8 bytes
             List<byte> ret = new List<byte>();
             foreach (string s in fileParts)
