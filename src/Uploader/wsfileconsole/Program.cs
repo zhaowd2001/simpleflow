@@ -36,7 +36,7 @@ namespace wsfileconsole
         void doMain(string[] args)
         {
             Guid sessionID = Guid.NewGuid();
-            fileSystem_ = new WSFileSystem(sessionID);
+            fileSystem_ = new WSFileSystem(sessionID, "http://13.187.242.140/mb/FileUploader.asmx");
             if( getWebServiceUrl().Length >0)
                 fileSystem_.Url_ = getWebServiceUrl();
             fileSystem_.WSFileSystemEvent += this.onWSFileSystemEvent;

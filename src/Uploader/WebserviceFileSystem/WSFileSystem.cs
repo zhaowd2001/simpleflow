@@ -11,10 +11,10 @@ namespace cardocr_mobile6
         public event WSFileSystemEventHandler WSFileSystemEvent;
 
         Guid sessionID_;
-        public WSFileSystem(Guid sessionID)
+        public WSFileSystem(Guid sessionID, string url)
         {
             sessionID_ = sessionID;
-            Url_ = new uploaderWS.FileUploader().Url;
+            Url_ = url;
         }
 
         /// <summary>

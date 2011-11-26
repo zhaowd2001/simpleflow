@@ -22,10 +22,19 @@ namespace cardocr_mobile6
         WSFileSystem messageBus_;
         private uploaderWS.FileUploader m_service = new cardocr_mobile6.uploaderWS.FileUploader();
 
+
+        //sdcc:
+        //this.Url = "http://13.187.242.140/mb/FileUploader.asmx";
+        //home:
+        //this.Url = "http://192.168.72.130/mb/FileUploader.asmx";
+        //bad:this.Url = "http://192.168.72.1:21369/mb/FileUploader.asmx";
+        string webServiceUrl_ = "http://192.168.72.130/mb/FileUploader.asmx";
+
         private void Form1_Load(object sender, EventArgs e)
         {
             clientID_ = sessionID_.ToByteArray()[0].ToString();
-            messageBus_ = new WSFileSystem(sessionID_);
+
+            messageBus_ = new WSFileSystem(sessionID_,webServiceUrl_);
 
             lblInfo.Text = sessionID_.ToString() + " - " + clientID_;
             lblInfo.Text += "\n";
@@ -37,7 +46,7 @@ namespace cardocr_mobile6
             btnSendMessage.Enabled = false;
             btnStopSession.Enabled = false;
 
-            btnStartSession.Focus();
+            btnCamera.Focus();
 
             // Subscribe for event
             //m_service.GetMessageCompleted += new uploaderWS.GetMessageCompletedEventHandler(m_service_GetActiveClientsCompleted);
@@ -80,7 +89,7 @@ namespace cardocr_mobile6
             }
 
             //
-            msg1 += handleJobResult(msgData);
+            msg1 = handleJobResult(msgData) + msg1;
 
             //
             lblInfo.BeginInvoke(new UpdateTextInListBox(lblInfo_setText), new object[] { msg1 });
@@ -122,7 +131,12 @@ namespace cardocr_mobile6
                     //download
                     string l = cameraFileName_ + ".txt";
                     download(j.ResultRemoteFilePath, l);
-                    System.Diagnostics.Process.Start(l,null);
+                    System.Diagnostics.Process.Start(l, null);
+                    ret += "Job Success.";
+                }
+                else
+                {
+                    ret += string.Format("Job Error:{0:X}.", j.Result);
                 }
             }
             return ret;
@@ -156,6 +170,7 @@ namespace cardocr_mobile6
                     camera_const.getRemoteFolder());
                 MessageBox.Show(string.Format("Upload ->{0}", ret));
                 lblInfo.Text = ret;
+                btnSendMessage.Focus();
             }
             finally
             {
@@ -182,7 +197,7 @@ namespace cardocr_mobile6
             btnUpload.Enabled = true;
 
             Cursor.Current = Cursors.Default;
-            btnSendMessage.Focus();
+            btnUpload.Focus();
             lblInfo.Text = "started";
         }
 
@@ -204,6 +219,7 @@ namespace cardocr_mobile6
             {
                 Cursor.Current = Cursors.Default;
                 btnSendMessage.Enabled = true;
+                btnSendMessage.Focus();
             }
         }
 
@@ -281,6 +297,7 @@ namespace cardocr_mobile6
             if (DialogResult.OK == cameraCapture.ShowDialog())
             {
                 MessageBox.Show(string.Format("The picture or video has been successfully captured to:\n{0}", cameraCapture.FileName));
+                btnStartSession.Focus();
             }
             lblInfo.Text = "ok";
         }

@@ -84,7 +84,7 @@ namespace WebServiceWindowsClient
             buttonStopSession.Enabled = true;
             btnSend.Enabled = true;
 
-            m_service.Url = combServer.Text.Trim();
+            m_service.Url = getWebServiceUrl();
             try
             {
                 // Start session
@@ -102,6 +102,11 @@ namespace WebServiceWindowsClient
             }
 
             txtMessage.Focus();
+        }
+
+        private string getWebServiceUrl()
+        {
+            return combServer.Text.Trim();
         }
 
         private void WebServiceClientForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -163,7 +168,7 @@ namespace WebServiceWindowsClient
                 return null;
 
             job.SessionFrom = fromSession;
-            job = h.Execute( m_sessionID, job);
+            job = h.Execute( m_sessionID, getWebServiceUrl(), job);
             //
             sendJobResult(job);
             return job.Result.ToString();

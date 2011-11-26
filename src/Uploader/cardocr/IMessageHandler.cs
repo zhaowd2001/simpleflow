@@ -10,6 +10,6 @@ namespace cardocr
         string getAppID();
         string getVersion();
 
-        JobInfo Execute(Guid sessionID, JobInfo job);
+        JobInfo Execute(Guid sessionID, string webServiceUrl, JobInfo job);
     }
 }

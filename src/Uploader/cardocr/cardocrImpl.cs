@@ -12,9 +12,11 @@ namespace cardocr
         AppConfigInfo exeInfo = AppConfigImpl.load();
 
         Guid sessionID_;
-        public JobInfo Execute(Guid sessionID, JobInfo job)
+        string webServiceUrl_;
+        public JobInfo Execute(Guid sessionID, string webServiceUrl, JobInfo job)
         {
             sessionID_ = sessionID;
+            webServiceUrl_ = webServiceUrl;
             //
             string localFile = exeInfo.workingFolder_+"\\"+ job.RemoteFilePath;
             download(job.RemoteFilePath, localFile);
@@ -39,15 +41,21 @@ namespace cardocr
 
         void upload(string remote, string local)
         {
-            cardocr_mobile6.WSFileSystem f = new cardocr_mobile6.WSFileSystem(sessionID_);
+            cardocr_mobile6.WSFileSystem f = newWebServiceFileSystem();
 
             string ret =
             f.UploadLargeFile(local, remote);
         }
 
+        private cardocr_mobile6.WSFileSystem newWebServiceFileSystem()
+        {
+            cardocr_mobile6.WSFileSystem f = new cardocr_mobile6.WSFileSystem(sessionID_, webServiceUrl_);
+            return f;
+        }
+
         void download(string remote, string local)
         {
-            cardocr_mobile6.WSFileSystem f = new cardocr_mobile6.WSFileSystem(sessionID_);
+            cardocr_mobile6.WSFileSystem f = new cardocr_mobile6.WSFileSystem(sessionID_, webServiceUrl_);
 
             string[] files;
             string ret = 
@@ -91,8 +99,13 @@ namespace cardocr
             startInfo.FileName = exe.exePath_;
             startInfo.WorkingDirectory = exe.workingFolder_;
             startInfo.Arguments = exe.parameter_;
+            startInfo.RedirectStandardOutput = true;
+            startInfo.RedirectStandardError = true;
+            startInfo.UseShellExecute = false;
 
             Process p = System.Diagnostics.Process.Start(startInfo);
+            string o = p.StandardOutput.ReadToEnd();
+            string e = p.StandardError.ReadToEnd();
             p.WaitForExit();
             return p.ExitCode;
         }

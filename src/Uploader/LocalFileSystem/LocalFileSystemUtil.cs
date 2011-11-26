@@ -89,6 +89,8 @@ namespace LocalFileSystem
 
         private static void createDirectory(DirectoryInfo d)
         {
+            if (d == null)
+                throw new InvalidOperationException("root driver not exists");
             if (d.Exists)
                 return;
             createDirectory(d.Parent);

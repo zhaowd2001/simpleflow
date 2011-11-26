@@ -37,9 +37,8 @@ namespace TestUploader
             lblFileName.Text = "";
             lblProgross.Text = "";
 
-            fileSystem_ = new WSFileSystem(sessionID_);
+            fileSystem_ = new WSFileSystem(sessionID_, "http://chnxsc808w2k3sp2/mb/FileUploader.asmx");
             fileSystem_.WSFileSystemEvent += this.onWSFileSystemEvent;
-            fileSystem_.Url_ = "http://chnxsc808w2k3sp2/mb/FileUploader.asmx";
         }
 
         /// <summary>
