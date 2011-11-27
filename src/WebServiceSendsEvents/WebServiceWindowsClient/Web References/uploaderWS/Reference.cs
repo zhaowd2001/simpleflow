@@ -47,11 +47,13 @@ namespace WebServiceWindowsClient.uploaderWS {
         
         private System.Threading.SendOrPostCallback GetMessageOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetUpdateInfoOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
         public FileUploader() {
-            this.Url = global::WebServiceWindowsClient.Properties.Settings.Default.WebServiceWindowsClient_chnxsc808w2k3sp2_FileUploader;
+            this.Url = global::WebServiceWindowsClient.Properties.Settings.Default.WebServiceWindowsClient_uploaderWS_FileUploader;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;
@@ -111,6 +113,9 @@ namespace WebServiceWindowsClient.uploaderWS {
         
         /// <remarks/>
         public event GetMessageCompletedEventHandler GetMessageCompleted;
+        
+        /// <remarks/>
+        public event GetUpdateInfoCompletedEventHandler GetUpdateInfoCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/UploadFile", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -393,6 +398,45 @@ namespace WebServiceWindowsClient.uploaderWS {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetUpdateInfo", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public UpdateInfo GetUpdateInfo(string name, string platform, string arch, int maj, int min, int bld) {
+            object[] results = this.Invoke("GetUpdateInfo", new object[] {
+                        name,
+                        platform,
+                        arch,
+                        maj,
+                        min,
+                        bld});
+            return ((UpdateInfo)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetUpdateInfoAsync(string name, string platform, string arch, int maj, int min, int bld) {
+            this.GetUpdateInfoAsync(name, platform, arch, maj, min, bld, null);
+        }
+        
+        /// <remarks/>
+        public void GetUpdateInfoAsync(string name, string platform, string arch, int maj, int min, int bld, object userState) {
+            if ((this.GetUpdateInfoOperationCompleted == null)) {
+                this.GetUpdateInfoOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetUpdateInfoOperationCompleted);
+            }
+            this.InvokeAsync("GetUpdateInfo", new object[] {
+                        name,
+                        platform,
+                        arch,
+                        maj,
+                        min,
+                        bld}, this.GetUpdateInfoOperationCompleted, userState);
+        }
+        
+        private void OnGetUpdateInfoOperationCompleted(object arg) {
+            if ((this.GetUpdateInfoCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetUpdateInfoCompleted(this, new GetUpdateInfoCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -441,6 +485,51 @@ namespace WebServiceWindowsClient.uploaderWS {
             }
             set {
                 this.content_Field = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.233")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class UpdateInfo {
+        
+        private string urlField;
+        
+        private bool isAvailableField;
+        
+        private string newVersionField;
+        
+        /// <remarks/>
+        public string Url {
+            get {
+                return this.urlField;
+            }
+            set {
+                this.urlField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool IsAvailable {
+            get {
+                return this.isAvailableField;
+            }
+            set {
+                this.isAvailableField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string newVersion {
+            get {
+                return this.newVersionField;
+            }
+            set {
+                this.newVersionField = value;
             }
         }
     }
@@ -723,6 +812,32 @@ namespace WebServiceWindowsClient.uploaderWS {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((GetMessageResult)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    public delegate void GetUpdateInfoCompletedEventHandler(object sender, GetUpdateInfoCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetUpdateInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetUpdateInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public UpdateInfo Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((UpdateInfo)(this.results[0]));
             }
         }
     }

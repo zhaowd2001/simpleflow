@@ -121,16 +121,19 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Web References\uploaderWS\FileContent1.datasource">
+    <None Include="Web References\uploaderWS\FileContent.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\uploaderWS\FileUploader.wsdl" />
-    <None Include="Web References\uploaderWS\GetMessageResult1.datasource">
+    <None Include="Web References\uploaderWS\GetMessageResult.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\uploaderWS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\uploaderWS\UpdateInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -160,26 +163,26 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://chnxsc808w2k3sp2/mb/FileUploader.asmx">
+    <ProjectReference Include="..\..\Uploader\cardocr\cardocr.csproj">
+      <Project>{2D8F286B-F21C-47C8-B61E-97B2CE69C643}</Project>
+      <Name>cardocr</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://localhost:21369/FileUploader.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\uploaderWS\</RelPath>
-      <UpdateFromURL>http://chnxsc808w2k3sp2/mb/FileUploader.asmx</UpdateFromURL>
+      <UpdateFromURL>http://localhost:21369/FileUploader.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>WebServiceWindowsClient_chnxsc808w2k3sp2_FileUploader</CachedSettingsPropName>
+      <CachedSettingsPropName>WebServiceWindowsClient_uploaderWS_FileUploader</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
     <None Include="Web References\uploaderWS\FileUploader.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Uploader\cardocr\cardocr.csproj">
-      <Project>{2D8F286B-F21C-47C8-B61E-97B2CE69C643}</Project>
-      <Name>cardocr</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

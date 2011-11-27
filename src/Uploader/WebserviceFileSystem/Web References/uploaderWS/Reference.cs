@@ -28,7 +28,7 @@ namespace cardocr_mobile6.uploaderWS {
         
         /// <remarks/>
         public FileUploader() {
-            this.Url = "http://13.187.242.140/mb/FileUploader.asmx";
+            this.Url = "http://localhost:21369/FileUploader.asmx";
         }
         
         /// <remarks/>
@@ -226,6 +226,36 @@ namespace cardocr_mobile6.uploaderWS {
             object[] results = this.EndInvoke(asyncResult);
             return ((GetMessageResult)(results[0]));
         }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetUpdateInfo", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public UpdateInfo GetUpdateInfo(string name, string platform, string arch, int maj, int min, int bld) {
+            object[] results = this.Invoke("GetUpdateInfo", new object[] {
+                        name,
+                        platform,
+                        arch,
+                        maj,
+                        min,
+                        bld});
+            return ((UpdateInfo)(results[0]));
+        }
+        
+        /// <remarks/>
+        public System.IAsyncResult BeginGetUpdateInfo(string name, string platform, string arch, int maj, int min, int bld, System.AsyncCallback callback, object asyncState) {
+            return this.BeginInvoke("GetUpdateInfo", new object[] {
+                        name,
+                        platform,
+                        arch,
+                        maj,
+                        min,
+                        bld}, callback, asyncState);
+        }
+        
+        /// <remarks/>
+        public UpdateInfo EndGetUpdateInfo(System.IAsyncResult asyncResult) {
+            object[] results = this.EndInvoke(asyncResult);
+            return ((UpdateInfo)(results[0]));
+        }
     }
     
     /// <remarks/>
@@ -256,6 +286,49 @@ namespace cardocr_mobile6.uploaderWS {
             }
             set {
                 this.content_Field = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class UpdateInfo {
+        
+        private string urlField;
+        
+        private bool isAvailableField;
+        
+        private string newVersionField;
+        
+        /// <remarks/>
+        public string Url {
+            get {
+                return this.urlField;
+            }
+            set {
+                this.urlField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool IsAvailable {
+            get {
+                return this.isAvailableField;
+            }
+            set {
+                this.isAvailableField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string newVersion {
+            get {
+                return this.newVersionField;
+            }
+            set {
+                this.newVersionField = value;
             }
         }
     }
