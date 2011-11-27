@@ -2,5 +2,5 @@
 <updateinfo>
     <checkassembly name="cardocr.EXE"/>
     <remoteapp name="cardocr"/>
-    <!--<service url="http://YourHost/UpdateAgent/Agent.asmx"/>-->
+    <service url="http://YourHost/UpdateAgent/Agent.asmx"/>
 </updateinfo>
