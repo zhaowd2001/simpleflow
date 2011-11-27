@@ -58,6 +58,7 @@
     <Content Include="FileUploader.asmx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MessageBusImpl.cs" />
     <Compile Include="default.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>default.aspx</DependentUpon>
@@ -69,7 +70,7 @@
       <DependentUpon>FileUploader.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="MessageBusImpl.cs" />
+    <Compile Include="UpdaterAgentImpl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

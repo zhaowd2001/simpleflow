@@ -29,6 +29,10 @@ namespace Uploader
         {
             return System.Web.Hosting.HostingEnvironment.MapPath("~/TransientStorage/");
         }
+        private static string getUpdaterAgentFolder()
+        {
+            return System.Web.Hosting.HostingEnvironment.MapPath("~/updateragent/");
+        }
 
 
         [WebMethod]
@@ -95,6 +99,18 @@ namespace Uploader
         {
             return busImpl_.GetMessage(sessionID);
         }
+
+        [WebMethod]
+        public UpdaterAgent.UpdateInfo GetUpdateInfo(string name, string platform, string arch, int maj, int min, int bld)
+        {
+            UpdaterAgent.UpdaterAgentImpl ua = new UpdaterAgent.UpdaterAgentImpl(
+                getUpdaterAgentFolder(),
+                Context.Request.ServerVariables["SERVER_NAME"],
+                Context.Request.ServerVariables["SCRIPT_NAME"]);
+            UpdaterAgent.UpdateInfo u = ua.GetUpdateInfo(name, arch, maj, min, bld);
+            return u;
+        }
+
         #endregion
     }
 }

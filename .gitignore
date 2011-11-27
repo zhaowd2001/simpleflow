@@ -50,6 +50,8 @@ src/cardocr/cardocr-ppc2003/bin/
 src/cardocr/cardocr-ppc2003/obj/
 src/cardocr/cardocr-mobile6/bin/
 src/cardocr/cardocr-mobile6/obj/
+src/cardocr/cardocr-cab/Debug/
+src/cardocr/cardocr-cab/Release/
 *.ncb
 *.suo
 *.fbl4
