@@ -118,9 +118,7 @@ namespace Updater
 		}
 		#endregion
 
-		/// <summary>
-		/// The main entry point for the application.
-		/// </summary>
+        public string WebServiceUrl_;
 
 		/// <summary>
 		/// Delegate for updating the file download progress
@@ -259,18 +257,19 @@ namespace Updater
 			a = null;
 			
 			// Use web service to inquire as of update availability
-			//todo:Agent agent = new Agent();
-            //todo:agent.Url = xmlConfig["updateinfo"]["service"].GetAttribute("url");
+            cardocr_mobile6.uploaderWS.FileUploader agent = new cardocr_mobile6.uploaderWS.FileUploader();
+            agent.Url = WebServiceUrl_;// xmlConfig["updateinfo"]["service"].GetAttribute("url");
 			string platform = Utils.GetPlatformType();
 			string arch = Utils.GetInstructionSet();
 			string appName = xmlConfig["updateinfo"]["remoteapp"].GetAttribute("name").ToUpper();
-            //todo:UpdateInfo info = agent.GetUpdateInfo(appName, platform, arch, name.Version.Major, name.Version.Minor, name.Version.Build);
+            cardocr_mobile6.uploaderWS.
+            UpdateInfo info = agent.GetUpdateInfo(appName, platform, arch, name.Version.Major, name.Version.Minor, name.Version.Build);
 
 			Cursor.Current = Cursors.Default;
 			SetStatus("");
 
 			// If there is an updated version allow user to proceed with update
-			/*//todo:if ( info.IsAvailable )
+			if ( info.IsAvailable )
 			{
 				ShowMessageBox("Update is available");
 				btnUpdate.Enabled = true;
@@ -280,7 +279,7 @@ namespace Updater
 			{
 				ShowMessageBox("There are no updates available");
 				this.Close();
-			}*/
+			}
 		}
 
 		// When cab download is finished, launch it. This will cause

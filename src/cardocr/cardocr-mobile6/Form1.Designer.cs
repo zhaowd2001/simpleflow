@@ -37,6 +37,7 @@ namespace cardocr_mobile6
             this.btnSendMessage = new System.Windows.Forms.Button();
             this.btnQuit = new System.Windows.Forms.Button();
             this.btnCamera = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnUpload
@@ -100,12 +101,22 @@ namespace cardocr_mobile6
             this.btnCamera.Text = "&Camera";
             this.btnCamera.Click += new System.EventHandler(this.btnCamera_Click);
             // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Location = new System.Drawing.Point(127, 14);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(110, 30);
+            this.btnUpdate.TabIndex = 7;
+            this.btnUpdate.Text = "Upda&te";
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(240, 268);
+            this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnCamera);
             this.Controls.Add(this.btnQuit);
             this.Controls.Add(this.btnSendMessage);
@@ -130,6 +141,7 @@ namespace cardocr_mobile6
         private System.Windows.Forms.Button btnSendMessage;
         private System.Windows.Forms.Button btnQuit;
         private System.Windows.Forms.Button btnCamera;
+        private System.Windows.Forms.Button btnUpdate;
     }
 }
 

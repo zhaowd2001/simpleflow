@@ -302,5 +302,12 @@ namespace cardocr_mobile6
             lblInfo.Text = "ok";
         }
 
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            Updater.frmUpdate f = new Updater.frmUpdate();
+            f.WebServiceUrl_ = webServiceUrl_;
+            f.ShowDialog();
+        }
+
     }
 }
