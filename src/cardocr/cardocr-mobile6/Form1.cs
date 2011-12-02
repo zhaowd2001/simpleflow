@@ -25,10 +25,11 @@ namespace cardocr_mobile6
 
         //sdcc:
         //this.Url = "http://13.187.242.140/mb/FileUploader.asmx";
-        //home:
-        //this.Url = "http://192.168.72.130/mb/FileUploader.asmx";
-        //bad:this.Url = "http://192.168.72.1:21369/mb/FileUploader.asmx";
-        string webServiceUrl_ = "http://192.168.72.130/mb/FileUploader.asmx";
+
+        //home:string webServiceUrl_ = "http://192.168.72.130/mb/FileUploader.asmx";
+
+        //sdcc localhost:
+        string webServiceUrl_ = "http://13.187.241.42:21369/mb/FileUploader.asmx";
 
         private void Form1_Load(object sender, EventArgs e)
         {

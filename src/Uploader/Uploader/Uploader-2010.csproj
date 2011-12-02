@@ -77,6 +77,9 @@
     <Folder Include="TransientStorage\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="updateragent\updatecfg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
