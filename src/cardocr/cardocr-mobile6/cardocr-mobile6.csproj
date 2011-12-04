@@ -77,6 +77,7 @@
       <Link>WSFileSystemEventArgs.cs</Link>
     </Compile>
     <Compile Include="camera_const.cs" />
+    <Compile Include="ConfigUtil.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

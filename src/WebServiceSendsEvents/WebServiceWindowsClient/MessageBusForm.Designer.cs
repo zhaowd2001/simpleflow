@@ -39,6 +39,7 @@ namespace WebServiceWindowsClient
             this.listBoxClients = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.combServer = new System.Windows.Forms.ComboBox();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBoxEvents
@@ -148,11 +149,22 @@ namespace WebServiceWindowsClient
             this.combServer.Size = new System.Drawing.Size(669, 20);
             this.combServer.TabIndex = 13;
             // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Location = new System.Drawing.Point(844, 31);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(143, 21);
+            this.btnUpdate.TabIndex = 14;
+            this.btnUpdate.Text = "Upd&ate";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
             // MessageBusForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1029, 348);
+            this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.combServer);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.listBoxClients);
@@ -186,6 +198,7 @@ namespace WebServiceWindowsClient
     private System.Windows.Forms.ListBox listBoxClients;
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.ComboBox combServer;
+    private System.Windows.Forms.Button btnUpdate;
   }
 }
 

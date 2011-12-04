@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?> 
 <updateinfo>
-	<downloadmodule plat="PPC" arch="ARM" name="TESTAPP" action="cab">
+	<downloadmodule plat="PPC" arch="ARM" name="CARDOCR" action="cab">
 		<version maj="1" min="0" bld="1363"/>
-		download/TestApp_PPC.ARM.CAB
+		updateragent/CARDOCR_PPC.ARM.CAB
 	</downloadmodule>
-	<downloadmodule plat="PPC" arch="ARMV4" name="TESTAPP" action="cab">
+	<downloadmodule plat="PPC" arch="ARMV4" name="CARDOCR" action="cab">
+		<version maj="1" min="0" bld="1"/>
+		updateragent/CARDOCR_PPC.ARMV4.CAB
+	</downloadmodule>
+	<downloadmodule plat="PPC" arch="X86" name="CARDOCR" action="cab">
 		<version maj="1" min="0" bld="1363"/>
-		download/TestApp_PPC.ARMV4.CAB
+		updateragent/CARDOCR_PPC.X86.CAB
 	</downloadmodule>
-	<downloadmodule plat="PPC" arch="X86" name="TESTAPP" action="cab">
-		<version maj="1" min="0" bld="1363"/>
-		download/TestApp_PPC.X86.CAB
-	</downloadmodule>
-	<downloadmodule plat="WCE" arch="ARM" name="TESTAPP2" action="cab">
-		<version maj="1" min="0" bld="1363"/>
-		download/TestApp_PPC.ARM.1.0.1339.CAB
-	</downloadmodule>
-	<downloadmodule plat="WCE" arch="X86" name="TESTAPP2" action="cab">
+	<downloadmodule plat="WCE" arch="X86" name="CARDOCR" action="cab">
 		<version maj="1" min="0" bld="1161"/>
-		download/TestApp_PPC.X86.1.0.1161.CAB
+		updateragent/CARDOCR_PPC.X86.1.0.1161.CAB
 	</downloadmodule>
 </updateinfo>

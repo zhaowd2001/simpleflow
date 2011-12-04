@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Runtime.InteropServices;
+using System.IO;
+using System.Reflection;
 
 namespace cardocr_mobile6
 {
@@ -33,9 +36,20 @@ namespace cardocr_mobile6
 
         public static string getCameraFilePath(string fileName)
         {
-            return CAMERA_FOLDER + @"\" + fileName;
+            return getCameraWorkFolder() + @"\" + fileName;
         }
 
-        public static string CAMERA_FOLDER = @"\My Documents";
+        //public static string CAMERA_FOLDER = @"\My Documents";
+        public static string getCameraWorkFolder()
+        {
+            string path = GetCurrentDirectory() + "\\temp";
+            return path;
+        }
+
+        // Helper procedure
+        public static string GetCurrentDirectory()
+        {
+            return Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
+        }
     }
 }

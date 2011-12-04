@@ -71,34 +71,41 @@ namespace Corrigo.CorrigoNet.CorrigoNetToGo
 		
 		public static string GetInstructionSet()
 		{
+            string info = null;
 			CpuInstructionSet iset = CpuInstructionSet.X86;
 			try
 			{
 				QueryInstructionSet(0, out iset);
-			}
+                info = prGetSystemInfo();
+            }
 			catch (MissingMethodException)
 			{
-				// We are running an older version of the OS
-				// so QueryInstructionSet is not available
-				SYSTEM_INFO si = new SYSTEM_INFO();
-				GetSystemInfo(ref si);
-				switch(si.wProcessorArchitecture)
-				{
-					case PROCESSOR_ARCHITECTURE_ARM:
-						return CpuInstructionSet.ARMV4.ToString();
-					case PROCESSOR_ARCHITECTURE_SHX:
-						return CpuInstructionSet.SH3.ToString();
-					case PROCESSOR_ARCHITECTURE_INTEL:
-						return CpuInstructionSet.X86.ToString();
-					case PROCESSOR_ARCHITECTURE_MIPS:
-						return CpuInstructionSet.MIPSV4.ToString();
-					default:
-						return "Unkown";
-				}
+                return prGetSystemInfo();
 			}
 
-			return iset.ToString();
+            return info;// iset.ToString();
 		}
+
+        private static string prGetSystemInfo()
+        {
+            // We are running an older version of the OS
+            // so QueryInstructionSet is not available
+            SYSTEM_INFO si = new SYSTEM_INFO();
+            GetSystemInfo(ref si);
+            switch (si.wProcessorArchitecture)
+            {
+                case PROCESSOR_ARCHITECTURE_ARM:
+                    return CpuInstructionSet.ARMV4.ToString();
+                case PROCESSOR_ARCHITECTURE_SHX:
+                    return CpuInstructionSet.SH3.ToString();
+                case PROCESSOR_ARCHITECTURE_INTEL:
+                    return CpuInstructionSet.X86.ToString();
+                case PROCESSOR_ARCHITECTURE_MIPS:
+                    return CpuInstructionSet.MIPSV4.ToString();
+                default:
+                    return "Unkown";
+            }
+        }
 
 		public static Rectangle GetVisibleDesktop()
 		{

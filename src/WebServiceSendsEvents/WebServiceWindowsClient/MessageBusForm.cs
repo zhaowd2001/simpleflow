@@ -281,5 +281,25 @@ namespace WebServiceWindowsClient
 
         }
 
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            uploaderWS.UpdateInfo info = 
+            m_service.GetUpdateInfo(
+            "CARDOCR", 
+            "PPC", 
+            "ARMV4", 
+            1, 0, 0);
+            if (info.IsAvailable)
+            {
+                MessageBox.Show("New version:\n" + 
+                    info.newVersion+"\n"+
+                    info.Url);
+            }
+            else
+            {
+                MessageBox.Show("No new version:\n" + info.newVersion);
+            }
+        }
+
     }
 }

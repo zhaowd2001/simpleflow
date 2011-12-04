@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
+using System.IO;
 using System.Windows.Forms;
 using Microsoft.WindowsMobile.Forms;
 
@@ -22,17 +23,50 @@ namespace cardocr_mobile6
         WSFileSystem messageBus_;
         private uploaderWS.FileUploader m_service = new cardocr_mobile6.uploaderWS.FileUploader();
 
+        Updater.ConfigUtil config_ = new Updater.ConfigUtil();
 
+        string webServiceUrl_ = null;
         //sdcc:
         //this.Url = "http://13.187.242.140/mb/FileUploader.asmx";
 
-        //home:string webServiceUrl_ = "http://192.168.72.130/mb/FileUploader.asmx";
+        //home:
+        //string webServiceUrl_ = "http://192.168.72.130/mb/FileUploader.asmx";
 
         //sdcc localhost:
-        string webServiceUrl_ = "http://13.187.241.42:21369/mb/FileUploader.asmx";
+        //string webServiceUrl_ = "http://13.187.241.42:21369/mb/FileUploader.asmx";
+
+        // Helper procedure
+        private DialogResult ShowMessageBox(string msg)
+        {
+            return ShowMessageBox(msg, "", MessageBoxButtons.OK);
+        }
+
+        // Helper procedure
+        private DialogResult ShowMessageBox(string msg, string caption)
+        {
+            return ShowMessageBox(msg, caption, MessageBoxButtons.OK);
+        }
+
+        // We'd like to keep the window smaller than full-screen
+        // Unfortunately, after getting focus back from modal dialog (message box) it gets automatically resized 
+        // by the shell. To prevent this we resize it again
+        private DialogResult ShowMessageBox(string msg, string caption, MessageBoxButtons buttons)
+        {
+
+            DialogResult res = MessageBox.Show(msg, caption, buttons, MessageBoxIcon.None, MessageBoxDefaultButton.Button1);
+            return res;
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Exception ex;
+            if( ! config_.init(out ex))
+            {
+                ShowMessageBox("Failed to read updater configuration: " + ex.ToString());
+                this.Close();
+                return;
+            }
+            webServiceUrl_ = config_.getServiceUrl();
             clientID_ = sessionID_.ToByteArray()[0].ToString();
 
             messageBus_ = new WSFileSystem(sessionID_,webServiceUrl_);
@@ -280,14 +314,24 @@ namespace cardocr_mobile6
         }
 
         string cameraFileName_;
+
+        void checkFolderExists(string path)
+        {
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+        }
+
         private void btnCamera_Click(object sender, EventArgs e)
         {
+            //
+            checkFolderExists(camera_const.getCameraWorkFolder());
+            //
             cameraFileName_ = Guid.NewGuid().ToString()+".jpg";
             lblInfo.Text = "cameraing";
             CameraCaptureDialog cameraCapture = new CameraCaptureDialog();
 
             cameraCapture.Owner = null;
-            cameraCapture.InitialDirectory = camera_const.CAMERA_FOLDER;
+            cameraCapture.InitialDirectory = camera_const.getCameraWorkFolder();
             cameraCapture.DefaultFileName = cameraFileName_;
             cameraCapture.Title = "Camera Demo";
             cameraCapture.VideoTypes = CameraCaptureVideoTypes.Standard;

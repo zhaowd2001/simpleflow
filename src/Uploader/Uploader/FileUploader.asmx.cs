@@ -105,8 +105,7 @@ namespace Uploader
         {
             UpdaterAgent.UpdaterAgentImpl ua = new UpdaterAgent.UpdaterAgentImpl(
                 getUpdaterAgentFolder(),
-                Context.Request.ServerVariables["SERVER_NAME"],
-                Context.Request.ServerVariables["SCRIPT_NAME"]);
+                Context.Request.Url.AbsoluteUri);
             UpdaterAgent.UpdateInfo u = ua.GetUpdateInfo(name, arch, maj, min, bld);
             return u;
         }

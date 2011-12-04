@@ -2,5 +2,6 @@
 <updateinfo>
     <checkassembly name="cardocr.EXE"/>
     <remoteapp name="cardocr"/>
-    <service url="http://YourHost/UpdateAgent/Agent.asmx"/>
+  
+    <service url="http://192.168.72.130/mb/FileUploader.asmx"/>
 </updateinfo>

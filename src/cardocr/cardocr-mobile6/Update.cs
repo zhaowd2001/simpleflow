@@ -8,7 +8,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Reflection;
-using System.Xml;
 using System.Text;
 using Corrigo.CorrigoNet.CorrigoNetToGo;
 
@@ -37,10 +36,8 @@ namespace Updater
 		// Data buffer for stream operations
 		private byte[] dataBuffer;
 		private const int DataBlockSize = 65536;
-		
-		// Configuration
-		private XmlDocument xmlConfig;
-		
+
+        ConfigUtil config_ = new ConfigUtil();
 		private string m_Status;
 		private string UpdateUrl;
 		private int pbVal, maxVal;
@@ -144,16 +141,13 @@ namespace Updater
 		private void Form_Load(object sender, System.EventArgs e)
 		{
 			ResizeForm();
-			xmlConfig = new XmlDocument();
-			try
-			{
-				xmlConfig.Load(GetCurrentDirectory() + @"\updatecfg.xml");
-			}
-			catch(Exception ex)
-			{
-				ShowMessageBox("Failed to read updater configuration: " + ex.ToString());
-				this.Close();
-			}
+            Exception ex = null;
+            if (!config_.init(out ex))
+            {
+                ShowMessageBox("Failed to read updater configuration: " + ex.ToString());
+                this.Close();
+                return;
+            }
 		}
 
 		// Helper procedure
@@ -197,12 +191,6 @@ namespace Updater
 			ResizeForm();
 		}
 
-		// Helper procedure
-		private string GetCurrentDirectory()
-		{
-			return Path.GetDirectoryName( Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName );
-		}
-
 		private void btnUpdate_Click(object sender, System.EventArgs e)
 		{
 			// Create asynchronous web request
@@ -240,7 +228,7 @@ namespace Updater
 			name.Version = new Version("0.0.0");
 			
 			// Try obtaining assembly version
-			string sPath = GetCurrentDirectory() + @"\" + xmlConfig["updateinfo"]["checkassembly"].GetAttribute("name");
+            string sPath = cardocr_mobile6.camera_const.GetCurrentDirectory() + @"\" + config_.getCheckAssemblyName();
 			try
 			{
 				if ( File.Exists(sPath) )
@@ -258,10 +246,10 @@ namespace Updater
 			
 			// Use web service to inquire as of update availability
             cardocr_mobile6.uploaderWS.FileUploader agent = new cardocr_mobile6.uploaderWS.FileUploader();
-            agent.Url = WebServiceUrl_;// xmlConfig["updateinfo"]["service"].GetAttribute("url");
+            agent.Url = WebServiceUrl_;
 			string platform = Utils.GetPlatformType();
 			string arch = Utils.GetInstructionSet();
-			string appName = xmlConfig["updateinfo"]["remoteapp"].GetAttribute("name").ToUpper();
+			string appName = config_.getRemoteApp();
             cardocr_mobile6.uploaderWS.
             UpdateInfo info = agent.GetUpdateInfo(appName, platform, arch, name.Version.Major, name.Version.Minor, name.Version.Build);
 
@@ -271,24 +259,35 @@ namespace Updater
 			// If there is an updated version allow user to proceed with update
 			if ( info.IsAvailable )
 			{
-				ShowMessageBox("Update is available");
+				ShowMessageBox("Update is available.\n"+
+                    info.newVersion+"\n"+
+                    info.Url);
 				btnUpdate.Enabled = true;
 				UpdateUrl = info.Url;
 			}
 			else
 			{
-				ShowMessageBox("There are no updates available");
+				ShowMessageBox("There are no updates available.\n"+
+                    info.newVersion);
 				this.Close();
 			}
 		}
+
+        Exception downloadException_;
+
+        private void downloadException(object sender, System.EventArgs e)
+        {
+            Cursor.Current = Cursors.Default;
+            ShowMessageBox(downloadException_.Message);
+        }
 
 		// When cab download is finished, launch it. This will cause
 		// wceload.exe to initiate installation process
 		private void AllDone(object sender, System.EventArgs e)
 		{
 			Cursor.Current = Cursors.Default;
-			
-			string docname = GetCurrentDirectory() +  @"\download.cab";
+
+            string docname = cardocr_mobile6.camera_const.GetCurrentDirectory() + @"\download.cab";
 			int nSize = docname.Length * 2 + 2;
 			IntPtr pData = LocalAlloc(0x40, nSize);
 			Marshal.Copy(Encoding.Unicode.GetBytes(docname), 0, pData, nSize - 2);
@@ -321,15 +320,17 @@ namespace Updater
 			{
 				m_resp = (HttpWebResponse)m_req.EndGetResponse(res);
 			}
-			catch(WebException /*ex*/)
+			catch(WebException ex)
 			{
-				return;
+                downloadException_ = ex;
+                this.Invoke(new EventHandler(this.downloadException));
+                return;
 			}
 			dataBuffer = new byte[ DataBlockSize ];
 			// Prepare the propgres bar
 			maxVal = (int)m_resp.ContentLength;
 			pbProgress.Invoke(new EventHandler(SetProgressMax));
-			m_fs = new FileStream(GetCurrentDirectory() +  @"\download.cab", FileMode.Create);
+            m_fs = new FileStream(cardocr_mobile6.camera_const.GetCurrentDirectory() + @"\download.cab", FileMode.Create);
 			
 			// Start reading from network stream asynchronously
 			m_resp.GetResponseStream().BeginRead(dataBuffer, 0, DataBlockSize, new AsyncCallback(OnDataRead), this);

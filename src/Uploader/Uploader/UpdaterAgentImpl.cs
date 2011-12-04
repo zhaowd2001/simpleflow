@@ -16,19 +16,27 @@ namespace UpdaterAgent
     public class UpdaterAgentImpl
     {
         string updaterAgentFolder_;
-        string serverName_;
-        string scriptName_;
-        public UpdaterAgentImpl(string updaterAgentFolder, string serverName, string scriptName)
+        string requestUrl_;
+        public UpdaterAgentImpl(string updaterAgentFolder, string requesturl)
         {
             this.updaterAgentFolder_ = updaterAgentFolder;
-            this.serverName_ = serverName;
-            this.scriptName_ = scriptName;
+            this.requestUrl_ = requesturl;
         }
 
+   		/*
+        name	"CARDOCR"	string
+		platform	"PPC"	string
+		arch	"84017152"	string
+		maj	1	int
+		min	0	int
+		bld	0	int*/
         public UpdateInfo GetUpdateInfo(string name, string arch,
           int maj, int min, int bld)
         {
             UpdateInfo ui = new UpdateInfo();
+            //for debug
+            ui.newVersion = string.Format("{0}, {1}, {2}, {3}, {4}",
+                name, arch, maj, min, bld);
             Version ver = new Version(maj, min, bld);
             XmlDocument xmlUpdateCfg = new XmlDocument();
             //Attempt to load xml configuration 
@@ -62,9 +70,7 @@ namespace UpdaterAgent
                 nodeUpdate["version"].Attributes["maj"].Value,
                 int.Parse(nodeUpdate["version"].Attributes["min"].Value),
                 int.Parse(nodeUpdate["version"].Attributes["bld"].Value))).ToString();
-            string srv = this.serverName_;// Context.Request.ServerVariables["SERVER_NAME"];
-            string path = this.scriptName_;// Context.Request.ServerVariables["SCRIPT_NAME"];
-            ui.Url = string.Format("http://{0}{1}", srv, path);
+            ui.Url = this.requestUrl_;
             ui.Url = ui.Url.Substring(0, ui.Url.LastIndexOf("/"));
             ui.Url += "/" + nodeUpdate.InnerText.Trim();
             return ui;
